@@ -537,9 +537,9 @@ header.appbar {
       <div class="res-breakdown">
         <span>BASE RVP <b id="res-base-used">—</b> psi</span>
         <span>&Delta;RVP <b id="res-delta">—</b> psi</span>
-        <span>UPPER <b id="res-eff-u">—</b></span>
-        <span>MIDDLE <b id="res-eff-m">—</b></span>
-        <span>LOWER <b id="res-eff-l">—</b></span>
+        <span>UPPER adj. RVP <b id="res-eff-u">—</b></span>
+        <span>MIDDLE adj. RVP <b id="res-eff-m">—</b></span>
+        <span>LOWER adj. RVP <b id="res-eff-l">—</b></span>
       </div>
     </div>
 
@@ -625,9 +625,15 @@ header.appbar {
       return;
     }
 
-    // ── Base RVP: arithmetic average of the three sample readings ──
-    // PTOT is QC-only; it does not enter the blend volume calculation.
-    const baseRVP = (uRvp + mRvp + lRvp) / 3;
+    // ── Adjust each PTOT reading, then average to get base RVP ──
+    // EPA correction: RVP_adj = ROUND((0.965 × PTOT) − 0.548, 2)
+    // PTOT is the raw bomb pressure; the adjusted value is used in the blend formula.
+    // The RVP column remains a QC-only field (flagged red when RVP > PTOT).
+    const adjRound = v => Math.round((0.965 * v - 0.548) * 100) / 100;
+    const adjU = adjRound(uPtot);
+    const adjM = adjRound(mPtot);
+    const adjL = adjRound(lPtot);
+    const baseRVP = (adjU + adjM + adjL) / 3;
 
     // ── Butane volume ──────────────────────────────────────
     //   V = tankVolume × 0.02 × (targetRVP − baseRVP)
@@ -665,9 +671,9 @@ header.appbar {
 
     el('res-base-used').textContent = baseRVP.toFixed(3);
     el('res-delta').textContent     = (deltaRVP >= 0 ? '+' : '') + deltaRVP.toFixed(3);
-    el('res-eff-u').textContent = uRvp.toFixed(2);
-    el('res-eff-m').textContent = mRvp.toFixed(2);
-    el('res-eff-l').textContent = lRvp.toFixed(2);
+    el('res-eff-u').textContent = adjU.toFixed(2);
+    el('res-eff-m').textContent = adjM.toFixed(2);
+    el('res-eff-l').textContent = adjL.toFixed(2);
 
     el('results-card').classList.add('show');
     el('results-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -700,7 +706,7 @@ header.appbar {
       'Butane Required    : ' + butane  + ' bbl',
       'Trucks to Order    : ' + trucks + (el('res-to-next').textContent ? '  (' + el('res-to-next').textContent + ')' : ''),
       '',
-      'Formula: V = tankVol × 0.02 × (targetRVP − baseRVP)',
+      'Adj. RVP = ROUND((0.965 × PTOT) − 0.548, 2)  |  V = tankVol × 0.02 × (targetRVP − baseRVP)',
       'Target RVP ' + target + ' psi  ·  Base RVP ' + baseRVP + ' psi  ·  ΔRVP ' + delta + ' psi  ·  190 bbl/truck',
       'RVP samples — Upper: ' + effU + '  Middle: ' + effM + '  Lower: ' + effL,
     ];
