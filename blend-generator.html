@@ -528,6 +528,7 @@ header.appbar {
       <div class="res-stat">
         <span class="val" id="res-trucks">—</span>
         <span class="lbl">Trucks to Order</span>
+        <span class="lbl" id="res-to-next" style="display:none;margin-top:2px;color:var(--ink-faint)"></span>
       </div>
     </div>
 
@@ -642,7 +643,9 @@ header.appbar {
       return;
     }
 
-    const trucks = Math.ceil(vButane / TRUCK_CAP);
+    const trucks    = Math.floor(vButane / TRUCK_CAP);
+    const remainder = Math.round(vButane % TRUCK_CAP);
+    const toNext    = remainder > 0 ? TRUCK_CAP - remainder : 0;
 
     // ── Populate results ──────────────────────────────────
     el('res-tank').textContent     = 'TK ' + tankNum;
@@ -652,6 +655,13 @@ header.appbar {
     el('res-base-rvp').innerHTML = baseRVP.toFixed(3) + '<small>psi</small>';
     el('res-butane').innerHTML   = vButane.toFixed(1)  + '<small>bbl</small>';
     el('res-trucks').textContent = trucks;
+    const toNextEl = el('res-to-next');
+    if (toNext > 0) {
+      toNextEl.textContent = toNext + ' bbl to next truck';
+      toNextEl.style.display = '';
+    } else {
+      toNextEl.style.display = 'none';
+    }
 
     el('res-base-used').textContent = baseRVP.toFixed(3);
     el('res-delta').textContent     = (deltaRVP >= 0 ? '+' : '') + deltaRVP.toFixed(3);
@@ -688,7 +698,7 @@ header.appbar {
       '',
       'Avg Base RVP       : ' + baseRVP + ' psi',
       'Butane Required    : ' + butane  + ' bbl',
-      'Trucks to Order    : ' + trucks,
+      'Trucks to Order    : ' + trucks + (el('res-to-next').textContent ? '  (' + el('res-to-next').textContent + ')' : ''),
       '',
       'Formula: V = tankVol × 0.02 × (targetRVP − baseRVP)',
       'Target RVP ' + target + ' psi  ·  Base RVP ' + baseRVP + ' psi  ·  ΔRVP ' + delta + ' psi  ·  190 bbl/truck',
