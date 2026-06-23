@@ -519,7 +519,7 @@ header.appbar {
     <div class="res-stats">
       <div class="res-stat">
         <span class="val" id="res-base-rvp">—<small>psi</small></span>
-        <span class="lbl">Effective Base RVP</span>
+        <span class="lbl">Avg Base RVP</span>
       </div>
       <div class="res-stat">
         <span class="val" id="res-butane">—<small>bbl</small></span>
@@ -534,9 +534,10 @@ header.appbar {
     <div class="res-meta">
       Target RVP <b id="res-target-tag">—</b> psi &middot; Butane constant 34.8 psi &middot; 190 bbl/truck
       <div class="res-breakdown">
-        <span>UPPER eff. RVP <b id="res-eff-u">—</b></span>
-        <span>MIDDLE eff. RVP <b id="res-eff-m">—</b></span>
-        <span>LOWER eff. RVP <b id="res-eff-l">—</b></span>
+        <span>BASE RVP USED <b id="res-base-used">—</b> psi (avg)</span>
+        <span>UPPER <b id="res-eff-u">—</b></span>
+        <span>MIDDLE <b id="res-eff-m">—</b></span>
+        <span>LOWER <b id="res-eff-l">—</b></span>
       </div>
     </div>
 
@@ -563,10 +564,6 @@ header.appbar {
   // ── Helpers ────────────────────────────────────────────────
   function n(id) { return parseFloat(document.getElementById(id).value); }
   function el(id) { return document.getElementById(id); }
-
-  function effRVP(rvp, ptot) {
-    return Math.pow(rvp / ptot, 1 / 1.65);
-  }
 
   // ── Per-row validation (call on blur) ─────────────────────
   function validateRow(ptotId, rvpId, errId) {
@@ -626,11 +623,9 @@ header.appbar {
       return;
     }
 
-    // ── EPA effective RVP per sample ──────────────────────
-    const effU = effRVP(uRvp, uPtot);
-    const effM = effRVP(mRvp, mPtot);
-    const effL = effRVP(lRvp, lPtot);
-    const baseRVP = (effU + effM + effL) / 3;
+    // ── Base RVP: arithmetic average of the three sample readings ──
+    // PTOT is QC-only; it does not enter the blend volume calculation.
+    const baseRVP = (uRvp + mRvp + lRvp) / 3;
 
     // ── Butane volume ──────────────────────────────────────
     //   V = V_tank × (tgt^1.65 − base^1.65) / (but^1.65 − tgt^1.65)
@@ -642,7 +637,7 @@ header.appbar {
     if (vButane <= 0) {
       showCalcError(
         'Tank already meets or exceeds target RVP',
-        'Effective base RVP is ' + baseRVP.toFixed(4) + ' psi — at or above the ' +
+        'Avg base RVP is ' + baseRVP.toFixed(3) + ' psi — at or above the ' +
         targetRVP + ' psi target. No butane addition is required.'
       );
       return;
@@ -659,9 +654,10 @@ header.appbar {
     el('res-butane').innerHTML   = vButane.toFixed(1)  + '<small>bbl</small>';
     el('res-trucks').textContent = trucks;
 
-    el('res-eff-u').textContent = effU.toFixed(4);
-    el('res-eff-m').textContent = effM.toFixed(4);
-    el('res-eff-l').textContent = effL.toFixed(4);
+    el('res-base-used').textContent = baseRVP.toFixed(3);
+    el('res-eff-u').textContent = uRvp.toFixed(2);
+    el('res-eff-m').textContent = mRvp.toFixed(2);
+    el('res-eff-l').textContent = lRvp.toFixed(2);
 
     el('results-card').classList.add('show');
     el('results-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -677,7 +673,7 @@ header.appbar {
   window.copyResults = function () {
     const tankNum  = el('res-tank').textContent;
     const volTag   = el('res-vol-tag').textContent;
-    const baseRVP  = el('res-base-rvp').textContent.replace(/[^\d.]/g, '');
+    const baseRVP  = el('res-base-used').textContent;
     const butane   = el('res-butane').textContent.replace(/[^\d.]/g, '');
     const trucks   = el('res-trucks').textContent;
     const target   = el('res-target-tag').textContent;
@@ -689,12 +685,12 @@ header.appbar {
       'BLEND GENERATOR — FORT WORTH TERMINAL J117',
       'Tank: ' + tankNum + '  Volume: ' + volTag,
       '',
-      'Effective Base RVP : ' + baseRVP + ' psi',
+      'Avg Base RVP       : ' + baseRVP + ' psi',
       'Butane Required    : ' + butane  + ' bbl',
       'Trucks to Order    : ' + trucks,
       '',
       'Target RVP ' + target + ' psi  ·  Butane constant 34.8 psi  ·  190 bbl/truck',
-      'Eff. RVP — Upper: ' + effU + '  Middle: ' + effM + '  Lower: ' + effL,
+      'RVP samples — Upper: ' + effU + '  Middle: ' + effM + '  Lower: ' + effL,
     ];
     const text = lines.join('\n');
 
