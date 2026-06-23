@@ -532,9 +532,10 @@ header.appbar {
     </div>
 
     <div class="res-meta">
-      Target RVP <b id="res-target-tag">—</b> psi &middot; Butane constant 34.8 psi &middot; 190 bbl/truck
+      Target RVP <b id="res-target-tag">—</b> psi &middot; Coeff 0.02 &middot; 190 bbl/truck
       <div class="res-breakdown">
-        <span>BASE RVP USED <b id="res-base-used">—</b> psi (avg)</span>
+        <span>BASE RVP <b id="res-base-used">—</b> psi</span>
+        <span>&Delta;RVP <b id="res-delta">—</b> psi</span>
         <span>UPPER <b id="res-eff-u">—</b></span>
         <span>MIDDLE <b id="res-eff-m">—</b></span>
         <span>LOWER <b id="res-eff-l">—</b></span>
@@ -558,8 +559,8 @@ header.appbar {
 (function () {
   'use strict';
 
-  const RVP_BUTANE = 34.8;
-  const TRUCK_CAP  = 190;
+  const BLEND_COEFF = 0.02;
+  const TRUCK_CAP   = 190;
 
   // ── Helpers ────────────────────────────────────────────────
   function n(id) { return parseFloat(document.getElementById(id).value); }
@@ -628,13 +629,11 @@ header.appbar {
     const baseRVP = (uRvp + mRvp + lRvp) / 3;
 
     // ── Butane volume ──────────────────────────────────────
-    //   V = V_tank × (tgt^1.65 − base^1.65) / (but^1.65 − tgt^1.65)
-    const tgt165  = Math.pow(targetRVP, 1.65);
-    const base165 = Math.pow(baseRVP,   1.65);
-    const but165  = Math.pow(RVP_BUTANE, 1.65);
-    const vButane = tankVol * (tgt165 - base165) / (but165 - tgt165);
+    //   V = tankVolume × 0.02 × (targetRVP − baseRVP)
+    const deltaRVP = targetRVP - baseRVP;
+    const vButane  = tankVol * BLEND_COEFF * deltaRVP;
 
-    if (vButane <= 0) {
+    if (deltaRVP <= 0) {
       showCalcError(
         'Tank already meets or exceeds target RVP',
         'Avg base RVP is ' + baseRVP.toFixed(3) + ' psi — at or above the ' +
@@ -655,6 +654,7 @@ header.appbar {
     el('res-trucks').textContent = trucks;
 
     el('res-base-used').textContent = baseRVP.toFixed(3);
+    el('res-delta').textContent     = (deltaRVP >= 0 ? '+' : '') + deltaRVP.toFixed(3);
     el('res-eff-u').textContent = uRvp.toFixed(2);
     el('res-eff-m').textContent = mRvp.toFixed(2);
     el('res-eff-l').textContent = lRvp.toFixed(2);
@@ -681,6 +681,7 @@ header.appbar {
     const effM     = el('res-eff-m').textContent;
     const effL     = el('res-eff-l').textContent;
 
+    const delta = el('res-delta').textContent;
     const lines = [
       'BLEND GENERATOR — FORT WORTH TERMINAL J117',
       'Tank: ' + tankNum + '  Volume: ' + volTag,
@@ -689,7 +690,8 @@ header.appbar {
       'Butane Required    : ' + butane  + ' bbl',
       'Trucks to Order    : ' + trucks,
       '',
-      'Target RVP ' + target + ' psi  ·  Butane constant 34.8 psi  ·  190 bbl/truck',
+      'Formula: V = tankVol × 0.02 × (targetRVP − baseRVP)',
+      'Target RVP ' + target + ' psi  ·  Base RVP ' + baseRVP + ' psi  ·  ΔRVP ' + delta + ' psi  ·  190 bbl/truck',
       'RVP samples — Upper: ' + effU + '  Middle: ' + effM + '  Lower: ' + effL,
     ];
     const text = lines.join('\n');
