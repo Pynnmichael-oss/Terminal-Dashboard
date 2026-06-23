@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blend Generator · Fort Worth · Global Partners</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --slate: #004F71;
+  --teal: #00B398;
+  --lime: #A9EE8A;
+  --ulsd: #C0882E;
+  --ink: #063A52;
+  --ink-dim: #5E7A8A;
+  --ink-faint: #9DB0BC;
+  --line: rgba(0,79,113,.13);
+  --white: #FFFFFF;
+  --gray: #EEF3F6;
+  --gray2: #E5ECF0;
+  --amber: #E0A23C;
+  --red: #D9655B;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  color: var(--ink);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  font-variant-numeric: tabular-nums;
+  background:
+    radial-gradient(1000px 520px at 92% -14%, rgba(0,179,152,.07), transparent 60%),
+    radial-gradient(760px 440px at -3% 114%, rgba(169,238,138,.11), transparent 60%),
+    var(--white);
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ── Appbar ── */
+header.appbar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 14px 30px;
+  border-bottom: 1px solid var(--line);
+  background: var(--white);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.wm { font-weight: 800; font-size: 19px; letter-spacing: .5px; color: var(--slate); line-height: .96; }
+.wm b { display: block; font-weight: 700; font-size: 10px; letter-spacing: 3.5px; color: var(--teal); margin-top: 2px; }
+.divider { width: 1px; height: 30px; background: var(--line); }
+.appname { font-weight: 700; font-size: 14px; letter-spacing: .4px; color: var(--slate); }
+.appname span { color: var(--ink-dim); font-weight: 500; }
+.spacer { flex: 1; }
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: .3px;
+  padding: 7px 13px;
+  border-radius: 9px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  transition: border-color .15s, color .15s;
+}
+.back-link:hover { border-color: var(--teal); color: var(--slate); }
+
+/* ── Main ── */
+.main {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 28px 24px 80px;
+}
+
+.ptitle { margin-bottom: 22px; }
+.ptitle h1 { font-size: 26px; font-weight: 800; letter-spacing: .3px; color: var(--slate); }
+.ptitle .sub { font-size: 12.5px; font-weight: 600; color: var(--ink-dim); margin-top: 4px; }
+
+/* ── Form card ── */
+.card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 12px 32px -24px rgba(0,79,113,.5);
+  padding: 28px 30px;
+  margin-bottom: 18px;
+}
+
+.sec-hd {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 16px;
+}
+.sec-hd::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.sec-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: var(--gray);
+  font-size: 9.5px;
+  font-weight: 800;
+  color: var(--slate);
+  flex-shrink: 0;
+}
+
+.field-row { display: flex; gap: 16px; }
+.field { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.field label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-dim);
+  letter-spacing: .4px;
+}
+.field label .unit {
+  font-weight: 500;
+  color: var(--ink-faint);
+}
+.field input {
+  padding: 10px 13px;
+  border-radius: 9px;
+  border: 1.5px solid var(--line);
+  background: var(--gray);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .15s, background .15s;
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+.field input:focus { border-color: var(--teal); background: var(--white); }
+.field input.err { border-color: var(--red); background: rgba(217,101,91,.05); }
+.field .hint {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--ink-faint);
+  line-height: 1.4;
+}
+
+.sec-rule {
+  border: none;
+  border-top: 1px solid var(--line);
+  margin: 22px 0;
+}
+
+/* ── Sample table ── */
+.sample-wrap { overflow-x: auto; }
+.sample-grid {
+  display: grid;
+  grid-template-columns: 64px 1fr 1fr;
+  gap: 0;
+  min-width: 360px;
+}
+.sg-head {
+  display: contents;
+}
+.sg-head span {
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-bottom: 10px;
+}
+.sg-head span:first-child { /* row label col, empty */ }
+.sg-row { display: contents; }
+.sg-label {
+  display: flex;
+  align-items: center;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--ink-dim);
+  letter-spacing: .3px;
+  padding: 5px 0;
+}
+.sg-cell { padding: 5px 0 5px 10px; }
+.sg-cell:first-of-type { padding-left: 0; }
+.sg-cell input {
+  padding: 9px 12px;
+  border-radius: 9px;
+  border: 1.5px solid var(--line);
+  background: var(--gray);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .15s, background .15s;
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+.sg-cell input:focus { border-color: var(--teal); background: var(--white); }
+.sg-cell input.err { border-color: var(--red); background: rgba(217,101,91,.05); }
+.sg-err {
+  grid-column: 1 / -1;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--red);
+  padding: 3px 0 4px;
+  display: none;
+}
+.sg-err.show { display: block; }
+
+/* ── Calculate button ── */
+.btn-calc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  border-radius: 11px;
+  background: var(--teal);
+  color: var(--white);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .5px;
+  border: none;
+  cursor: pointer;
+  transition: background .15s, box-shadow .15s, transform .1s;
+  box-shadow: 0 6px 18px -8px rgba(0,179,152,.6);
+}
+.btn-calc:hover { background: #00a38e; box-shadow: 0 8px 22px -8px rgba(0,179,152,.65); }
+.btn-calc:active { transform: scale(.98); }
+
+/* ── Results card ── */
+.results-card {
+  border-radius: 18px;
+  border: 1px solid rgba(0,179,152,.4);
+  background: linear-gradient(120deg, rgba(0,79,113,.05), rgba(0,179,152,.10) 55%, rgba(169,238,138,.18));
+  padding: 22px 28px 24px;
+  display: none;
+  margin-bottom: 18px;
+}
+.results-card.show { display: block; }
+
+.res-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.res-head .ttl {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+.res-head .tags { display: flex; gap: 7px; }
+.res-head .tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-dim);
+  background: rgba(255,255,255,.75);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 4px 10px;
+}
+
+.res-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-bottom: 16px;
+}
+.res-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-right: 20px;
+  border-right: 1px solid rgba(0,79,113,.14);
+  margin-right: 20px;
+}
+.res-stat:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+.res-stat .val {
+  font-size: 38px;
+  font-weight: 800;
+  color: #0a7e62;
+  line-height: 1;
+  letter-spacing: -.5px;
+}
+.res-stat .val small {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink-dim);
+  margin-left: 3px;
+  letter-spacing: 0;
+}
+.res-stat .lbl {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--ink-dim);
+}
+
+.res-meta {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--ink-faint);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.res-breakdown {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--ink-faint);
+  margin-top: 4px;
+}
+.res-breakdown span b { color: var(--ink-dim); font-weight: 700; }
+
+.btn-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 9px;
+  background: rgba(255,255,255,.8);
+  border: 1.5px solid rgba(0,79,113,.18);
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--slate);
+  cursor: pointer;
+  letter-spacing: .3px;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.btn-copy:hover { background: var(--white); border-color: var(--teal); color: var(--teal); }
+.btn-copy.copied { color: #0a7e62; border-color: var(--teal); }
+
+/* ── Calc error card ── */
+.calc-error {
+  border-radius: 14px;
+  background: rgba(217,101,91,.07);
+  border: 1.5px solid rgba(217,101,91,.28);
+  padding: 15px 20px;
+  display: none;
+  margin-bottom: 18px;
+}
+.calc-error.show { display: block; }
+.calc-error .err-title {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--red);
+  margin-bottom: 3px;
+}
+.calc-error .err-detail {
+  font-size: 11px;
+  font-weight: 600;
+  color: #a05050;
+  line-height: 1.5;
+}
+
+/* ── Mockstamp ── */
+.mockstamp {
+  position: fixed;
+  bottom: 12px;
+  right: 14px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: var(--ink-faint);
+  background: rgba(255,255,255,.9);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 5px 10px;
+  z-index: 60;
+}
+
+/* ── Responsive ── */
+@media (max-width: 580px) {
+  header.appbar { padding: 12px 16px; gap: 14px; }
+  .main { padding: 20px 16px 60px; }
+  .card { padding: 20px 18px; }
+  .field-row { flex-direction: column; gap: 12px; }
+  .res-stats { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .res-stat { border-right: none; margin-right: 0; padding-right: 0; }
+  .res-stat .val { font-size: 30px; }
+  .results-card { padding: 18px 20px 20px; }
+}
+</style>
+</head>
+<body>
+
+<header class="appbar">
+  <div class="wm">GLOBAL<b>PARTNERS</b></div>
+  <div class="divider"></div>
+  <div class="appname">Blend Generator <span>· Fort Worth</span></div>
+  <div class="spacer"></div>
+  <a href="index.html" class="back-link">&#8592; Dashboard</a>
+</header>
+
+<div class="main">
+
+  <div class="ptitle">
+    <h1>Blend Generator</h1>
+    <div class="sub">Butane blend calculator &middot; full receipt basis &middot; Fort Worth Terminal J117</div>
+  </div>
+
+  <!-- ── Form card ── -->
+  <div class="card">
+
+    <!-- 1 · Tank Info -->
+    <div class="sec-hd"><span class="sec-num">1</span> Tank Info</div>
+    <div class="field-row">
+      <div class="field" style="max-width:160px">
+        <label for="f-tank">Tank Number</label>
+        <input type="text" id="f-tank" placeholder="e.g. 55" maxlength="12" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="f-vol">Tank Volume <span class="unit">(bbls)</span></label>
+        <input type="number" id="f-vol" placeholder="e.g. 31208" min="1" step="1" autocomplete="off">
+      </div>
+    </div>
+
+    <hr class="sec-rule">
+
+    <!-- 2 · Target RVP -->
+    <div class="sec-hd"><span class="sec-num">2</span> Target RVP</div>
+    <div class="field-row">
+      <div class="field" style="max-width:210px">
+        <label for="f-target">Target RVP <span class="unit">(psi)</span></label>
+        <input type="number" id="f-target" placeholder="e.g. 8.75" min="0.01" step="0.01" autocomplete="off">
+        <span class="hint">Operator-confirmed per season and grade</span>
+      </div>
+    </div>
+
+    <hr class="sec-rule">
+
+    <!-- 3 · Sample Test Results -->
+    <div class="sec-hd"><span class="sec-num">3</span> Sample Test Results</div>
+    <div class="sample-wrap">
+      <div class="sample-grid">
+        <!-- Column headers -->
+        <div class="sg-head">
+          <span></span>
+          <span style="padding-left:10px">PTOT <span style="font-weight:500;letter-spacing:.2px;text-transform:none">(psi)</span></span>
+          <span style="padding-left:10px">RVP <span style="font-weight:500;letter-spacing:.2px;text-transform:none">(psi)</span></span>
+        </div>
+
+        <!-- Upper -->
+        <div class="sg-label">Upper</div>
+        <div class="sg-cell"><input type="number" id="u-ptot" placeholder="0.00" min="0.001" step="0.01" autocomplete="off" aria-label="Upper PTOT"></div>
+        <div class="sg-cell"><input type="number" id="u-rvp"  placeholder="0.00" min="0.001" step="0.01" autocomplete="off" aria-label="Upper RVP"></div>
+        <div class="sg-err" id="err-u">RVP cannot exceed PTOT</div>
+
+        <!-- Middle -->
+        <div class="sg-label">Middle</div>
+        <div class="sg-cell"><input type="number" id="m-ptot" placeholder="0.00" min="0.001" step="0.01" autocomplete="off" aria-label="Middle PTOT"></div>
+        <div class="sg-cell"><input type="number" id="m-rvp"  placeholder="0.00" min="0.001" step="0.01" autocomplete="off" aria-label="Middle RVP"></div>
+        <div class="sg-err" id="err-m">RVP cannot exceed PTOT</div>
+
+        <!-- Lower -->
+        <div class="sg-label">Lower</div>
+        <div class="sg-cell"><input type="number" id="l-ptot" placeholder="0.00" min="0.001" step="0.01" autocomplete="off" aria-label="Lower PTOT"></div>
+        <div class="sg-cell"><input type="number" id="l-rvp"  placeholder="0.00" min="0.001" step="0.01" autocomplete="off" aria-label="Lower RVP"></div>
+        <div class="sg-err" id="err-l">RVP cannot exceed PTOT</div>
+      </div>
+    </div>
+
+    <hr class="sec-rule">
+
+    <button class="btn-calc" onclick="calculate()">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9">
+        <path d="M9 3h6M10 3v6l-5 9a2 2 0 002 3h10a2 2 0 002-3l-5-9V3"/>
+        <path d="M7.5 15h9"/>
+      </svg>
+      Calculate Blend
+    </button>
+
+  </div><!-- /card -->
+
+  <!-- ── Calculation error ── -->
+  <div class="calc-error" id="calc-error">
+    <div class="err-title" id="err-title">Error</div>
+    <div class="err-detail" id="err-detail"></div>
+  </div>
+
+  <!-- ── Results card ── -->
+  <div class="results-card" id="results-card">
+    <div class="res-head">
+      <span class="ttl">Blend Results</span>
+      <div class="tags">
+        <span class="tag" id="res-tank">TK —</span>
+        <span class="tag" id="res-vol-tag">— bbl</span>
+      </div>
+    </div>
+
+    <div class="res-stats">
+      <div class="res-stat">
+        <span class="val" id="res-base-rvp">—<small>psi</small></span>
+        <span class="lbl">Effective Base RVP</span>
+      </div>
+      <div class="res-stat">
+        <span class="val" id="res-butane">—<small>bbl</small></span>
+        <span class="lbl">Butane Required</span>
+      </div>
+      <div class="res-stat">
+        <span class="val" id="res-trucks">—</span>
+        <span class="lbl">Trucks to Order</span>
+      </div>
+    </div>
+
+    <div class="res-meta">
+      Target RVP <b id="res-target-tag">—</b> psi &middot; Butane constant 34.8 psi &middot; 190 bbl/truck
+      <div class="res-breakdown">
+        <span>UPPER eff. RVP <b id="res-eff-u">—</b></span>
+        <span>MIDDLE eff. RVP <b id="res-eff-m">—</b></span>
+        <span>LOWER eff. RVP <b id="res-eff-l">—</b></span>
+      </div>
+    </div>
+
+    <button class="btn-copy" id="btn-copy" onclick="copyResults()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1">
+        <rect x="9" y="9" width="13" height="13" rx="2"/>
+        <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+      </svg>
+      Copy Results
+    </button>
+  </div>
+
+</div><!-- /main -->
+
+<div class="mockstamp">BLEND CALCULATOR &middot; FTW J117</div>
+
+<script>
+(function () {
+  'use strict';
+
+  const RVP_BUTANE = 34.8;
+  const TRUCK_CAP  = 190;
+
+  // ── Helpers ────────────────────────────────────────────────
+  function n(id) { return parseFloat(document.getElementById(id).value); }
+  function el(id) { return document.getElementById(id); }
+
+  function effRVP(rvp, ptot) {
+    return Math.pow(rvp / ptot, 1 / 1.65);
+  }
+
+  // ── Per-row validation (call on blur) ─────────────────────
+  function validateRow(ptotId, rvpId, errId) {
+    const ptot = n(ptotId), rvp = n(rvpId);
+    const ptotEl = el(ptotId), rvpEl = el(rvpId), errEl = el(errId);
+    const invalid = !isNaN(ptot) && !isNaN(rvp) && rvp > ptot;
+    ptotEl.classList.toggle('err', invalid);
+    rvpEl.classList.toggle('err', invalid);
+    errEl.classList.toggle('show', invalid);
+    return invalid;
+  }
+
+  // Wire up live blur validation on all sample inputs
+  [['u-ptot','u-rvp','err-u'], ['m-ptot','m-rvp','err-m'], ['l-ptot','l-rvp','err-l']].forEach(
+    ([p, r, e]) => {
+      el(p).addEventListener('blur', () => validateRow(p, r, e));
+      el(r).addEventListener('blur', () => validateRow(p, r, e));
+    }
+  );
+
+  // ── Main calculation ─────────────────────────────────────
+  window.calculate = function () {
+    // Clear previous results/errors
+    el('results-card').classList.remove('show');
+    el('calc-error').classList.remove('show');
+
+    // Re-validate all rows
+    const rowErrs = [
+      validateRow('u-ptot','u-rvp','err-u'),
+      validateRow('m-ptot','m-rvp','err-m'),
+      validateRow('l-ptot','l-rvp','err-l'),
+    ];
+
+    // Collect values
+    const tankNum  = el('f-tank').value.trim();
+    const tankVol  = n('f-vol');
+    const targetRVP = n('f-target');
+    const uPtot = n('u-ptot'), uRvp = n('u-rvp');
+    const mPtot = n('m-ptot'), mRvp = n('m-rvp');
+    const lPtot = n('l-ptot'), lRvp = n('l-rvp');
+
+    // Required-field check
+    const missing = [];
+    if (!tankNum)                         missing.push('Tank Number');
+    if (isNaN(tankVol)  || tankVol  <= 0) missing.push('Tank Volume');
+    if (isNaN(targetRVP)|| targetRVP<= 0) missing.push('Target RVP');
+    if (isNaN(uPtot) || isNaN(uRvp))     missing.push('Upper sample');
+    if (isNaN(mPtot) || isNaN(mRvp))     missing.push('Middle sample');
+    if (isNaN(lPtot) || isNaN(lRvp))     missing.push('Lower sample');
+
+    if (missing.length) {
+      showCalcError('Missing required inputs', 'Please fill in: ' + missing.join(', ') + '.');
+      return;
+    }
+    if (rowErrs.some(Boolean)) {
+      showCalcError('Fix sample errors before calculating', 'RVP cannot exceed PTOT in any row.');
+      return;
+    }
+
+    // ── EPA effective RVP per sample ──────────────────────
+    const effU = effRVP(uRvp, uPtot);
+    const effM = effRVP(mRvp, mPtot);
+    const effL = effRVP(lRvp, lPtot);
+    const baseRVP = (effU + effM + effL) / 3;
+
+    // ── Butane volume ──────────────────────────────────────
+    //   V = V_tank × (tgt^1.65 − base^1.65) / (but^1.65 − tgt^1.65)
+    const tgt165  = Math.pow(targetRVP, 1.65);
+    const base165 = Math.pow(baseRVP,   1.65);
+    const but165  = Math.pow(RVP_BUTANE, 1.65);
+    const vButane = tankVol * (tgt165 - base165) / (but165 - tgt165);
+
+    if (vButane <= 0) {
+      showCalcError(
+        'Tank already meets or exceeds target RVP',
+        'Effective base RVP is ' + baseRVP.toFixed(4) + ' psi — at or above the ' +
+        targetRVP + ' psi target. No butane addition is required.'
+      );
+      return;
+    }
+
+    const trucks = Math.ceil(vButane / TRUCK_CAP);
+
+    // ── Populate results ──────────────────────────────────
+    el('res-tank').textContent     = 'TK ' + tankNum;
+    el('res-vol-tag').textContent  = tankVol.toLocaleString() + ' bbl';
+    el('res-target-tag').textContent = targetRVP;
+
+    el('res-base-rvp').innerHTML = baseRVP.toFixed(3) + '<small>psi</small>';
+    el('res-butane').innerHTML   = vButane.toFixed(1)  + '<small>bbl</small>';
+    el('res-trucks').textContent = trucks;
+
+    el('res-eff-u').textContent = effU.toFixed(4);
+    el('res-eff-m').textContent = effM.toFixed(4);
+    el('res-eff-l').textContent = effL.toFixed(4);
+
+    el('results-card').classList.add('show');
+    el('results-card').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  };
+
+  function showCalcError(title, detail) {
+    el('err-title').textContent  = title;
+    el('err-detail').textContent = detail;
+    el('calc-error').classList.add('show');
+  }
+
+  // ── Copy Results ─────────────────────────────────────────
+  window.copyResults = function () {
+    const tankNum  = el('res-tank').textContent;
+    const volTag   = el('res-vol-tag').textContent;
+    const baseRVP  = el('res-base-rvp').textContent.replace(/[^\d.]/g, '');
+    const butane   = el('res-butane').textContent.replace(/[^\d.]/g, '');
+    const trucks   = el('res-trucks').textContent;
+    const target   = el('res-target-tag').textContent;
+    const effU     = el('res-eff-u').textContent;
+    const effM     = el('res-eff-m').textContent;
+    const effL     = el('res-eff-l').textContent;
+
+    const lines = [
+      'BLEND GENERATOR — FORT WORTH TERMINAL J117',
+      'Tank: ' + tankNum + '  Volume: ' + volTag,
+      '',
+      'Effective Base RVP : ' + baseRVP + ' psi',
+      'Butane Required    : ' + butane  + ' bbl',
+      'Trucks to Order    : ' + trucks,
+      '',
+      'Target RVP ' + target + ' psi  ·  Butane constant 34.8 psi  ·  190 bbl/truck',
+      'Eff. RVP — Upper: ' + effU + '  Middle: ' + effM + '  Lower: ' + effL,
+    ];
+    const text = lines.join('\n');
+
+    const write = () => navigator.clipboard.writeText(text);
+    const fallback = () => {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      Object.assign(ta.style, { position:'fixed', opacity:'0', top:'0', left:'0' });
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (_) {}
+      document.body.removeChild(ta);
+    };
+
+    const done = () => {
+      const btn = el('btn-copy');
+      btn.classList.add('copied');
+      btn.innerHTML =
+        '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">' +
+        '<path d="M20 6L9 17l-5-5"/></svg> Copied';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerHTML =
+          '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1">' +
+          '<rect x="9" y="9" width="13" height="13" rx="2"/>' +
+          '<path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy Results';
+      }, 2500);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      write().then(done).catch(() => { fallback(); done(); });
+    } else {
+      fallback();
+      done();
+    }
+  };
+
+}());
+</script>
+
+</body>
+</html>
