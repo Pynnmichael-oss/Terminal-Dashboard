@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Partners · Third-Party CoA Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+:root{--slate:#004F71;--teal:#00B398;--ink:#063A52;--ink-dim:#5E7A8A;--ink-faint:#9DB0BC;
+--line:rgba(0,79,113,.13);--white:#FFFFFF;--gray:#EEF3F6;--gray2:#E5ECF0;--amber:#E0A23C;--red:#D9655B;--green:#4FB286;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',system-ui,sans-serif;color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;
+background:radial-gradient(1000px 520px at 92% -14%,rgba(0,179,152,.07),transparent 60%),radial-gradient(760px 440px at -3% 114%,rgba(169,238,138,.11),transparent 60%),var(--white)}
+header.appbar{display:flex;align-items:center;gap:20px;padding:14px 30px;border-bottom:1px solid var(--line);background:var(--white);position:sticky;top:0;z-index:50}
+.wm{font-weight:800;font-size:19px;letter-spacing:.5px;color:var(--slate);line-height:.96}
+.wm b{display:block;font-weight:700;font-size:10px;letter-spacing:3.5px;color:var(--teal);margin-top:2px}
+.divider{width:1px;height:30px;background:var(--line)}
+.appname{font-weight:700;font-size:14px;letter-spacing:.4px;color:var(--slate)} .appname span{color:var(--ink-dim);font-weight:500}
+.spacer{flex:1}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:9px;border:1px solid var(--line);background:var(--white);font-size:12px;font-weight:600;color:var(--ink-dim)} .pill b{color:var(--ink);font-weight:700}
+.main{max-width:1280px;margin:0 auto;padding:22px 30px 64px}
+.ptitle h1{font-size:26px;font-weight:800;letter-spacing:.3px;color:var(--slate)}
+.ptitle .sub{font-size:12.5px;font-weight:600;color:var(--ink-dim);margin:3px 0 10px}
+.prov{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.prov span{font-size:10px;font-weight:600;color:var(--ink-dim);background:var(--gray);border:1px solid var(--line);border-radius:7px;padding:4px 9px}
+.prov span b{color:var(--slate);font-weight:700}
+.prov span.warn{background:rgba(224,162,60,.12);border-color:rgba(224,162,60,.4);color:#8a5e12}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 36px -28px rgba(0,79,113,.6);padding:18px 22px;margin-bottom:18px}
+.panel h2{font-size:13px;font-weight:800;letter-spacing:.5px;color:var(--slate);margin-bottom:4px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.panel .lead{font-size:12px;font-weight:500;color:var(--ink-dim);line-height:1.55;margin-bottom:13px}
+.step{font-size:9px;font-weight:800;letter-spacing:.8px;padding:3px 9px;border-radius:6px;background:rgba(0,79,113,.08);color:var(--slate)}
+.drop{border:2px dashed rgba(0,79,113,.3);border-radius:14px;padding:26px;text-align:center;cursor:pointer;transition:.15s;background:var(--gray)}
+.drop:hover{border-color:var(--teal);background:rgba(0,179,152,.05)}
+.drop .big{font-size:14px;font-weight:800;color:var(--slate);margin-bottom:4px}
+.drop .sm{font-size:11px;font-weight:600;color:var(--ink-faint)}
+.frm{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--gray);margin-bottom:14px}
+.frm .h{font-size:9px;font-weight:800;letter-spacing:.7px;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px}
+.frow{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:8px}
+.fld{display:flex;flex-direction:column;gap:4px}
+.fld label{font-size:9px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-dim)}
+.fld input,.fld select{font-family:inherit;font-weight:700;font-size:12.5px;color:var(--slate);border:1px solid var(--line);border-radius:8px;padding:7px 9px;background:var(--white);width:150px}
+.fld input:focus,.fld select:focus{outline:2px solid rgba(0,179,152,.4);border-color:var(--teal)}
+.tgl{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;color:var(--slate);cursor:pointer;background:var(--white);border:1px solid var(--line);border-radius:9px;padding:8px 12px}
+.tgl input{accent-color:var(--teal);width:16px;height:16px}
+.basis{font-size:11px;font-weight:600;color:var(--ink);background:rgba(0,179,152,.07);border:1px solid rgba(0,179,152,.3);border-radius:9px;padding:9px 12px;line-height:1.5;margin-top:4px}
+.basis b{color:var(--slate)}
+table.grid{width:100%;border-collapse:collapse;font-size:11.5px;margin-bottom:8px}
+table.grid th{text-align:left;font-size:8.5px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--ink-faint);padding:6px 8px;border-bottom:1px solid var(--line)}
+table.grid td{padding:5px 8px;border-bottom:1px solid var(--line);font-weight:700;color:var(--slate);vertical-align:middle}
+table.grid input,table.grid select{font-family:inherit;font-weight:700;font-size:12px;color:var(--slate);border:1px solid var(--line);border-radius:7px;padding:6px 8px;background:var(--white);width:96px}
+table.grid select{width:130px}
+table.grid input.wide{width:170px}
+.conf{font-size:8.5px;font-weight:800;letter-spacing:.4px;padding:3px 8px;border-radius:5px}
+.conf.hi{color:#0a7e62;background:rgba(0,179,152,.14)} .conf.lo{color:#8a5e12;background:rgba(224,162,60,.16)}
+.btn{font-family:inherit;font-weight:700;font-size:12px;border-radius:9px;padding:10px 16px;cursor:pointer;border:1px solid var(--line);background:var(--white);color:var(--slate);transition:.14s}
+.btn:hover{border-color:rgba(0,79,113,.4)}
+.btn.pri{background:var(--teal);border-color:var(--teal);color:#fff} .btn.pri:hover{background:#009d86}
+table.res{width:100%;border-collapse:collapse;font-size:11.5px;margin:4px 0 12px}
+table.res th{text-align:left;font-size:8.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-faint);padding:6px 8px;border-bottom:1px solid var(--line)}
+table.res td{padding:7px 8px;border-bottom:1px solid var(--line);font-weight:600;color:var(--ink)}
+.rchip{font-size:8.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:3px 8px;border-radius:5px;white-space:nowrap}
+.rchip.in{color:#0a7e62;background:rgba(0,179,152,.14)} .rchip.out{color:#a4362c;background:rgba(217,101,91,.15)} .rchip.adv{color:#8a5e12;background:rgba(224,162,60,.16)}
+.rchip.gb{color:#0a5c7e;background:rgba(0,79,113,.12)}
+.holdban{border:1.5px solid rgba(224,162,60,.55);border-left:6px solid var(--amber);background:rgba(224,162,60,.08);border-radius:12px;padding:14px 17px;margin-bottom:12px;font-size:13px;font-weight:700;color:#7a5410;line-height:1.5}
+.appban{border:1.5px solid rgba(0,179,152,.5);border-left:6px solid var(--teal);background:rgba(0,179,152,.07);border-radius:12px;padding:14px 17px;margin-bottom:12px;font-size:13px;font-weight:700;color:#0a5c4e;line-height:1.5}
+.revban{border:1.5px solid rgba(217,101,91,.5);border-left:6px solid var(--red);background:rgba(217,101,91,.07);border-radius:12px;padding:14px 17px;margin-bottom:12px;font-size:13px;font-weight:700;color:#7c2f27;line-height:1.5}
+.revban ul,.appban ul{margin:6px 0 0 18px;font-weight:600;font-size:12px}
+.docpaper{background:var(--white);border:1px solid var(--line);border-radius:10px;box-shadow:0 14px 34px -26px rgba(0,79,113,.7);padding:20px 24px;font-size:12px;margin-bottom:12px}
+.dlh{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--slate);padding-bottom:8px;margin-bottom:12px;font-size:10px;font-weight:700;color:var(--ink-dim)}
+.dwm{font-weight:800;font-size:14px;letter-spacing:.5px;color:var(--slate)} .dwm b{color:var(--teal);font-weight:700}
+.dtt{font-size:13px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--slate);margin-bottom:12px}
+.dprow{display:flex;justify-content:space-between;gap:16px;padding:4px 0;border-bottom:1px dashed var(--line);font-weight:600;color:var(--ink-dim);font-size:11.5px}
+.dprow b{color:var(--slate);text-align:right}
+.dft{margin-top:12px;padding-top:9px;border-top:1px solid var(--line);font-size:9.5px;font-weight:600;color:var(--ink-faint)}
+table.reg{width:100%;border-collapse:collapse;font-size:11.5px}
+table.reg th{text-align:left;font-size:8.5px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-faint);padding:6px 8px;border-bottom:1px solid var(--line)}
+table.reg td{padding:8px;border-bottom:1px solid var(--line);font-weight:600;color:var(--ink)}
+.note{background:var(--white);border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:12px;padding:14px 18px;font-size:12px;font-weight:500;color:var(--ink-dim);line-height:1.6}
+.note b{color:var(--slate);font-weight:700}
+.mockstamp{position:fixed;bottom:12px;right:14px;font-size:9px;font-weight:700;letter-spacing:1.4px;color:var(--ink-faint);background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:6px;padding:5px 10px;z-index:60}
+.sidewrap{display:grid;grid-template-columns:minmax(360px,46%) 1fr;gap:16px;align-items:start}
+.pdfside{position:sticky;top:76px;border:1px solid var(--line);border-radius:12px;background:var(--gray);overflow:hidden}
+.pdftools{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--line);background:var(--white)}
+.pfn{font-size:11px;font-weight:700;color:var(--slate);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:60%}
+.btn.zm{padding:4px 11px;font-size:14px;line-height:1}
+.zl{font-size:10.5px;font-weight:700;color:var(--ink-dim);min-width:38px;text-align:center}
+.pdfpages{max-height:78vh;overflow:auto;padding:10px}
+.pdfpage{background:#fff;box-shadow:0 6px 18px -10px rgba(0,79,113,.45);border:1px solid var(--line);margin:0 auto 12px;width:fit-content}
+.pdfpage canvas{display:block}
+.pdfload{font-size:11px;font-weight:600;color:var(--ink-faint);padding:22px;text-align:center}
+@media(max-width:1100px){.sidewrap{grid-template-columns:1fr}.pdfside{position:static}.pdfpages{max-height:48vh}}
+.logrow{cursor:pointer}.logrow:hover td{background:rgba(0,179,152,.05)}
+@media print{body.print-rec *{visibility:hidden}body.print-rec #recdoc,body.print-rec #recdoc *{visibility:visible}body.print-rec #recdoc{position:absolute;left:0;top:0;width:100%;border:none;box-shadow:none}}
+.back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--teal);letter-spacing:.3px;padding:7px 13px;border-radius:9px;border:1px solid var(--line);background:var(--white);transition:border-color .15s,color .15s;text-decoration:none}
+.back-link:hover{border-color:var(--teal);color:var(--slate)}
+</style></head>
+<body>
+<header class="appbar">
+  <div class="wm">GLOBAL<b>PARTNERS</b></div>
+  <div class="divider"></div>
+  <div class="appname">Terminal Operations <span>/ Third-Party CoA Review</span></div>
+  <div class="spacer"></div>
+  <div class="pill">&#127758; <b>All terminals</b></div>
+  <a href="index.html" class="back-link">&#8592; Dashboard</a>
+</header>
+
+<div class="main">
+  <div class="ptitle">
+    <h1>Third-Party CoA Review</h1>
+    <div class="sub">Upload a lab Certificate of Analysis &rarr; verify the extraction &rarr; evaluate against the applicable state / federal RVP limit &rarr; approve for sale or send for review</div>
+  </div>
+  <div class="prov">
+    <span>Limits &middot; <b>US_Gasoline_RVP_Reference_v3</b> &middot; ASTM D4814-24a + EPA 40 CFR 1090.215 (embedded)</span>
+    <span>Parsers &middot; <b>Camin</b> &middot; <b>SPL</b> &middot; manual entry for other labs</span>
+    <span class="warn">Decision rule &middot; <b>internal logic only</b> (third-party Pass/Fail informational) &middot; equal-to-limit passes &middot; optional precision allowance (default 40% of D5191 / D86 T50 reproducibility) &middot; class-based release is the default basis &mdash; PROPOSED, pending compliance ratification</span>
+  </div>
+
+  <div class="panel">
+    <h2><span class="step">STEP 1</span> Upload the CoA</h2>
+    <div class="drop" onclick="document.getElementById('pdfin').click()">
+      <div class="big">Drop or click to upload the lab CoA (PDF)</div>
+      <div class="sm">Camin and SPL formats parse automatically &middot; anything else opens manual entry &middot; extraction is always verified by a person before evaluation</div>
+    </div>
+    <input type="file" id="pdfin" accept="application/pdf" style="display:none" onchange="handlePdf(this)">
+    <div class="frow" style="margin-top:10px"><button class="btn" onclick="manualEntry()">&#9998; Manual entry (no PDF / other lab)</button><span id="parsestat" style="font-size:11px;font-weight:600;color:var(--ink-dim)"></span></div>
+  </div>
+
+  <div class="panel" id="verifypanel" style="display:none"></div>
+  <div class="panel" id="outcomepanel" style="display:none"></div>
+
+  <div class="panel">
+    <h2>Decision Log <span style="font-size:10px;font-weight:600;color:var(--ink-dim)" id="logmode"></span>
+      <span class="spacer"></span>
+      <button class="btn" style="padding:6px 12px;font-size:11px" onclick="exportLog()">&#8595; Export log (JSON)</button>
+      <button class="btn" style="padding:6px 12px;font-size:11px" onclick="document.getElementById('login').click()">&#8593; Import</button>
+      <input type="file" id="login" accept="application/json" style="display:none" onchange="importLog(this)">
+    </h2>
+    <p class="lead">Click any decision to reopen its full record. Every decision carries a stable ID; download individual records from the outcome view, export the whole log, or run <b>gp_coa_server.py</b> to persist automatically.</p>
+    <table class="reg"><thead><tr><th>When</th><th>Record</th><th>Certificate</th><th>Lab</th><th>Product / Batch</th><th>Limit applied</th><th>Outcome</th><th>By</th></tr></thead><tbody id="logbody"><tr><td colspan="8" style="color:var(--ink-faint)">no decisions yet</td></tr></tbody></table>
+  </div>
+
+  <div class="note">
+    <b>How the decision is made.</b> The lab's own Pass/Fail remarks are informational only &mdash; this page independently resolves the applicable limit from the embedded reference (<b>US_Gasoline_RVP_Reference_v3</b>: summer EPA limits by state, RFG 7.4 areas, 7.8-psi areas, SIP areas, and the ASTM D4814-24a monthly and class schedules) and evaluates every reported DVPE and D86 T50 against it: blendstock samples against the blendstock limit, the E10 hand blend against the finished-gasoline limit. The evaluation basis is a <b>target volatility class</b> (AAA&ndash;E, the default) for product blended ahead of the next period, or the <b>month of sale</b> (as-tested period) &mdash; class-based approvals carry a <b>sale release date</b>: immediate if the current period already permits the class (RVP and T50 window), otherwise the first date the location's schedule opens to it, and the product is held until then rather than failed. The lab's Pass/Fail remarks <b>never block</b> in either basis &mdash; they are carried as advisories, and the decision comes solely from this page's internal logic. An optional <b>test-method precision allowance</b> (default 40% of reproducibility) releases results marginally past the nominal limit, flagged distinctly on the record: RVP uses D5191 R = 0.0161 &times; (DVPE + 18.0) psi; T50 uses the slope-dependent R = 4.65 + 1.20 &times; slope &deg;F with slope = (T60&minus;T40)/20 from the reported T40/T60, or the 3.40&deg;F/% workbook-average slope when those are not reported (coefficients from Test_Method_Precisions.xlsx, pending confirmation against the current D5191 / D86 editions). <b>All samples within (effective) limits &rarr; APPROVED</b> &mdash; for immediate sale or with a release date &mdash; with a printable approval record; <b>any exceedance beyond the allowance, missing result, or unresolvable limit &rarr; SENT FOR REVIEW</b> to Quality Control (K. Stocksen) with the reasons listed &mdash; only internal-logic failures route to review. When the lab's stated max or remark differs from the internal determination, the discrepancy is flagged even when the result still passes. The <b>2026 EPA national fuel waiver</b> toggle appears only when a summer month or a summer class (&le;9.0 psi) is selected. Extraction is never trusted blindly &mdash; a person verifies the grid before evaluation, and results provenance (parsed vs manual) is recorded.
+  </div>
+</div>
+<div class="mockstamp">THIRD-PARTY CoA REVIEW &middot; ALL TERMINALS</div>
+
+<script>
+const LIMITS={"summer": [{"state": "Alabama", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "", "auth": "40 CFR 1090.215(a)(1)", "notes": "Conv. gasoline; 1-psi waiver for E10"}, {"state": "Alaska", "tier": "N/A (no summer std)", "base": null, "e10": null, "waiver": "N/A", "special": "\u2014", "specialNotes": "Alaska not subject to EPA summer RVP regs", "auth": "State/EPA", "notes": "No continental summer rules; ASTM D4814 Table 4 applies year-round (Class D/E winter)"}, {"state": "Arizona", "tier": "9.0 / 7.0 SIP", "base": 9.0, "e10": 10.0, "waiver": "Partial", "special": "7.0 (CBG areas)", "specialNotes": "Maricopa, Pinal, Yavapai cos: 7.0 psi CBG May 31\u2013Sep 30; 1-psi waiver for April only. Per Table 7 of D4814.", "auth": "40 CFR 1090.215(a)(5); AZ SIP", "notes": "Two-tier: CBG (7.0) vs conventional (9.0 E10=10.0)"}, {"state": "Arkansas", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "", "auth": "40 CFR 1090.215(a)(1)", "notes": "1-psi waiver applies for E10"}, {"state": "California", "tier": "CARB CaRFG3", "base": null, "e10": null, "waiver": "NO", "special": "6.9 (non-oxy)", "specialNotes": "Oxygenated: 7.0 psi; Non-oxy: 6.9 psi. Season: Apr 1\u2013Oct 31. Per Table 7 of D4814.", "auth": "CA CCR \u00a72262 (CaRFG3)", "notes": "No 1-psi waiver; CARB-regulated; Apr 1 start at refinery"}, {"state": "Colorado", "tier": "RFG + 7.8 psi", "base": null, "e10": null, "waiver": "NO (RFG/SIP)", "special": "7.4 (Denver RFG); 7.8 (Boulder area)", "specialNotes": "Denver metro mandatory RFG (7.4 psi) eff. Nov 7, 2023. Boulder-Weld-Larimer: 7.8 psi per Table 5. Per Tables 5-6 of D4814.", "auth": "40 CFR 1090.215(a)(2)/(a)(3)", "notes": "3 tiers. Rest of CO: 9.0 psi with 1-psi waiver"}, {"state": "Connecticut", "tier": "RFG 7.4 psi", "base": 7.4, "e10": null, "waiver": "NO", "special": "\u2014", "specialNotes": "Statewide RFG per Table 6 of D4814", "auth": "40 CFR 1090.215(a)(3)", "notes": "All CT in RFG; no 1-psi waiver"}, {"state": "Delaware", "tier": "RFG/9.0", "base": null, "e10": null, "waiver": "Partial", "special": "7.4 (New Castle Co.)", "specialNotes": "New Castle Co.: RFG. Kent/Sussex: 9.0 psi E10=10.0", "auth": "40 CFR 1090.215(a)(3)", "notes": "Split county state"}, {"state": "Dist. of Columbia", "tier": "RFG 7.4 psi", "base": 7.4, "e10": null, "waiver": "NO", "special": "\u2014", "specialNotes": "Statewide RFG per Table 6", "auth": "40 CFR 1090.215(a)(3)", "notes": "All DC in RFG"}, {"state": "Florida", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "", "auth": "40 CFR 1090.215(a)(1)", "notes": "1-psi waiver for E10"}, {"state": "Georgia", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "Atlanta area opted out of federal RFG", "auth": "40 CFR 1090.215(a)(1)", "notes": "Conventional statewide; 1-psi waiver for E10"}, {"state": "Hawaii", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "", "auth": "40 CFR 1090.215(a)(1)", "notes": "ASTM Table 4: C-3 year-round (unusual warm climate)"}, {"state": "Idaho", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "", "auth": "40 CFR 1090.215(a)(1)", "notes": "1-psi waiver for E10"}, {"state": "Illinois", "tier": "RFG / 9.0 (NO waiver)", "base": null, "e10": 9.0, "waiver": "NO \u26a0", "special": "7.4 (Chicago RFG)", "specialNotes": "Chicago metro (Cook, DuPage, Kane, Lake, McHenry, Will): RFG 7.4 psi (Table 6). Rest of IL: 9.0 psi \u2014 1-PSI WAIVER REMOVED Apr 28, 2025", "auth": "40 CFR 1090.215(a)(3); EPA 89 FR 14759", "notes": "\u26a0 1-psi waiver REMOVED 4/28/2025. Non-RFG IL: E10 must meet 9.0 psi max"}, {"state": "Indiana", "tier": "RFG/9.0", "base": null, "e10": 10.0, "waiver": "Partial", "special": "7.4 (Lake & Porter Co.)", "specialNotes": "Lake & Porter cos: RFG. Rest of IN retains 1-psi waiver.", "auth": "40 CFR 1090.215(a)(3)", "notes": "Non-RFG IN still has 1-psi waiver"}, {"state": "Iowa", "tier": "9.0 psi (NO waiver)", "base": 9.0, "e10": 9.0, "waiver": "NO \u26a0", "special": "\u2014", "specialNotes": "1-PSI WAIVER REMOVED Apr 28, 2025", "auth": "40 CFR 1090.215; 89 FR 14759", "notes": "\u26a0 E10 must meet 9.0 psi; no relief to 10.0"}, {"state": "Kansas", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "", "auth": "40 CFR 1090.215(a)(1)", "notes": "1-psi waiver for E10"}, {"state": "Kentucky", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "Louisville opted out of federal RFG", "auth": "40 CFR 1090.215(a)(1)", "notes": "Conventional statewide; 1-psi waiver for E10"}, {"state": "Louisiana", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "", "auth": "40 CFR 1090.215(a)(1)", "notes": "1-psi waiver for E10"}, {"state": "Maine", "tier": "RFG / 9.0", "base": null, "e10": null, "waiver": "Partial", "special": "7.4 (7 southern cos.)", "specialNotes": "York, Cumberland, Sagadahoc, Androscoggin, Kennebec, Knox, Lincoln: RFG (eff. 2015). Northern ME: 9.0 E10=10.0", "auth": "40 CFR 1090.215(a)(3)", "notes": "Split state"}, {"state": "Maryland", "tier": "RFG / 9.0", "base": null, "e10": null, "waiver": "Partial", "special": "7.4 (Baltimore metro)", "specialNotes": "Anne Arundel, Baltimore City/Co., Carroll, Harford, Howard, Montgomery, Prince George's: RFG", "auth": "40 CFR 1090.215(a)(3)", "notes": "Eastern/western MD: conventional 9.0 psi with 1-psi waiver"}, {"state": "Massachusetts", "tier": "RFG 7.4 psi", "base": 7.4, "e10": null, "waiver": "NO", "special": "\u2014", "specialNotes": "Statewide RFG per Table 6", "auth": "40 CFR 1090.215(a)(3)", "notes": "No 1-psi waiver"}, {"state": "Michigan", "tier": "9.0 / 7.0 SIP", "base": null, "e10": 10.0, "waiver": "Partial", "special": "7.0 (7 SE counties)", "specialNotes": "Lenawee, Livingston, Macomb, Monroe, Oakland, St. Clair, Washtenaw, Wayne counties: 7.0 psi SIP per Table 7 of D4814", "auth": "40 CFR 1090.215(a)(5); MI SIP", "notes": "Detroit metro: 7.0 psi. Rest of MI: 9.0 psi with 1-psi waiver"}, {"state": "Minnesota", "tier": "9.0 psi (NO waiver)", "base": 9.0, "e10": 9.0, "waiver": "NO \u26a0", "special": "\u2014", "specialNotes": "1-PSI WAIVER REMOVED Apr 28, 2025", "auth": "40 CFR 1090.215; 89 FR 14759", "notes": "\u26a0 E10 must meet 9.0 psi; no relief to 10.0"}, {"state": "Mississippi", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "", "auth": "40 CFR 1090.215(a)(1)", "notes": "1-psi waiver for E10"}, {"state": "Missouri", "tier": "RFG / 9.0 (NO waiver)", "base": null, "e10": 9.0, "waiver": "NO \u26a0", "special": "7.4 (St. Louis RFG)", "specialNotes": "St. Louis City, St. Louis Co., St. Charles, Jefferson, Franklin: RFG. Rest of MO: 9.0 psi \u2014 1-PSI WAIVER REMOVED", "auth": "40 CFR 1090.215(a)(3); 89 FR 14759", "notes": "\u26a0 1-psi waiver removed 4/28/2025 for non-RFG MO"}, {"state": "Montana", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "", "auth": "40 CFR 1090.215(a)(1)", "notes": "1-psi waiver for E10"}, {"state": "Nebraska", "tier": "9.0 psi (NO waiver)", "base": 9.0, "e10": 9.0, "waiver": "NO \u26a0", "special": "\u2014", "specialNotes": "1-PSI WAIVER REMOVED Apr 28, 2025", "auth": "40 CFR 1090.215; 89 FR 14759", "notes": "\u26a0 E10 must meet 9.0 psi; no relief to 10.0"}, {"state": "Nevada", "tier": "9.0 / 7.8 psi", "base": null, "e10": null, "waiver": "Partial", "special": "7.8 (Washoe Co.)", "specialNotes": "Washoe Co. (Reno): 7.8 psi (Table 5 of D4814); E10=8.8 psi. Clark Co. (Las Vegas): 9.0 psi E10=10.0", "auth": "40 CFR 1090.215(a)(2)", "notes": ""}, {"state": "New Hampshire", "tier": "RFG / 9.0", "base": null, "e10": null, "waiver": "Partial", "special": "7.4 (4 southern cos.)", "specialNotes": "Hillsborough, Merrimack, Rockingham, Strafford: RFG. Northern NH: 9.0 psi E10=10.0", "auth": "40 CFR 1090.215(a)(3)", "notes": ""}, {"state": "New Jersey", "tier": "RFG 7.4 psi", "base": 7.4, "e10": null, "waiver": "NO", "special": "\u2014", "specialNotes": "Statewide RFG per Table 6", "auth": "40 CFR 1090.215(a)(3)", "notes": "No 1-psi waiver"}, {"state": "New Mexico", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "", "auth": "40 CFR 1090.215(a)(1)", "notes": "1-psi waiver for E10"}, {"state": "New York", "tier": "RFG / 9.0", "base": null, "e10": null, "waiver": "Partial", "special": "7.4 (NYC metro + Capital Dist.)", "specialNotes": "NYC boroughs, Nassau, Suffolk, Westchester, Rockland, Putnam, Orange, Dutchess + Albany Capital Dist: RFG", "auth": "40 CFR 1090.215(a)(3)", "notes": "Western NY/Adirondacks: 9.0 psi with 1-psi waiver"}, {"state": "North Carolina", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "Charlotte/Triangle opted out of RFG", "auth": "40 CFR 1090.215(a)(1)", "notes": "Conventional statewide; 1-psi waiver for E10"}, {"state": "North Dakota", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "", "auth": "40 CFR 1090.215(a)(1)", "notes": "1-psi waiver for E10"}, {"state": "Ohio", "tier": "9.0 psi (NO waiver)", "base": 9.0, "e10": 9.0, "waiver": "NO \u26a0", "special": "\u2014", "specialNotes": "1-PSI WAIVER REMOVED Apr 28, 2025", "auth": "40 CFR 1090.215; 89 FR 14759", "notes": "\u26a0 E10 must meet 9.0 psi; no relief to 10.0"}, {"state": "Oklahoma", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "", "auth": "40 CFR 1090.215(a)(1)", "notes": "1-psi waiver for E10"}, {"state": "Oregon", "tier": "9.0 / 7.8 psi", "base": null, "e10": null, "waiver": "Partial", "special": "7.8 (Portland/Salem AQMA)", "specialNotes": "Portland AQMA (parts of Clackamas, Multnomah, Washington) & Salem ATSA (Marion, Polk): 7.8 psi per Table 5/D4814", "auth": "40 CFR 1090.215(a)(2)", "notes": "AQMA-only; rural OR is 9.0 psi with 1-psi waiver"}, {"state": "Pennsylvania", "tier": "RFG / 9.0", "base": null, "e10": null, "waiver": "Partial", "special": "7.4 (Phila + Pittsburgh)", "specialNotes": "Philadelphia (Bucks, Chester, Delaware, Montgomery, Philadelphia) + Pittsburgh (7 counties): RFG", "auth": "40 CFR 1090.215(a)(3)", "notes": "Central/western PA: 9.0 psi with 1-psi waiver"}, {"state": "Rhode Island", "tier": "RFG 7.4 psi", "base": 7.4, "e10": null, "waiver": "NO", "special": "\u2014", "specialNotes": "Statewide RFG per Table 6", "auth": "40 CFR 1090.215(a)(3)", "notes": "No 1-psi waiver"}, {"state": "South Carolina", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "", "auth": "40 CFR 1090.215(a)(1)", "notes": "1-psi waiver for E10"}, {"state": "South Dakota", "tier": "9.0 psi (NO waiver)", "base": 9.0, "e10": 9.0, "waiver": "NO \u26a0", "special": "\u2014", "specialNotes": "1-PSI WAIVER REMOVED Apr 28, 2025", "auth": "40 CFR 1090.215; 89 FR 14759", "notes": "\u26a0 E10 must meet 9.0 psi; no relief to 10.0"}, {"state": "Tennessee", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "Nashville opted out of RFG", "auth": "40 CFR 1090.215(a)(1)", "notes": "Conventional statewide; 1-psi waiver for E10"}, {"state": "Texas", "tier": "RFG / 7.8 / 9.0", "base": null, "e10": null, "waiver": "Partial", "special": "7.4 (Houston+DFW RFG); 7.8 (Beaumont-PA)", "specialNotes": "Houston (8 cos): RFG 7.4. DFW (10 cos, mandatory eff. 11/7/2023): RFG 7.4. Beaumont-PA (Hardin, Jefferson, Orange): 7.8 psi per Table 5/D4814. Rest: 9.0.", "auth": "40 CFR 1090.215(a)(2)/(a)(3)", "notes": "3 tiers. 1-psi waiver only in 9.0 psi areas of TX"}, {"state": "Utah", "tier": "9.0 / 7.8 psi", "base": null, "e10": null, "waiver": "Partial", "special": "7.8 (Davis & Salt Lake Co.)", "specialNotes": "Davis & Salt Lake counties: 7.8 psi per Table 5/D4814; E10=8.8. Rest of UT: 9.0 E10=10.0", "auth": "40 CFR 1090.215(a)(2)", "notes": "SLC metro: 7.8 psi"}, {"state": "Vermont", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "VT opted out of federal RFG transport region program", "auth": "40 CFR 1090.215(a)(1)", "notes": "1-psi waiver for E10"}, {"state": "Virginia", "tier": "RFG / 9.0", "base": null, "e10": null, "waiver": "Partial", "special": "7.4 (Northern VA)", "specialNotes": "Arlington, Fairfax, Loudoun, Prince William + 5 independent cities: RFG. Rest of VA: 9.0 E10=10.0", "auth": "40 CFR 1090.215(a)(3)", "notes": ""}, {"state": "Washington", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "No WA counties in federal 7.8 psi Table 5", "auth": "40 CFR 1090.215(a)(1)", "notes": "1-psi waiver for E10 statewide"}, {"state": "West Virginia", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "", "auth": "40 CFR 1090.215(a)(1)", "notes": "1-psi waiver for E10"}, {"state": "Wisconsin", "tier": "RFG / 9.0 (NO waiver)", "base": null, "e10": 9.0, "waiver": "NO \u26a0", "special": "7.4 (Milwaukee RFG)", "specialNotes": "Milwaukee (Milwaukee, Ozaukee, Racine, Waukesha): RFG. Rest of WI: 9.0 psi \u2014 1-PSI WAIVER REMOVED", "auth": "40 CFR 1090.215(a)(3); 89 FR 14759", "notes": "\u26a0 1-psi waiver removed 4/28/2025 for non-RFG WI"}, {"state": "Wyoming", "tier": "9.0 psi Federal", "base": 9.0, "e10": 10.0, "waiver": "YES", "special": "\u2014", "specialNotes": "", "auth": "40 CFR 1090.215(a)(1)", "notes": "1-psi waiver for E10. ASTM Table 4: E-5 winter class (15.0 psi max) \u2014 high butane blending headroom Oct\u2013Apr"}], "monthly": [{"state": "Alabama", "sub": "\u2014", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 13.5, "Apr": 11.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 11.5, "Dec": 13.5}}, {"state": "Alaska", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 15.0, "May": 15.0, "Jun": 13.5, "Jul": 13.5, "Aug": 13.5, "Sep1_15": 13.5, "Sep16_30": 13.5, "Oct": 15.0, "Nov": 15.0, "Dec": 15.0}}, {"state": "Arizona", "sub": "N 34\u00b0 Lat & E 111\u00b0", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 11.5, "Apr": 11.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "Arizona", "sub": "Remainder of State", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 11.5, "Apr": 10.0, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 9.0, "Nov": 10.0, "Dec": 11.5}}, {"state": "Arkansas", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 13.5, "Mar": 13.5, "Apr": 11.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 11.5, "Dec": 13.5}}, {"state": "California", "sub": "North Coast", "m": {"Jan": 15.0, "Feb": 13.5, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "California", "sub": "South Coast", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 13.5, "Apr": 11.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "California", "sub": "Southeast", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 13.5, "Apr": 11.5, "May": 10.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "California", "sub": "Interior", "m": {"Jan": 15.0, "Feb": 13.5, "Mar": 13.5, "Apr": 11.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "Colorado", "sub": "\u2014", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 11.5, "Apr": 11.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "Connecticut", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 13.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Delaware", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "District of Columbia", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 13.5}}, {"state": "Florida", "sub": "\u2014", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 13.5, "Apr": 11.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 11.5, "Dec": 13.5}}, {"state": "Georgia", "sub": "\u2014", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 13.5, "Apr": 11.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 11.5, "Dec": 13.5}}, {"state": "Hawaii", "sub": "\u2014", "m": {"Jan": 11.5, "Feb": 11.5, "Mar": 11.5, "Apr": 11.5, "May": 11.5, "Jun": 11.5, "Jul": 11.5, "Aug": 11.5, "Sep1_15": 11.5, "Sep16_30": 11.5, "Oct": 11.5, "Nov": 11.5, "Dec": 11.5}}, {"state": "Idaho", "sub": "N 46\u00b0 Latitude", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Idaho", "sub": "S 46\u00b0 Latitude", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 13.5, "Dec": 15.0}}, {"state": "Illinois", "sub": "N 40\u00b0 Latitude", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Illinois", "sub": "S 40\u00b0 Latitude", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 13.5}}, {"state": "Indiana", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Iowa", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Kansas", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 11.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "Kentucky", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 13.5}}, {"state": "Louisiana", "sub": "\u2014", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 13.5, "Apr": 11.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 11.5, "Dec": 13.5}}, {"state": "Maine", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 15.0, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 13.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Maryland", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Massachusetts", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 13.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Michigan", "sub": "Lower Michigan", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 13.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Michigan", "sub": "Upper Michigan", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 13.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Minnesota", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Mississippi", "sub": "\u2014", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 13.5, "Apr": 11.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 11.5, "Dec": 13.5}}, {"state": "Missouri", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 13.5}}, {"state": "Montana", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Nebraska", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "Nevada", "sub": "N 38\u00b0 Latitude", "m": {"Jan": 15.0, "Feb": 13.5, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "Nevada", "sub": "S 38\u00b0 Latitude", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 11.5, "Apr": 11.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "New Hampshire", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 13.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "New Jersey", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 13.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "New Mexico", "sub": "N 34\u00b0 Latitude", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 11.5, "Apr": 11.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "New Mexico", "sub": "S 34\u00b0 Latitude", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 11.5, "Apr": 11.5, "May": 10.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "New York", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 13.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "North Carolina", "sub": "\u2014", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 13.5}}, {"state": "North Dakota", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Ohio", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Oklahoma", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 13.5, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "Oregon", "sub": "E 122\u00b0 Longitude", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Oregon", "sub": "W 122\u00b0 Longitude", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 11.5, "Dec": 13.5}}, {"state": "Pennsylvania", "sub": "N 41\u00b0 Latitude", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 13.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Pennsylvania", "sub": "S 41\u00b0 Latitude", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Rhode Island", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 13.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "South Carolina", "sub": "\u2014", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 13.5, "Apr": 11.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 11.5, "Dec": 13.5}}, {"state": "South Dakota", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "Tennessee", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 13.5, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 11.5, "Dec": 13.5}}, {"state": "Texas", "sub": "E 99\u00b0 Longitude", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 11.5, "Apr": 11.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "Texas", "sub": "W 99\u00b0 Longitude", "m": {"Jan": 13.5, "Feb": 13.5, "Mar": 11.5, "Apr": 10.0, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 11.5}}, {"state": "Utah", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 13.5, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "Vermont", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 13.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Virginia", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 13.5}}, {"state": "Washington", "sub": "E 122\u00b0 Longitude", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Washington", "sub": "W 122\u00b0 Longitude", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 13.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "West Virginia", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 11.5, "Dec": 13.5}}, {"state": "Wisconsin", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 15.0, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 11.5, "Nov": 13.5, "Dec": 15.0}}, {"state": "Wyoming", "sub": "\u2014", "m": {"Jan": 15.0, "Feb": 15.0, "Mar": 13.5, "Apr": 13.5, "May": 9.0, "Jun": 9.0, "Jul": 9.0, "Aug": 9.0, "Sep1_15": 9.0, "Sep16_30": 9.0, "Oct": 10.0, "Nov": 11.5, "Dec": 13.5}}, {"state": "COLOR KEY:  Pink = Class E (\u226415.0 psi)  |  Orange = Class D (\u226413.5 psi)  |  Yellow = Class C (\u226411.5 psi)  |  Green = Class B (\u226410.0 psi)  |  Blue = Class A (\u22649.0 psi)  |  Gold = EPA/RFG/SIP summer cap applies  |  \u2605 = Consult 40 CFR 1090.215 and applicable SIP/RFG rules for actual RVP limit", "sub": "\u2014", "m": {"Jan": null, "Feb": null, "Mar": null, "Apr": null, "May": null, "Jun": null, "Jul": null, "Aug": null, "Sep1_15": null, "Sep16_30": null, "Oct": null, "Nov": null, "Dec": null}}], "a78": [{"area": "Denver-Boulder-Greeley- Ft. Collins-Loveland", "state": "Colorado", "counties": "Adams, Arapahoe, Boulder, Broomfield, Denver, Douglas, Jefferson, Larimer (FC-Loveland area only), Weld (Greeley-FC area only)", "base": 7.8, "e10": 8.8, "notes": "ALSO now mandatory RFG (7.4 psi) per Oct 2023 reclassification to Severe ozone nonattainment. RFG supersedes 7.8 psi in core Denver metro."}, {"area": "Reno", "state": "Nevada", "counties": "Washoe County (Reno-Sparks metro area)", "base": 7.8, "e10": 8.8, "notes": "Clark County (Las Vegas) is NOT included; Las Vegas uses 9.0 psi."}, {"area": "Portland AQMA", "state": "Oregon", "counties": "Clackamas County (AQMA portion only), Multnomah County (AQMA portion only), Washington County (AQMA portion only)", "base": 7.8, "e10": 8.8, "notes": "Only the Air Quality Maintenance Area portions. Rural portions outside AQMA use 9.0 psi."}, {"area": "Salem ATSA", "state": "Oregon", "counties": "Marion County (Salem Area Transportation Study portion only), Polk County (Salem ATSA portion only)", "base": 7.8, "e10": 8.8, "notes": "Only the Salem Area Transportation Study boundaries."}, {"area": "Beaumont-Port Arthur", "state": "Texas", "counties": "Hardin County, Jefferson County, Orange County", "base": 7.8, "e10": 8.8, "notes": "This is a CONVENTIONAL gasoline 7.8 psi area \u2014 NOT an RFG area. Distinct from Houston-Galveston and DFW RFG areas."}, {"area": "Salt Lake City", "state": "Utah", "counties": "Davis County, Salt Lake County", "base": 7.8, "e10": 8.8, "notes": "SLC Wasatch Front. Remaining Utah counties: 9.0 psi with 1-psi waiver."}], "rfg": [{"state": "California", "area": "Statewide (CaRFG3)", "counties": "El Dorado (part), Fresno, Kern, Kings, Los Angeles, Madera, Merced, Orange, Placer (part), Riverside (part), Sacramento, San Bernardino (part), San Diego, San J", "type": "State RFG (CaRFG3)", "notes": "CA uses own CaRFG3 per CARB. EPA exempted from federal RFG. RVP: 7.0/6.9 psi. Season: Apr 1\u2013Oct 31."}, {"state": "Colorado", "area": "Denver-Boulder-Greeley-Ft. Collins-Loveland", "counties": "Adams, Arapahoe, Boulder, Broomfield, Denver, Douglas, Jefferson, Larimer (part), Weld (part)", "type": "Mandatory Federal RFG (eff. Nov 7, 2023)", "notes": "Reclassified Severe for 2008 ozone NAAQS. Previously 7.8 psi conv.; now 7.4 psi RFG."}, {"state": "Connecticut", "area": "All Counties", "counties": "All Connecticut counties", "type": "Mandatory Federal RFG", "notes": "Statewide RFG."}, {"state": "Delaware", "area": "New Castle County", "counties": "New Castle County only", "type": "Mandatory Federal RFG", "notes": "Kent and Sussex cos: conventional 9.0 psi with 1-psi waiver."}, {"state": "Dist. of Columbia", "area": "Entire DC", "counties": "All DC", "type": "Mandatory Federal RFG", "notes": ""}, {"state": "Illinois", "area": "Chicago Metro", "counties": "Cook, Du Page, Grundy (part), Jersey (part), Kane, Kendall (part), Lake, Madison, McHenry, Monroe, St. Clair, and Will Counties", "type": "Mandatory Federal RFG", "notes": "Note: 1-psi waiver also removed statewide (non-RFG IL) eff. 4/28/2025."}, {"state": "Indiana", "area": "Chicago Area", "counties": "Lake and Porter Counties", "type": "Mandatory Federal RFG", "notes": "Only these two Chicago-area counties; rest of IN retains 1-psi waiver."}, {"state": "Kentucky", "area": "Louisville area", "counties": "Bullitt (part), Jefferson, and Oldham (part) Counties", "type": "Mandatory Federal RFG", "notes": "Louisville RFG area."}, {"state": "Maine", "area": "Southern Maine", "counties": "York, Cumberland, Sagadahoc, Androscoggin, Kennebec, Knox, Lincoln counties", "type": "Mandatory Federal RFG (eff. May 2015)", "notes": "Northern ME: conventional 9.0 psi with 1-psi waiver."}, {"state": "Maryland", "area": "Baltimore Metro & DC Suburbs", "counties": "Anne Arundel, Baltimore, Calvert, Carroll, Cecil, Charles, Frederick, Harford, Howard, Kent, Montgomery, Prince George's, Queen Anne's + Baltimore City", "type": "Mandatory Federal RFG", "notes": "Eastern Shore and western MD: conventional."}, {"state": "Massachusetts", "area": "All Counties", "counties": "All Massachusetts counties", "type": "Mandatory Federal RFG", "notes": "Statewide RFG."}, {"state": "Missouri", "area": "St. Louis Metro (MO side)", "counties": "Franklin, Jefferson, Saint Charles, and Saint Louis counties; and the City of St. Louis", "type": "Mandatory Federal RFG", "notes": "IL-side St. Louis RFG also includes Madison and St. Clair cos. (IL). 1-psi waiver removed for non-RFG MO eff. 4/28/2025."}, {"state": "New Hampshire", "area": "Southern NH", "counties": "Hillsborough, Merrimack, Rockingham, and Strafford Counties", "type": "Mandatory Federal RFG", "notes": "Northern NH: 9.0 psi with 1-psi waiver."}, {"state": "New Jersey", "area": "All Counties", "counties": "All New Jersey counties", "type": "Mandatory Federal RFG", "notes": "Statewide RFG."}, {"state": "New York", "area": "NYC Metro + Capital Dist.", "counties": "Bronx, Dutchess, Essex (part), Kings, Nassau, New York, Orange, Putnam, Queens, Richmond, Rockland, Suffolk, and Westchester Counties", "type": "Mandatory Federal RFG", "notes": "Western NY/Adirondacks: conventional 9.0 psi with 1-psi waiver."}, {"state": "Pennsylvania", "area": "Philadelphia + Pittsburgh", "counties": "Philadelphia area: Bucks, Chester, Delaware, Montgomery, Philadelphia. Pittsburgh area: Allegheny, Armstrong, Beaver, Butler, Fayette, Washington, Westmoreland", "type": "Mandatory Federal RFG", "notes": "Two separate RFG clusters; central/western PA conventional."}, {"state": "Rhode Island", "area": "All Counties", "counties": "All Rhode Island counties", "type": "Mandatory Federal RFG", "notes": "Statewide RFG."}, {"state": "Texas", "area": "Houston-Galveston-Brazoria", "counties": "Brazoria, Chambers, Collin, Dallas, Denton, Ellis, Fort Bend, Galveston, Harris, Johnson, Kaufman, Liberty, Montgomery, Parker, Rockwall, Tarrant, Waller, and W", "type": "Mandatory Federal RFG", "notes": "Houston 8-county area + DFW 10-county area (DFW mandatory RFG eff. Nov 7, 2023)."}, {"state": "Virginia", "area": "Northern Virginia", "counties": "Arlington, Charles City, Chesterfield, Fairfax, Hanover, Henrico, James City, Loudoun, Prince William, Stafford, York counties + independent cities of Alexandri", "type": "Mandatory Federal RFG", "notes": "Rest of VA: 9.0 psi with 1-psi waiver."}, {"state": "Wisconsin", "area": "Milwaukee Metro", "counties": "Kenosha, Milwaukee, Ozaukee, Racine, Washington, and Waukesha Counties", "type": "Mandatory Federal RFG", "notes": "1-psi waiver removed for non-RFG WI eff. 4/28/2025."}], "sip": [{"area": "Arizona \u2014 Maricopa County (Phoenix), Pinal County, Yavapai County (CBG area)", "counties": "Maricopa Co., Pinal Co., Yavapai Co. (part) \u2014 per Arizona Revised Statutes \u00a749-541 for boundaries", "max": 7.0, "season": "June 1\u2013Sep 30 retail; May 1 terminal. 9.0 psi in May, Apr.", "waiver": "YES \u2014 1-psi waiver applies for April only (E10 = 8.0 psi in April).", "notes": "AZ Cleaner Burning Gasoline (CBG) program. Note B: 1-psi higher VP allowed for gasoline-ethanol blends containing 9-10% ethanol in CBG area."}, {"area": "California (statewide \u2014 CaRFG3)", "counties": "All California counties per CARB air basin designation", "max": 7.0, "season": "Apr 1\u2013Oct 31 at refinery; varies by air basin", "waiver": "NO \u2014 no 1-psi waiver", "notes": "CARB regulates. Different basins have different season start dates. See D4814 Table 4 footnotes for CARB air basin details."}, {"area": "Indiana \u2014 Clark and Floyd Counties", "counties": "Clark County, Floyd County", "max": 7.8, "season": "May 1 terminal / June 1 retail \u2013 Sep 15", "waiver": "NO \u2014 no 1-psi waiver in SIP areas", "notes": "Indiana SIP for Louisville-area Indiana counties."}, {"area": "Michigan \u2014 7 SE Counties", "counties": "Lenawee, Livingston, Macomb, Monroe, Oakland, St. Clair, Washtenaw, Wayne counties", "max": 7.0, "season": "June 1\u2013Sep 15 retail; May 1 terminal", "waiver": "NO \u2014 no 1-psi waiver in SIP areas", "notes": "Detroit metro area SIP-controlled. See D4814 Table 7 footnote E for Lower/Upper Michigan split."}, {"area": "Texas \u2014 El Paso County", "counties": "El Paso County", "max": 7.0, "season": "May 1 terminal / June 1 retail \u2013 Sep 15", "waiver": "NO", "notes": "El Paso SIP area."}, {"area": "Texas \u2014 Multiple counties (East/Central TX)", "counties": "Anderson, Angelina, Aransas, Atascosa, Austin, Bastrop, Bee, Bell, Bexar, Bosque, Bowie, Brazos, Burleson, Caldwell, Calhoun, Camp, Cass, Cherokee, Colorado, Co", "max": 7.8, "season": "May 1 terminal / June 1 retail \u2013 Oct 1", "waiver": "YES \u2014 1-psi waiver for E10 (final product \u2264 8.8 psi)", "notes": "Large East/Central Texas SIP area. Note end date is October 1 (not September 15)."}], "source": "US_Gasoline_RVP_Reference_v3 (ASTM D4814-24a + EPA 40 CFR 1090.215)", "cls": [{"state": "Alabama", "sub": "\u2014", "m": {"Jan": ["D"], "Feb": ["D"], "Mar": ["C", "D"], "Apr": ["A", "C"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "C"], "Oct": ["C"], "Nov": ["C", "D"], "Dec": ["D"]}}, {"state": "Alaska", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["E"], "Apr": ["E"], "May": ["D", "E"], "Jun": ["D"], "Jul": ["D"], "Aug": ["D"], "Sep1_15": ["D"], "Sep16_30": ["D", "E"], "Oct": ["E"], "Nov": ["E"], "Dec": ["E"]}}, {"state": "Arizona", "sub": "N 34\u00b0 Lat & E 111\u00b0 Long", "m": {"Jan": ["D"], "Feb": ["C", "D"], "Mar": ["C"], "Apr": ["A", "C"], "May": ["A", "B"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C", "D"], "Dec": ["D"]}}, {"state": "Arizona", "sub": "Remainder of State", "m": {"Jan": ["D"], "Feb": ["C", "D"], "Mar": ["B", "C"], "Apr": ["A", "B"], "May": ["A", "B"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A"], "Oct": ["A", "B"], "Nov": ["B", "C"], "Dec": ["C", "D"]}}, {"state": "Arkansas", "sub": "\u2014", "m": {"Jan": ["D", "E"], "Feb": ["D"], "Mar": ["C", "D"], "Apr": ["A", "C"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C"], "Nov": ["C", "D"], "Dec": ["D", "E"]}}, {"state": "California", "sub": "North Coast", "m": {"Jan": ["D", "E"], "Feb": ["D"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C", "D"], "Dec": ["D", "E"]}}, {"state": "California", "sub": "South Coast", "m": {"Jan": ["D"], "Feb": ["D"], "Mar": ["C", "D"], "Apr": ["A", "C"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C", "D"], "Dec": ["D"]}}, {"state": "California", "sub": "Southeast", "m": {"Jan": ["D"], "Feb": ["D"], "Mar": ["C", "D"], "Apr": ["B", "C"], "May": ["A", "B"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C", "D"], "Dec": ["D"]}}, {"state": "California", "sub": "Interior", "m": {"Jan": ["D", "E"], "Feb": ["D"], "Mar": ["C", "D"], "Apr": ["A", "C"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C", "D"], "Dec": ["D", "E"]}}, {"state": "Colorado", "sub": "\u2014", "m": {"Jan": ["D"], "Feb": ["C", "D"], "Mar": ["C"], "Apr": ["A", "C"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C", "D"], "Dec": ["D"]}}, {"state": "Connecticut", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "D"], "Oct": ["D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Delaware", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "District of Columbia", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D"], "Dec": ["D", "E"]}}, {"state": "Florida", "sub": "\u2014", "m": {"Jan": ["D"], "Feb": ["D"], "Mar": ["C", "D"], "Apr": ["A", "C"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C"], "Nov": ["C", "D"], "Dec": ["D"]}}, {"state": "Georgia", "sub": "\u2014", "m": {"Jan": ["D"], "Feb": ["D"], "Mar": ["C", "D"], "Apr": ["A", "C"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C"], "Nov": ["C", "D"], "Dec": ["D"]}}, {"state": "Hawaii", "sub": "\u2014", "m": {"Jan": ["C"], "Feb": ["C"], "Mar": ["C"], "Apr": ["C"], "May": ["C"], "Jun": ["C"], "Jul": ["C"], "Aug": ["C"], "Sep1_15": ["C"], "Sep16_30": ["C"], "Oct": ["C"], "Nov": ["C"], "Dec": ["C"]}}, {"state": "Idaho", "sub": "N 46\u00b0 Latitude", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Idaho", "sub": "S 46\u00b0 Latitude", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "B"], "Oct": ["B", "D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Illinois", "sub": "N 40\u00b0 Latitude", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Illinois", "sub": "S 40\u00b0 Latitude", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D"], "Dec": ["D", "E"]}}, {"state": "Indiana", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Iowa", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Kansas", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["C", "D"], "Apr": ["A", "C"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C", "D"], "Dec": ["D", "E"]}}, {"state": "Kentucky", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D"], "Dec": ["D", "E"]}}, {"state": "Louisiana", "sub": "\u2014", "m": {"Jan": ["D"], "Feb": ["D"], "Mar": ["C", "D"], "Apr": ["A", "C"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C"], "Nov": ["C", "D"], "Dec": ["D"]}}, {"state": "Maine", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["E"], "Apr": ["A", "E"], "May": ["A", "D"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "D"], "Oct": ["D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Maryland", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Massachusetts", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "D"], "Oct": ["D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Michigan", "sub": "Lower Michigan", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "D"], "Oct": ["D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Michigan", "sub": "Upper Michigan", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "D"], "Oct": ["D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Minnesota", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Mississippi", "sub": "\u2014", "m": {"Jan": ["D"], "Feb": ["D"], "Mar": ["C", "D"], "Apr": ["A", "C"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C"], "Nov": ["C", "D"], "Dec": ["D"]}}, {"state": "Missouri", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D"], "Dec": ["D", "E"]}}, {"state": "Montana", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Nebraska", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C", "D"], "Dec": ["D", "E"]}}, {"state": "Nevada", "sub": "N 38\u00b0 Latitude", "m": {"Jan": ["D", "E"], "Feb": ["D"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C", "D"], "Dec": ["D", "E"]}}, {"state": "Nevada", "sub": "S 38\u00b0 Latitude", "m": {"Jan": ["C", "D"], "Feb": ["C", "D"], "Mar": ["C"], "Apr": ["A", "C"], "May": ["A", "B"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C"], "Dec": ["D"]}}, {"state": "New Hampshire", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "D"], "Oct": ["D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "New Jersey", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "D"], "Oct": ["D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "New Mexico", "sub": "N 34\u00b0 Latitude", "m": {"Jan": ["D"], "Feb": ["C", "D"], "Mar": ["C"], "Apr": ["A", "C"], "May": ["A", "B"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C", "D"], "Dec": ["D"]}}, {"state": "New Mexico", "sub": "S 34\u00b0 Latitude", "m": {"Jan": ["C", "D"], "Feb": ["C", "D"], "Mar": ["C"], "Apr": ["B", "C"], "May": ["A", "B"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C"], "Dec": ["D"]}}, {"state": "New York", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "D"], "Oct": ["D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "North Carolina", "sub": "\u2014", "m": {"Jan": ["D"], "Feb": ["D"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D"], "Dec": ["D"]}}, {"state": "North Dakota", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Ohio", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Oklahoma", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["C", "D"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C", "D"], "Dec": ["D", "E"]}}, {"state": "Oregon", "sub": "E 122\u00b0 Longitude", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Oregon", "sub": "W 122\u00b0 Longitude", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "C"], "Oct": ["C"], "Nov": ["C", "D"], "Dec": ["D"]}}, {"state": "Pennsylvania", "sub": "N 41\u00b0 Latitude", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "D"], "Oct": ["D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Pennsylvania", "sub": "S 41\u00b0 Latitude", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Rhode Island", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "D"], "Oct": ["D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "South Carolina", "sub": "\u2014", "m": {"Jan": ["D"], "Feb": ["D"], "Mar": ["C", "D"], "Apr": ["A", "C"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C"], "Nov": ["C", "D"], "Dec": ["D"]}}, {"state": "South Dakota", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C", "D"], "Dec": ["D", "E"]}}, {"state": "Tennessee", "sub": "\u2014", "m": {"Jan": ["D", "E"], "Feb": ["D"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C"], "Nov": ["C", "D"], "Dec": ["D", "E"]}}, {"state": "Texas", "sub": "E 99\u00b0 Longitude", "m": {"Jan": ["D"], "Feb": ["C", "D"], "Mar": ["C"], "Apr": ["A", "C"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C", "D"], "Dec": ["D"]}}, {"state": "Texas", "sub": "W 99\u00b0 Longitude", "m": {"Jan": ["D"], "Feb": ["C", "D"], "Mar": ["B", "C"], "Apr": ["A", "B"], "May": ["A", "B"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C"], "Dec": ["C", "D"]}}, {"state": "Utah", "sub": "\u2014", "m": {"Jan": ["D", "E"], "Feb": ["D"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C", "D"], "Dec": ["D", "E"]}}, {"state": "Vermont", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "D"], "Oct": ["D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Virginia", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D"], "Dec": ["D", "E"]}}, {"state": "Washington", "sub": "E 122\u00b0 Longitude", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Washington", "sub": "W 122\u00b0 Longitude", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "D"], "Oct": ["D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "West Virginia", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "C"], "Oct": ["C"], "Nov": ["C", "D"], "Dec": ["D", "E"]}}, {"state": "Wisconsin", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["E"], "Mar": ["D", "E"], "Apr": ["A", "D"], "May": ["A", "D"], "Jun": ["A", "C"], "Jul": ["A", "C"], "Aug": ["A", "C"], "Sep1_15": ["A", "C"], "Sep16_30": ["A", "C"], "Oct": ["C", "D"], "Nov": ["D", "E"], "Dec": ["E"]}}, {"state": "Wyoming", "sub": "\u2014", "m": {"Jan": ["E"], "Feb": ["D", "E"], "Mar": ["D"], "Apr": ["A", "D"], "May": ["A", "C"], "Jun": ["A"], "Jul": ["A"], "Aug": ["A"], "Sep1_15": ["A"], "Sep16_30": ["A", "B"], "Oct": ["B", "C"], "Nov": ["C", "D"], "Dec": ["D", "E"]}}, {"state": "CLASS MAX RVP (Table 1):  AAA=7.4 psi  |  AA=7.8 psi  |  A=9.0 psi  |  B=10.0 psi  |  C=11.5 psi  |  D=13.5 psi  |  E=15.0 psi   |   ^C = Consult Tables 5-7 (RFG/SIP apply)   |   Parenthetical = retail allowance", "sub": "\u2014", "m": {"Jan": [], "Feb": [], "Mar": [], "Apr": [], "May": [], "Jun": [], "Jul": [], "Aug": [], "Sep1_15": [], "Sep16_30": [], "Oct": [], "Nov": [], "Dec": []}}]};
+/* ── Third-Party CoA Review — application ───────────────────────────── */
+const f2=n=>Number(n).toFixed(2);
+const MONTHS=[['Jan','January'],['Feb','February'],['Mar','March'],['Apr','April'],['May','May'],['Jun','June'],['Jul','July'],['Aug','August'],['Sep1_15','Sep 1–15'],['Sep16_30','Sep 16–30'],['Oct','October'],['Nov','November'],['Dec','December']];
+const SUMMER_MONTHS=['May','Jun','Jul','Aug','Sep1_15'];
+/* ASTM D4814 vapor pressure classes — Table 1 RVP max, psi */
+const CLASSES=[['AAA',7.4],['AA',7.8],['A',9.0],['B',10.0],['C',11.5],['D',13.5],['E',15.0]];
+/* period calendar for future-release computation — [monthly key, 0-based month, start day] */
+const PERIODS=[['Jan',0,1],['Feb',1,1],['Mar',2,1],['Apr',3,1],['May',4,1],['Jun',5,1],['Jul',6,1],['Aug',7,1],['Sep1_15',8,1],['Sep16_30',8,16],['Oct',9,1],['Nov',10,1],['Dec',11,1]];
+/* ASTM D5191 reproducibility, level-dependent: R = 0.0161 × (DVPE + 18.0) psi — confirm against current D5191 precision section */
+const dvpeR=x=>0.0161*(x+18.0);
+/* D86 T50 reproducibility as a function of slope, fit to Test_Method_Precisions.xlsx lookup values
+   (R_C = 2.583 + 1.196·Sc, Sc=(T60−T40)/20 °C/%; in °F: R_F = 4.649 + 1.196·S_F) — source table citation pending */
+const t50R=sf=>4.649+1.196*sf;
+const AVG_SF=3.40;  /* average slope across the 31-sample precision workbook — used when T40/T60 not reported */
+const fmtDate=d=>d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+function periodIdx(d){const m=d.getMonth(),day=d.getDate();for(let i=PERIODS.length-1;i>=0;i--){if(m>PERIODS[i][1]||(m===PERIODS[i][1]&&day>=PERIODS[i][2]))return i;}return 0;}
+/* first date on/after fromDate at which the location's schedule permits the target class:
+   monthly RVP limit ≥ class RVP max AND the period's class-window T50 max ≥ the target class T50 max */
+function classRelease(st, classKey, fromDate){
+ const cl=CLASSES.find(c=>c[0]===classKey); if(!cl) return {none:true, why:'unknown class '+classKey};
+ const rows=LIMITS.monthly.filter(m=>m.state===st);
+ if(!rows.length) return {none:true, why:'no monthly schedule for '+st+' in the reference'};
+ const subSel=document.getElementById('lim-sub');
+ const subIdx=rows.length>1&&subSel&&subSel.value!==''?+subSel.value:0;
+ const row=rows[Math.min(subIdx,rows.length-1)];
+ const tMax=T50_MAX[classKey]??0;
+ const start=periodIdx(fromDate);
+ for(let k=0;k<PERIODS.length;k++){
+  const i=(start+k)%PERIODS.length, key=PERIODS[i][0];
+  const v=row.m[key]; if(v==null) continue;
+  const dc=distClass(st, key, subIdx);
+  if(v>=cl[1]-1e-9 && (!dc||dc.max>=tMax-1e-9)){
+   const label=MONTHS.find(x=>x[0]===key)[1];
+   if(k===0) return {immediate:true, sub:row.sub, periodLabel:label};
+   const d=new Date(fromDate.getFullYear()+((start+k)>=PERIODS.length?1:0),PERIODS[i][1],PERIODS[i][2]);
+   return {immediate:false, dateStr:fmtDate(d), dateISO:d.toISOString().slice(0,10), sub:row.sub, periodLabel:label};
+  }
+ }
+ return {none:true, sub:row.sub, why:'the '+st+(row.sub&&row.sub!=='—'?' ('+row.sub+')':'')+' schedule never permits Class '+classKey+' ('+f2(cl[1])+' psi / T50 max '+tMax+'°F)'};
+}
+const CONFIG={USE_LIVE:false, BASE:''};   // gp_coa_server.py flips USE_LIVE when serving
+let VIEWING=false;   // outcome panel is showing a logged decision, not a fresh evaluation
+let COA=null;        // verified data under review {header, rows[]}
+let SRC='manual';    // provenance
+let SEQ=0;
+const LOG=[];
+
+window.setCoA=(c,src)=>{COA=Object.assign({fails:[]},c);SRC=src;};
+let PDFDOC=null, PDFNAME='', PDFSCALE=1.0;
+window.setPdfDoc=(d,n)=>{PDFDOC=d;PDFNAME=n;};
+/* ── PDF → layout lines (group text items by y, order by x) ── */
+async function extractLines(file){
+ const buf=await file.arrayBuffer();
+ const pdf=await pdfjsLib.getDocument({data:buf}).promise;
+ PDFDOC=pdf; PDFNAME=file.name; PDFSCALE=1.0;
+ return linesFromDoc(pdf);
+}
+async function linesFromDoc(pdf){
+ const out=[];
+ for(let p=1;p<=pdf.numPages;p++){
+  const page=await pdf.getPage(p);
+  const tc=await page.getTextContent();
+  const items=tc.items.filter(i=>i.str.trim()).map(i=>({y:i.transform[5],x:i.transform[4],s:i.str})).sort((a,b)=>b.y-a.y||a.x-b.x);
+  const lines=[]; let cur=null;
+  items.forEach(it=>{ if(!cur||Math.abs(cur.y-it.y)>2.5){cur={y:it.y,parts:[]};lines.push(cur);} cur.parts.push(it); });
+  lines.forEach(l=>out.push(l.parts.sort((a,b)=>a.x-b.x).map(p=>p.s).join('   ')));
+  out.push('');
+ }
+ return out.join('\n');
+}
+
+async function handlePdf(inp){
+ const f=inp.files&&inp.files[0]; if(!f) return;
+ const stat=document.getElementById('parsestat');
+ stat.textContent='Reading '+f.name+' …';
+ let text='';
+ try{ text=await extractLines(f); }
+ catch(e){ stat.textContent='Could not read the PDF ('+e.message+') — use manual entry.'; return; }
+ const parsed=parseCoAText(text);
+ SRC=parsed.lab==='unknown'?'manual (unrecognized format: '+f.name+')':'parsed from '+f.name+' ('+parsed.lab+')';
+ stat.textContent=parsed.lab==='unknown'
+  ?'Format not recognized — grid opened for manual entry.'
+  :'Parsed as '+parsed.lab.toUpperCase()+' — '+parsed.rows.length+' sample result(s). Verify below.';
+ COA={header:parsed.header, rows:parsed.rows, fails:parsed.fails||[]};
+ renderVerify(parsed.lab!=='unknown');
+ inp.value='';
+}
+
+/* ── parsers (operate on layout-line text) ── */
+function parseCoAText(text){
+ if(/DVPE \((?:EPA|ASTM)\)/.test(text)) return parseCamin(text);
+ if(/DVPE, ASTM equation/.test(text)) return parseSPL(text);
+ return {lab:'unknown', header:{}, rows:[]};
+}
+function scanFails(text){
+ return text.split('\n')
+  .filter(l=>/\bFail\b/.test(l)&&!/Pass if the values|decision rules|statement of conformity/i.test(l))
+  .map(l=>l.trim().replace(/\s{2,}/g,' · ').slice(0,120));
+}
+function parseCamin(text){
+ const h={lab:'Camin Cargo Control'};
+ h.cert=(text.match(/CERTIFICATE OF ANALYSIS N.?\s*([A-Z]{2,4}-?\d+)/)||[])[1]||'';
+ h.location=((text.match(/LOCATION\s*:\s*(.+?)(?:\s{2,}|$)/m)||[])[1]||'').trim();
+ if(!h.location){const locs=[...text.matchAll(/([A-Za-z .]+,\s*[A-Z]{2}\s+\d{5})/g)].map(m=>m[1].trim());
+  h.location=locs.find(l=>!/Lauderdale/i.test(l))||'';}
+ h.product=((text.match(/PRODUCT\s*:\s*(.+?)(?:\s{2,}|$)/m)||[])[1]||'').trim();
+ h.batch=(text.match(/Batch ID#?[\s\S]{0,160}?(\d{3,7})/)||[])[1]||(text.match(/REF\.?\s*NO\.?\s*:?[\s\S]{0,30}?(\d{3,7})/)||[])[1]||'';
+ h.sampleDate=(text.match(/(\d{2}-[A-Z]{3}-\d{4})/)||[])[1]||'';
+ const rows=[];
+ const chunks=text.split(/TK\s*:/).slice(1);
+ chunks.forEach(ch=>{
+  const lvl=(ch.match(/(Upper|Middle|Lower|Running\s*\+\s*10%\s*ETOH|Running|Hand\s*Blend\s*\+\s*10%)/i)||[])[1];
+  if(!lvl) return;
+  const tank=(ch.match(/^\s*(\S+)/)||[])[1]||'';
+  const api=(ch.match(/API Gravity @ 60°F(?:\s*\(w\/ 10% ETOH\))?\s+([\d.]+)/)||[])[1];
+  const dv=ch.match(/DVPE \((?:EPA|ASTM)\)(?:\s*\(w\/ 10% ETOH\))?\s+([\d.]+)\s*psi(?:\s+([\d.]+))?(?:\s+(Pass|Fail))?/);
+  const isE10=/\+\s*10%|Hand/i.test(lvl);
+  let labMax=dv&&dv[2]?parseFloat(dv[2]):null;
+  if(labMax!=null&&labMax<1) labMax=null;   // stray artifact column, not a spec
+  const t50=(ch.match(/50%(?:\s*\(w\/ 10% ETOH\))?(?:\s*Evaporated)?\s+([\d.]+)/)||[])[1];
+  const t40=(ch.match(/40%(?:\s*\(w\/ 10% ETOH\))?(?:\s*Evaporated)?\s+([\d.]+)/)||[])[1];
+  const t60=(ch.match(/60%(?:\s*\(w\/ 10% ETOH\))?(?:\s*Evaporated)?\s+([\d.]+)/)||[])[1];
+  rows.push({type:isE10?'e10':'blend', label:isE10?(/Running/i.test(lvl)?'Running + 10% EtOH':'Hand Blend + 10% EtOH'):lvl, tank,
+   dvpe:dv?parseFloat(dv[1]):null, api:api?parseFloat(api):null,
+   labMax, labRemark:dv&&dv[3]?dv[3]:'', t50:t50?parseFloat(t50):null,
+   t40:t40?parseFloat(t40):null, t60:t60?parseFloat(t60):null});
+ });
+ // a sample can span pages (repeated TK header) — merge rows with the same label+tank, preferring non-null fields
+ const merged=[];
+ rows.forEach(r=>{
+  const ex=merged.find(m=>m.label===r.label&&m.tank===r.tank);
+  if(!ex){merged.push(r);return;}
+  ['dvpe','api','labMax','t50','t40','t60'].forEach(k=>{if(ex[k]==null&&r[k]!=null)ex[k]=r[k];});
+  if(!ex.labRemark&&r.labRemark)ex.labRemark=r.labRemark;
+ });
+ if(!h.tank&&merged.length) h.tank=merged[0].tank;
+ return {lab:'camin', header:h, rows:merged, fails:scanFails(text)};
+}
+function parseSPL(text){
+ const h={lab:'SPL'};
+ h.cert=(text.match(/Lab ID:\s*(\S+)/)||[])[1]||'';
+ const locs=[...text.matchAll(/([A-Za-z .]+,\s*[A-Z]{2}\s+\d{5})/g)].map(m=>m[1].trim());
+ h.location=locs.find(l=>!/Coppell|Crestside/i.test(l))||locs[0]||'';
+ h.product='';
+ h.batch=(text.match(/Batch ID:\s*(\d+)/)||[])[1]||'';
+ h.tank=(text.match(/Tank #:\s*(\d+)/)||[])[1]||'';
+ h.sampleDate=(text.match(/Sample Date:\s*([\d/]+)/)||[])[1]||'';
+ const rows=[];
+ const parts=text.split(/\b(Upper|Middle|Lower|Runner\s*-\s*blended with 10% EtOH)\b/);
+ for(let i=1;i<parts.length;i+=2){
+  const lvl=parts[i], ch=parts[i+1]||'';
+  const api=(ch.match(/API Gravity @ 60°F\s+([\d.]+)/)||[])[1];
+  const dv=ch.match(/DVPE, ASTM equation\s+([\d.]+)\s*psi(?:\s+([\d.]+))?/);
+  const t50=(ch.match(/50% Evaporated\s+([\d.]+)/)||[])[1];
+  const t40=(ch.match(/40% Evaporated\s+([\d.]+)/)||[])[1];
+  const t60=(ch.match(/60% Evaporated\s+([\d.]+)/)||[])[1];
+  const isE10=/Runner/i.test(lvl);
+  rows.push({type:isE10?'e10':'blend', label:isE10?'Runner — blended with 10% EtOH':lvl, tank:h.tank,
+   dvpe:dv?parseFloat(dv[1]):null, api:api?parseFloat(api):null,
+   labMax:dv&&dv[2]?parseFloat(dv[2]):null, labRemark:'', t50:t50?parseFloat(t50):null,
+   t40:t40?parseFloat(t40):null, t60:t60?parseFloat(t60):null});
+ }
+ return {lab:'spl', header:h, rows, fails:scanFails(text)};
+}
+
+function manualEntry(){
+ SRC='manual entry'; PDFDOC=null; PDFNAME='';
+ COA={header:{lab:'',cert:'',location:'',product:'',batch:'',sampleDate:''},
+      fails:[],
+      rows:[{type:'blend',label:'Upper',dvpe:null,api:null,t50:null,t40:null,t60:null,labMax:null,labRemark:''},
+            {type:'blend',label:'Middle',dvpe:null,api:null,t50:null,t40:null,t60:null,labMax:null,labRemark:''},
+            {type:'blend',label:'Lower',dvpe:null,api:null,t50:null,t40:null,t60:null,labMax:null,labRemark:''},
+            {type:'e10',label:'Hand Blend + 10% EtOH',dvpe:null,api:null,t50:null,t40:null,t60:null,labMax:null,labRemark:''}]};
+ document.getElementById('parsestat').textContent='Manual entry grid opened.';
+ renderVerify(false);
+}
+
+/* ── limits resolution from the embedded reference ── */
+function monthFromDate(s){
+ if(!s) return null;
+ let m=s.match(/-([A-Z]{3})-/);              // 09-JUL-2026
+ if(m){const k=m[1][0]+m[1].slice(1).toLowerCase(); return MONTHS.some(x=>x[0]===k)?k:null;}
+ m=s.match(/^(\d{1,2})\//);                  // 04/22/26
+ if(m){const i=+m[1]-1; return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep1_15','Oct','Nov','Dec'][Math.min(i,11)];}
+ return null;
+}
+const STATE_ABBR={AL:'Alabama',AK:'Alaska',AZ:'Arizona',AR:'Arkansas',CA:'California',CO:'Colorado',CT:'Connecticut',DE:'Delaware',FL:'Florida',GA:'Georgia',HI:'Hawaii',ID:'Idaho',IL:'Illinois',IN:'Indiana',IA:'Iowa',KS:'Kansas',KY:'Kentucky',LA:'Louisiana',ME:'Maine',MD:'Maryland',MA:'Massachusetts',MI:'Michigan',MN:'Minnesota',MS:'Mississippi',MO:'Missouri',MT:'Montana',NE:'Nebraska',NV:'Nevada',NH:'New Hampshire',NJ:'New Jersey',NM:'New Mexico',NY:'New York',NC:'North Carolina',ND:'North Dakota',OH:'Ohio',OK:'Oklahoma',OR:'Oregon',PA:'Pennsylvania',RI:'Rhode Island',SC:'South Carolina',SD:'South Dakota',TN:'Tennessee',TX:'Texas',UT:'Utah',VT:'Vermont',VA:'Virginia',WA:'Washington',WV:'West Virginia',WI:'Wisconsin',WY:'Wyoming'};
+function guessState(h){
+ const m=((h.location||'')+' '+(h.cert||'')).match(/,\s*([A-Z]{2})\b/);
+ if(m&&STATE_ABBR[m[1]]) return STATE_ABBR[m[1]];
+ return null;
+}
+/* D4814-24a Table 1 distillation limits: T50 max by class; min 170°F neat,
+   150°F for ethanol blends (D4814 ethanol footnote — both labs print 150 on E10). */
+const T50_MAX={AAA:250,AA:250,A:250,B:245,C:240,D:235,E:230};
+const T50_MIN_NEAT=170, T50_MIN_ETH=150;
+function distClass(st, month, subIdx){
+ const rows=(LIMITS.cls||[]).filter(c=>c.state===st);
+ if(!rows.length) return null;
+ const row=rows.length>1&&subIdx!=null?rows[Math.min(subIdx,rows.length-1)]:rows[0];
+ const letters=(row.m[month]||[]).filter(l=>T50_MAX[l]!=null);
+ if(!letters.length) return null;
+ const max=Math.max(...letters.map(l=>T50_MAX[l]));
+ return {letters, max, sub:row.sub};
+}
+function stateRow(st){return LIMITS.summer.find(s=>s.state===st);}
+function programOptions(st){
+ const opts=[{v:'conv',t:'Conventional gasoline (state base)'}];
+ LIMITS.rfg.forEach((r,i)=>{ if(r.state===st) opts.push({v:'rfg:'+i,t:'Federal RFG — '+r.area+' (7.4 psi)'}); });
+ LIMITS.a78.forEach((r,i)=>{ if(r.state===st) opts.push({v:'a78:'+i,t:'7.8-psi area — '+r.area}); });
+ LIMITS.sip.forEach((r,i)=>{ if(r.area.split('—')[0].trim().startsWith(st)) opts.push({v:'sip:'+i,t:'SIP area — '+r.area+(r.max?' ('+r.max+' psi)':'')}); });
+ return opts;
+}
+function resolveLimits(st, prog, month, waiverOn, mode, classKey){
+ const s=stateRow(st);
+ if(mode==='class'){
+  const cl=CLASSES.find(c=>c[0]===classKey)||['C',11.5];
+  const tMax=T50_MAX[cl[0]]??null;
+  const distC=tMax!=null?{letters:[cl[0]],max:tMax}:null;
+  const t50note=tMax!=null?` · T50 window ${T50_MIN_NEAT}°F (${T50_MIN_ETH}°F w/ EtOH) – ${tMax}°F max (class ${cl[0]}, D4814 Table 1)`:'';
+  if(waiverOn&&cl[1]<=9.0+1e-9)
+   return {blend:9.0, e10:10.0, mode, classKey:cl[0], classLimit:cl[1], release:{immediate:true}, dist:distC,
+    basis:'2026 EPA national fuel waiver — 9.0 psi blendstock / 10.0 psi finished (E10); Class '+cl[0]+' product releasable now under the waiver ceilings'+t50note, flags:[]};
+  const rel=classRelease(st, cl[0], new Date());
+  const ethAllow=!(s&&/^NO/i.test(s.waiver));
+  const e10=ethAllow?cl[1]+1:cl[1];
+  return {blend:cl[1], e10, mode, classKey:cl[0], classLimit:cl[1], release:rel, dist:distC,
+   basis:'ASTM D4814-24a vapor pressure Class '+cl[0]+' — '+f2(cl[1])+' psi max blendstock'+(ethAllow?' · E10 '+f2(e10)+' psi (D4814 1.0-psi ethanol allowance)':' · no ethanol allowance (state)')+t50note+' · release schedule: '+st+(rel.sub&&rel.sub!=='—'?' · '+rel.sub:''), flags:[]};
+ }
+ const subSel0=document.getElementById('lim-sub');
+ const subIdx=subSel0&&subSel0.value!==''?+subSel0.value:0;
+ const dc=distClass(st, month, subIdx);
+ const withDist=(L)=>{ if(L.manual) return L;
+  L.dist=dc?{letters:dc.letters,max:dc.max}:null;
+  L.basis+=dc?` · T50 window ${T50_MIN_NEAT}°F (${T50_MIN_ETH}°F w/ EtOH) – ${dc.max}°F max (class ${dc.letters.join('/')}, D4814 Table 1 — distillation governed by class regardless of the RVP waiver)`:'';
+  return L; };
+ if(SUMMER_MONTHS.includes(month)){
+  if(waiverOn) return withDist({blend:9.0, e10:10.0,
+   basis:'2026 EPA national fuel waiver — 9.0 psi blendstock / 10.0 psi finished (E10), single national pool; local summer programs suspended for 2026', flags:[]});
+  const mayNote=month==='May'?' · terminal compliance runs from May 1':'';
+  if(prog.startsWith('rfg:')){const r=LIMITS.rfg[+prog.slice(4)];
+   return withDist({blend:7.4, e10:7.4, basis:'Federal RFG — '+r.area+' · 7.4 psi, no 1-psi waiver · '+LIMITS.source+mayNote, flags:[]});}
+  if(prog.startsWith('a78:')){const r=LIMITS.a78[+prog.slice(4)];
+   return withDist({blend:r.base, e10:r.e10, basis:'7.8-psi area — '+r.area+' · base '+r.base+' / E10 '+r.e10+' (1-psi waiver)'+mayNote, flags:[]});}
+  if(prog.startsWith('sip:')){const r=LIMITS.sip[+prog.slice(4)];
+   if(r.max==null) return {manual:true, basis:'SIP area limit requires manual determination — '+r.area};
+   const e10=/^YES/i.test(r.waiver)?r.max+1:r.max;
+   return withDist({blend:r.max, e10, basis:'SIP area — '+r.area+' · '+r.max+' psi ('+r.season+') · 1-psi waiver: '+r.waiver+mayNote, flags:[]});}
+  if(!s||s.base==null) return {manual:true, basis:'State requires manual limit determination — '+(s?s.tier+' · '+s.notes:'state not found in reference')};
+  const e10=s.e10!=null?s.e10:(/^YES/i.test(s.waiver)?s.base+1:s.base);
+  return withDist({blend:s.base, e10, basis:s.state+' summer — '+s.tier+' · base '+s.base+' psi · E10 '+e10+' psi (1-psi waiver: '+s.waiver+') · '+s.auth+mayNote, flags:[]});
+ }
+ const rows=LIMITS.monthly.filter(m=>m.state===st);
+ if(!rows.length) return {manual:true, basis:'No monthly class row for '+st+' — determine manually from the reference'};
+ const subSel=document.getElementById('lim-sub');
+ const row=rows.length>1&&subSel&&subSel.value!==''?rows[+subSel.value]:rows[0];
+ const v=row.m[month];
+ if(v==null) return {manual:true, basis:'Monthly class value unavailable for '+st+' '+month};
+ const ethAllow=!(s&&/^NO/i.test(s.waiver));
+ const e10=ethAllow?v+1:v;
+ const wnote=waiverOn?' · 2026 national waiver applies to the summer season only — monthly class governs '+MONTHS.find(x=>x[0]===month)[1]:'';
+ return withDist({blend:v, e10, basis:'ASTM D4814-24a Table 4 monthly class limit — '+v+' psi ('+MONTHS.find(x=>x[0]===month)[1]+(row.sub!=='—'?' · '+row.sub:'')+')'+(ethAllow?' · E10 '+e10+' psi (D4814 1.0-psi ethanol allowance)':' · no ethanol allowance (state)')+wnote, flags:[]});
+}
+
+/* ── verification grid ── */
+function renderVerify(parsed){
+ const el=document.getElementById('verifypanel');
+ el.style.display='block';
+ const h=COA.header;
+ const sideBySide=!!PDFDOC;
+ const guessed=guessState(h)||'Florida';
+ const states=LIMITS.summer.map(s=>`<option ${s.state===guessed?'selected':''}>${s.state}</option>`).join('');
+ const guessMonth=monthFromDate(h.sampleDate)||'Jul';
+ const monthOpts=MONTHS.map(m=>`<option value="${m[0]}" ${m[0]===guessMonth?'selected':''}>${m[1]}</option>`).join('');
+ const rows=COA.rows.map((r,i)=>`<tr>
+  <td><select id="vr-type${i}"><option value="blend" ${r.type==='blend'?'selected':''}>Blendstock level</option><option value="e10" ${r.type==='e10'?'selected':''}>E10 hand blend</option></select></td>
+  <td><input class="wide" id="vr-label${i}" value="${r.label||''}"></td>
+  <td><input id="vr-dvpe${i}" type="number" step="0.01" value="${r.dvpe??''}"></td>
+  <td><input id="vr-api${i}" type="number" step="0.1" value="${r.api??''}"></td>
+  <td><input id="vr-t40${i}" type="number" step="0.1" value="${r.t40??''}"></td>
+  <td><input id="vr-t50${i}" type="number" step="0.1" value="${r.t50??''}"></td>
+  <td><input id="vr-t60${i}" type="number" step="0.1" value="${r.t60??''}"></td>
+  <td><input id="vr-max${i}" type="number" step="0.1" value="${r.labMax??''}"></td>
+  <td><input id="vr-rem${i}" value="${r.labRemark||''}" style="width:70px"></td>
+ </tr>`).join('');
+ const inner=`
+ <div class="frm"><div class="h">Certificate header</div>
+  <div class="frow">
+   <div class="fld"><label>Lab</label><input id="vh-lab" value="${h.lab||''}"></div>
+   <div class="fld"><label>Certificate #</label><input id="vh-cert" value="${h.cert||''}"></div>
+   <div class="fld"><label>Location on CoA</label><input id="vh-loc" style="width:220px" value="${h.location||''}"></div>
+   <div class="fld"><label>Product</label><input id="vh-prod" value="${h.product||''}"></div>
+   <div class="fld"><label>Batch</label><input id="vh-batch" style="width:100px" value="${h.batch||''}"></div>
+   <div class="fld"><label>Sample date</label><input id="vh-date" style="width:110px" value="${h.sampleDate||''}"></div>
+  </div></div>
+ <div class="frm"><div class="h">Reported results — verify against the PDF</div>
+  <table class="grid"><thead><tr><th>Type</th><th>Sample / level</th><th>DVPE (psi)</th><th>API @60°F</th><th>D86 T40 (°F)</th><th>D86 T50 (°F)</th><th>D86 T60 (°F)</th><th>Lab stated max</th><th>Lab remark</th></tr></thead><tbody>${rows}</tbody></table>
+ </div>
+ <div class="frm"><div class="h">Applicable limit — resolved from US_Gasoline_RVP_Reference_v3</div>
+  <div class="frow">
+   <div class="fld"><label>Evaluate against</label><select id="lim-mode" onchange="onLimChange(false)"><option value="class" selected>Target volatility class (default)</option><option value="month">Month of sale (as-tested)</option></select></div>
+   <div class="fld"><label>State</label><select id="lim-state" onchange="onLimChange(true)">${states}</select></div>
+   <div class="fld" id="progwrap"><label>Program / area</label><select id="lim-prog" onchange="onLimChange(false)"></select></div>
+   <div class="fld" id="subwrap" style="display:none"><label>Sub-area</label><select id="lim-sub" onchange="onLimChange(false)"></select></div>
+   <div class="fld" id="monthwrap"><label>Month</label><select id="lim-month" onchange="onLimChange(false)">${monthOpts}</select></div>
+   <div class="fld" id="classwrap" style="display:none"><label>Target class</label><select id="lim-class" onchange="onLimChange(false)">${CLASSES.map(c=>`<option value="${c[0]}" ${c[0]==='C'?'selected':''}>Class ${c[0]} — ${f2(c[1])} psi</option>`).join('')}</select></div>
+   <label class="tgl" id="waiverwrap"><input type="checkbox" id="lim-waiver" checked onchange="onLimChange(false)"> 2026 EPA national waiver in effect (9.0 / 10.0)</label>
+  </div>
+  <div class="frow">
+   <label class="tgl"><input type="checkbox" id="gb-on" checked onchange="onLimChange(false)"> Apply test-method precision allowance (D5191 RVP · D86 T50)</label>
+   <div class="fld" id="gbfracwrap"><label>% of reproducibility</label><input id="gb-frac" type="number" min="0" max="100" step="5" value="40" style="width:90px" onchange="onLimChange(false)"></div>
+  </div>
+  <div class="basis" id="limbasis"></div>
+ </div>
+ <div class="frow">
+  <div class="fld"><label>Evaluated by</label><input id="vh-by" placeholder="name / initials" style="width:170px"></div>
+  <button class="btn pri" onclick="evaluateCoA()">Evaluate against the applicable limit</button>
+ </div>`;
+ const failStrip=(COA.fails&&COA.fails.length)?`<div class="holdban" style="font-size:12px">&#9888; The lab reported <b>FAIL</b> on this certificate — <b>informational only</b>; the decision is made by this page's internal logic (limits, class window, release schedule, precision allowance):<ul>${COA.fails.map(f=>`<li>${f}</li>`).join('')}</ul></div>`:'';
+ const head=`<h2><span class="step">STEP 2</span> Verify extraction &amp; set the applicable limit <span class="conf ${parsed?'hi':'lo'}">${parsed?'AUTO-PARSED — VERIFY':'MANUAL ENTRY'}</span></h2>
+ <p class="lead">Source: <b>${SRC}</b>. A person confirms every value before evaluation — extraction is never trusted blindly.${sideBySide?' The uploaded certificate is shown alongside for line-by-line comparison.':''}</p>${failStrip}`;
+ el.innerHTML=sideBySide
+  ?head+`<div class="sidewrap">
+    <div class="pdfside">
+     <div class="pdftools"><span class="pfn">&#128196; ${PDFNAME}</span><span class="spacer"></span>
+      <button class="btn zm" onclick="setZoom(-1)">&minus;</button><span class="zl" id="zoomlbl">${Math.round(PDFSCALE*100)}%</span><button class="btn zm" onclick="setZoom(1)">+</button></div>
+     <div class="pdfpages" id="pdfpages"><div class="pdfload">rendering&hellip;</div></div>
+    </div>
+    <div class="verside">${inner}</div>
+   </div>`
+  :head+inner;
+ onLimChange(true);
+ if(sideBySide) renderPdfPages();
+}
+function setZoom(dir){
+ PDFSCALE=Math.min(2.4,Math.max(0.5,PDFSCALE+dir*0.2));
+ const zl=document.getElementById('zoomlbl'); if(zl) zl.textContent=Math.round(PDFSCALE*100)+'%';
+ renderPdfPages();
+}
+async function renderPdfPages(){
+ const box=document.getElementById('pdfpages');
+ if(!box||!PDFDOC) return;
+ try{
+  box.innerHTML='';
+  const avail=(box.clientWidth||520)-18;
+  for(let p=1;p<=PDFDOC.numPages;p++){
+   const page=await PDFDOC.getPage(p);
+   const v1=page.getViewport({scale:1});
+   const scale=(avail/v1.width)*PDFSCALE;
+   const vp=page.getViewport({scale});
+   const canvas=document.createElement('canvas');
+   canvas.width=Math.floor(vp.width*2); canvas.height=Math.floor(vp.height*2);
+   canvas.style.width=Math.floor(vp.width)+'px';
+   const ctx=canvas.getContext('2d');
+   if(!ctx) throw new Error('no canvas 2d context');
+   await page.render({canvasContext:ctx, viewport:page.getViewport({scale:scale*2})}).promise;
+   const wrap=document.createElement('div'); wrap.className='pdfpage';
+   wrap.appendChild(canvas); box.appendChild(wrap);
+  }
+ }catch(e){
+  box.innerHTML='<div class="pdfload">Preview unavailable ('+e.message+') — verify against the PDF in your reader.</div>';
+ }
+}
+function onLimChange(rebuildProg){
+ const st=document.getElementById('lim-state').value;
+ const progSel=document.getElementById('lim-prog');
+ if(rebuildProg){ progSel.innerHTML=programOptions(st).map(o=>`<option value="${o.v}">${o.t}</option>`).join(''); }
+ const mode=document.getElementById('lim-mode').value;
+ const month=document.getElementById('lim-month').value;
+ const classKey=document.getElementById('lim-class').value;
+ const cl=CLASSES.find(c=>c[0]===classKey);
+ document.getElementById('monthwrap').style.display=mode==='month'?'flex':'none';
+ document.getElementById('classwrap').style.display=mode==='class'?'flex':'none';
+ document.getElementById('progwrap').style.display=mode==='month'?'flex':'none';
+ /* waiver toggle appears only for a summer month or a summer-class (≤9.0 psi) selection */
+ const wv=document.getElementById('lim-waiver');
+ const wrapW=document.getElementById('waiverwrap');
+ const showWaiver=mode==='month'?SUMMER_MONTHS.includes(month):(cl&&cl[1]<=9.0+1e-9);
+ const wasShown=wrapW.dataset.shown==='1';
+ wrapW.style.display=showWaiver?'flex':'none';
+ if(!showWaiver) wv.checked=false;
+ else if(!wasShown) wv.checked=true;   /* toggle reappearing → restore the 2026 default (waiver in effect) */
+ wrapW.dataset.shown=showWaiver?'1':'0';
+ const subs=LIMITS.monthly.filter(m=>m.state===st);
+ const wrap=document.getElementById('subwrap');
+ const needSub=subs.length>1&&(mode==='class'?!wv.checked:(!SUMMER_MONTHS.includes(month)&&!wv.checked));
+ if(needSub){
+  wrap.style.display='flex';
+  const sel=document.getElementById('lim-sub');
+  if(sel.options.length!==subs.length) sel.innerHTML=subs.map((s,i)=>`<option value="${i}">${s.sub}</option>`).join('');
+ } else wrap.style.display='none';
+ const L=resolveLimits(st, progSel.value, month, wv.checked, mode, classKey);
+ const gbOn=document.getElementById('gb-on').checked;
+ const frac=Math.max(0,Math.min(100,parseFloat(document.getElementById('gb-frac').value)||0));
+ document.getElementById('gbfracwrap').style.display=gbOn?'flex':'none';
+ let gbNote='';
+ if(gbOn&&!L.manual){
+  const exR=dvpeR(L.blend), exT=t50R(AVG_SF);
+  gbNote=`<br><b>Precision allowance ON</b> — +${frac}% of reproducibility. RVP: D5191 R = 0.0161 × (DVPE + 18.0) psi (≈ ${f2(exR)} psi at the ${f2(L.blend)} limit → results to ≈ ${f2(L.blend+frac/100*exR)} psi still release). T50: R = 4.65 + 1.20 × slope °F, slope = (T60−T40)/20 (≈ ${f2(exT)}°F at the ${AVG_SF} avg slope, used when T40/T60 are not reported). Allowance passes are flagged on the record. Coefficients pending confirmation against the current D5191 / D86 editions.`;
+ }
+ let relNote='';
+ if(L.release){
+  if(L.release.none) relNote='<br>&#9888; <b>Class-based release not possible:</b> '+L.release.why+'.';
+  else relNote=L.release.immediate
+   ?'<br><b>Releasable immediately</b> — the current volatility period already permits this class.'
+   :'<br><b>Future-period release:</b> approval will carry a sale release date of <b>'+L.release.dateStr+'</b> ('+L.release.periodLabel+' period).';
+ }
+ document.getElementById('limbasis').innerHTML=L.manual
+  ?'&#9888; <b>Manual determination required:</b> '+L.basis
+  :`<b>Blendstock max ${f2(L.blend)} psi · E10 finished max ${f2(L.e10)} psi.</b> Basis: ${L.basis}${relNote}${gbNote}`;
+}
+
+/* ── evaluation ── */
+function collectVerify(){
+ const gv=id=>{const v=(document.getElementById(id)?.value||'').trim();return v===''?null:parseFloat(v);};
+ const gs=id=>(document.getElementById(id)?.value||'').trim();
+ const rows=COA.rows.map((_,i)=>({type:gs('vr-type'+i),label:gs('vr-label'+i),dvpe:gv('vr-dvpe'+i),api:gv('vr-api'+i),t50:gv('vr-t50'+i),t40:gv('vr-t40'+i),t60:gv('vr-t60'+i),labMax:gv('vr-max'+i),labRemark:gs('vr-rem'+i)}));
+ const header={lab:gs('vh-lab'),cert:gs('vh-cert'),location:gs('vh-loc'),product:gs('vh-prod'),batch:gs('vh-batch'),sampleDate:gs('vh-date')};
+ return {header, rows};
+}
+function evaluateCoA(){
+ const by=(document.getElementById('vh-by').value||'').trim();
+ if(!by){alert('Enter who is evaluating — decisions are recorded with a name.');return;}
+ const {header,rows}=collectVerify();
+ const st=document.getElementById('lim-state').value;
+ const prog=document.getElementById('lim-prog');
+ const month=document.getElementById('lim-month').value;
+ const mode=document.getElementById('lim-mode').value;
+ const classKey=document.getElementById('lim-class').value;
+ const waiverOn=document.getElementById('lim-waiver').checked;
+ const gbOn=document.getElementById('gb-on').checked;
+ const gbFrac=Math.max(0,Math.min(100,parseFloat(document.getElementById('gb-frac').value)||0));
+ const L=resolveLimits(st, prog.value, month, waiverOn, mode, classKey);
+ const blocking=[], advisory=[], resRows=[];
+ if(L.manual){ blocking.push('Applicable limit could not be resolved automatically: '+L.basis); }
+ if(L.release&&L.release.none){ blocking.push('Class-based release is not possible: '+L.release.why); }
+ if(!rows.length) blocking.push('No sample results on the certificate');
+ /* third-party Pass/Fail is informational only — a decision comes solely from this page's internal logic */
+ (COA.fails||[]).forEach(f=>advisory.push('Lab reported FAIL against its own stated spec — informational, not blocking: '+f));
+ rows.forEach(r=>{
+  const lim=L.manual?null:(r.type==='e10'?L.e10:L.blend);
+  if(r.dvpe==null){ blocking.push(r.label+': DVPE missing'); resRows.push({r,lim,status:'out',note:'missing'}); return; }
+  if(r.labRemark&&/fail/i.test(r.labRemark)){
+   advisory.push(r.label+': lab reported FAIL against its own stated max — informational; evaluated against the internal limit only');
+  }
+  if(lim!=null){
+   let hard=false, gb=false;
+   const allowV=gbOn?gbFrac/100*dvpeR(r.dvpe):0;
+   if(r.dvpe<=lim+1e-9){ /* clean */ }
+   else if(r.dvpe<=lim+allowV+1e-9){
+    gb=true;
+    advisory.push(`${r.label}: DVPE ${f2(r.dvpe)} psi exceeds the ${f2(lim)} psi limit by ${f2(r.dvpe-lim)} but releases on the ${gbFrac}% D5191 precision allowance (+${f2(allowV)} psi)`);
+   } else {
+    hard=true;
+    blocking.push(`${r.label}: DVPE ${f2(r.dvpe)} psi exceeds the ${f2(lim)} psi ${r.type==='e10'?'finished (E10)':'blendstock'} limit${gbOn?' even with the '+gbFrac+'% precision allowance (effective '+f2(lim+allowV)+' psi)':''}`);
+   }
+   if(r.labMax!=null&&Math.abs(r.labMax-lim)>0.001) advisory.push(`${r.label}: lab evaluated against ${f2(r.labMax)} psi; applicable limit resolved as ${f2(lim)} psi`);
+   // D86 T50 — evaluated whenever reported; window from the class schedule (or target class in class mode)
+   let t50txt='—', t50ok=null;
+   if(r.t50!=null){
+    const tmin=r.type==='e10'?T50_MIN_ETH:T50_MIN_NEAT;
+    const tmax=L.dist?L.dist.max:null;
+    const slopeKnown=r.t40!=null&&r.t60!=null&&r.t60>r.t40;
+    const sf=slopeKnown?(r.t60-r.t40)/20:AVG_SF;
+    const allowT=gbOn?gbFrac/100*t50R(sf):0;
+    const hardBelow=r.t50<tmin-allowT-1e-9, hardAbove=tmax!=null&&r.t50>tmax+allowT+1e-9;
+    const gbBelow=!hardBelow&&r.t50<tmin-1e-9, gbAbove=!hardAbove&&tmax!=null&&r.t50>tmax+1e-9;
+    t50ok=!hardBelow&&!hardAbove;
+    const slopeNote=slopeKnown?`slope ${f2(sf)}°F/%`:`assumed avg slope ${AVG_SF}°F/% — T40/T60 not reported`;
+    if(hardBelow) blocking.push(`${r.label}: D86 T50 ${r.t50.toFixed(1)}°F below the ${tmin}°F minimum (D4814${r.type==='e10'?' ethanol-blend':''})${gbOn?' even with the '+gbFrac+'% T50 precision allowance (−'+f2(allowT)+'°F, '+slopeNote+')':''}`);
+    if(hardAbove) blocking.push(`${r.label}: D86 T50 ${r.t50.toFixed(1)}°F exceeds the ${tmax}°F class ${L.dist.letters.join('/')} maximum${gbOn?' even with the '+gbFrac+'% T50 precision allowance (+'+f2(allowT)+'°F, '+slopeNote+')':''}`);
+    if(gbBelow||gbAbove){
+     gb=true;
+     advisory.push(`${r.label}: D86 T50 ${r.t50.toFixed(1)}°F is ${gbAbove?'above the '+tmax+'°F max':'below the '+tmin+'°F min'} but releases on the ${gbFrac}% T50 precision allowance (±${f2(allowT)}°F, R = 4.65 + 1.20 × slope, ${slopeNote})`);
+    }
+    t50txt=r.t50.toFixed(1)+'°F vs '+tmin+'–'+(tmax!=null?tmax:'?')+'°F';
+    if(!t50ok) hard=true;
+   }
+   resRows.push({r,lim,t50txt,t50ok,status:(hard?'out':(gb?'gb':'in')),note:(r.dvpe<=lim+1e-9?f2(lim-r.dvpe)+' under':f2(r.dvpe-lim)+' over'+(hard?'':' · on allowance'))});
+  }
+ });
+ const approved=blocking.length===0;
+ const rec={at:new Date().toLocaleString(), id:(approved?'TPA-2026-':'RVW-2026-')+String(++SEQ).padStart(3,'0'),
+  header, rows:resRows, limits:{blend:L.blend,e10:L.e10,basis:L.basis,dist:L.dist||null,manual:L.manual||false},
+  st, prog:prog.options[prog.selectedIndex].text, month:MONTHS.find(m=>m[0]===month)[1],
+  mode, classKey:mode==='class'?L.classKey:null, release:L.release||{immediate:true},
+  gbOn, gbFrac, waiverOn, by, src:SRC, blocking, advisory, approved};
+ LOG.unshift(rec);
+ VIEWING=false;
+ renderOutcome(rec);
+ renderLog();
+ saveDecisions();
+}
+function decisionRuleText(rec){
+ return 'Decision rule: pass if equal to or within limits'+(rec.gbOn?', with a '+rec.gbFrac+'% test-method precision allowance (D5191 R = 0.0161 × (DVPE + 18.0) psi; D86 T50 R = 4.65 + 1.20 × slope °F — coefficients pending confirmation against the current method editions)':' (no measurement-uncertainty guard band)')+' — PROPOSED, pending compliance ratification. Limits per US_Gasoline_RVP_Reference_v3 (ASTM D4814-24a · EPA 40 CFR 1090.215).';
+}
+function renderOutcome(rec){
+ const el=document.getElementById('outcomepanel'); el.style.display='block';
+ const chip=st=>st==='in'?'WITHIN LIMIT':(st==='gb'?'WITHIN + ALLOWANCE':'NOT WITHIN');
+ const deferred=rec.approved&&rec.release&&!rec.release.immediate&&rec.release.dateStr;
+ const anyGB=rec.rows.some(x=>x.status==='gb');
+ const basisSel=rec.mode==='class'?('Target Class '+rec.classKey):rec.month;
+ const tbl=`<table class="res"><thead><tr><th>Sample</th><th>Type</th><th>DVPE</th><th>Applicable limit</th><th>Margin</th><th>D86 T50 vs window</th><th>Lab stated max · remark</th><th>Result</th></tr></thead><tbody>
+ ${rec.rows.map(x=>`<tr><td><b>${x.r.label}</b></td><td>${x.r.type==='e10'?'E10 finished':'Blendstock'}</td><td>${x.r.dvpe==null?'—':f2(x.r.dvpe)+' psi'}</td><td>${x.lim==null?'—':f2(x.lim)+' psi'}</td><td>${x.note}</td><td>${x.t50txt||'—'}${x.t50ok===false?' <span class="rchip out">T50</span>':''}</td><td>${x.r.labMax!=null?f2(x.r.labMax):'—'}${x.r.labRemark?' · '+x.r.labRemark:''}</td><td><span class="rchip ${x.status==='gb'?'gb':x.status}">${chip(x.status)}</span></td></tr>`).join('')}
+ </tbody></table>`;
+ const adv=rec.advisory.length?`<div style="margin:2px 0 10px">${rec.advisory.map(a=>`<span class="rchip adv" style="display:inline-block;margin:2px 4px 2px 0">&#9888; ${a}</span>`).join('')}</div>`:'';
+ if(rec.approved){
+  const ban=deferred
+   ?`<div class="holdban">APPROVED — RELEASE FOR SALE EFFECTIVE <u>${rec.release.dateStr}</u>. Product conforms to Class ${rec.classKey}; hold in tank until the ${rec.release.periodLabel} volatility period opens. Approval record ${rec.id} generated with the release date.</div>`
+   :`<div class="appban">APPROVED FOR ${rec.mode==='class'?'IMMEDIATE ':''}SALE — every reported result is within the applicable limit${anyGB?' (one or more on the precision allowance)':''}. Approval record ${rec.id} generated.</div>`;
+  el.innerHTML=`<h2><span class="step">STEP 3</span> Outcome ${VIEWING?'<span class="conf lo">LOGGED DECISION — READ-ONLY VIEW</span>':''}</h2>
+  ${ban}
+  ${tbl}${adv}
+  <div id="recdoc" class="docpaper">
+   <div class="dlh"><span class="dwm">GLOBAL<b>PARTNERS</b></span><span>Third-Party CoA Review · Quality</span></div>
+   <div class="dtt">Product Approval Record — ${rec.id}</div>
+   <div class="dprow"><span>Third-party certificate</span><b>${rec.header.cert||'—'} · ${rec.header.lab||'—'}</b></div>
+   <div class="dprow"><span>Location on CoA · product · batch</span><b>${rec.header.location||'—'} · ${rec.header.product||'—'} · ${rec.header.batch||'—'}</b></div>
+   <div class="dprow"><span>Sampled</span><b>${rec.header.sampleDate||'—'}</b></div>
+   <div class="dprow"><span>Evaluation basis</span><b>${basisSel} — ${rec.st}${rec.mode!=='class'?', '+rec.prog:''}${rec.waiverOn?' · 2026 national waiver':''}</b></div>
+   <div class="dprow"><span>Limit applied</span><b>Blendstock ${f2(rec.limits.blend)} / E10 ${f2(rec.limits.e10)} psi</b></div>
+   <div class="dprow"><span>Sale release</span><b>${deferred?rec.release.dateStr+' ('+rec.release.periodLabel+' period opens)':'Immediate'}</b></div>
+   <div class="dprow"><span>Precision allowance</span><b>${rec.gbOn?rec.gbFrac+'% of reproducibility (D5191 RVP · slope-based D86 T50)'+(anyGB?' — APPLIED to release':' — available, not needed'):'OFF'}</b></div>
+   <div class="dprow"><span>Basis</span><b style="max-width:70%">${rec.limits.basis}</b></div>
+   <div class="dprow"><span>Results — DVPE</span><b>${rec.rows.map(x=>x.r.label+' '+f2(x.r.dvpe)).join(' · ')} psi — all within the applicable limit${anyGB?' (precision allowance applied where flagged)':' (equal-to-limit passes)'}</b></div>
+   ${rec.rows.some(x=>x.r.t50!=null)?`<div class="dprow"><span>Results — D86 T50</span><b>${rec.rows.filter(x=>x.r.t50!=null).map(x=>x.r.label+' '+x.r.t50.toFixed(1)+'°F').join(' · ')} — within the class window</b></div>`:''}
+   ${rec.advisory.length?`<div class="dprow"><span>Advisories</span><b style="max-width:70%">${rec.advisory.join(' · ')}</b></div>`:''}
+   <div class="dprow"><span>Results provenance</span><b>${rec.src}</b></div>
+   <div class="dprow"><span>Approved by</span><b>${rec.by} · ${rec.at}</b></div>
+   <div class="dft">${deferred?'Product approved as Class '+rec.classKey+' — NOT for sale before the release date above. ':'Product approved for sale. '}${decisionRuleText(rec)}</div>
+  </div>
+  <div class="frow"><button class="btn" onclick="printRec()">&#128424; Print / save approval record</button><button class="btn" onclick="downloadRec('${rec.id}')">&#8595; Download record (${rec.id}.html)</button></div>`;
+ } else {
+  el.innerHTML=`<h2><span class="step">STEP 3</span> Outcome ${VIEWING?'<span class="conf lo">LOGGED DECISION — READ-ONLY VIEW</span>':''}</h2>
+  <div class="revban">SENT FOR REVIEW (${rec.id}) — routed to Quality Control (K. Stocksen). Product is NOT approved for sale.<ul>${rec.blocking.map(b=>`<li>${b}</li>`).join('')}</ul></div>
+  ${tbl}${adv}
+  <div style="font-size:11px;font-weight:600;color:var(--ink-dim)">Logged ${rec.at} by ${rec.by} · source: ${rec.src}. QC disposition options: confirm limit determination, re-evaluate against a later volatility class, request re-test, reject product, or approve with documented justification.</div>
+  <div class="frow" style="margin-top:10px"><button class="btn" onclick="downloadRec('${rec.id}')">&#8595; Download review record (${rec.id}.html)</button></div>`;
+ }
+ el.scrollIntoView({behavior:'smooth'});
+}
+function printRec(){document.body.classList.add('print-rec');window.print();setTimeout(()=>document.body.classList.remove('print-rec'),400);}
+function renderLog(){
+ const mode=document.getElementById('logmode');
+ if(mode) mode.innerHTML=CONFIG.USE_LIVE?'<b style="color:#0a7e62">live — decisions persist on the server</b>':'in-page this session — run <b>gp_coa_server.py</b> to persist, or export';
+ document.getElementById('logbody').innerHTML=LOG.length?LOG.map((r,i)=>`<tr class="logrow" onclick="viewDecision(${i})" title="Open this decision">
+  <td>${r.at}</td><td><b style="color:var(--teal)">${r.id||'—'}</b></td><td>${r.header.cert||'—'}</td><td>${r.header.lab||'—'}</td><td>${(r.header.product||'—')+' / '+(r.header.batch||'—')}</td><td>${f2(r.limits.blend??0)} / ${f2(r.limits.e10??0)} · ${r.mode==='class'?'Class '+r.classKey+' · ':''}${r.st}${r.waiverOn?' (waiver)':''}</td><td><b style="color:${r.approved?'#0a7e62':'#a4362c'}">${r.approved?'APPROVED'+(r.release&&!r.release.immediate&&r.release.dateStr?' · eff. '+r.release.dateStr:''):'SENT FOR REVIEW'}</b></td><td>${r.by}</td></tr>`).join('')
+  :'<tr><td colspan="8" style="color:var(--ink-faint)">no decisions yet</td></tr>';
+}
+function viewDecision(i){ VIEWING=true; renderOutcome(LOG[i]); }
+/* ── persistence: server (project pattern) + export / import ── */
+async function saveDecisions(){
+ if(!CONFIG.USE_LIVE) return;
+ try{ await fetch(CONFIG.BASE+'/api/decisions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({decisions:LOG})}); }
+ catch(e){ console.warn('decision save failed',e); }
+}
+async function loadDecisions(){
+ try{
+  const r=await fetch(CONFIG.BASE+'/api/decisions',{cache:'no-store'});
+  if(!r.ok) throw 0;
+  const j=await r.json();
+  if(j&&Array.isArray(j.decisions)){ mergeDecisions(j.decisions); CONFIG.USE_LIVE=true; }
+ }catch(e){ /* in-page mode */ }
+ renderLog();
+}
+function mergeDecisions(list){
+ list.forEach(r=>{ if(r&&r.id&&!LOG.some(x=>x.id===r.id)) LOG.push(r); });
+ LOG.sort((a,b)=>(b.id||'').localeCompare(a.id||''));
+ SEQ=LOG.reduce((m,r)=>Math.max(m, parseInt((r.id||'').split('-').pop())||0), SEQ);
+}
+function exportLog(){
+ const blob=new Blob([JSON.stringify({exported:new Date().toISOString(), decisions:LOG},null,1)],{type:'application/json'});
+ triggerDownload(blob, 'gp-coa-decisions-'+new Date().toISOString().slice(0,10)+'.json');
+}
+function importLog(inp){
+ const f=inp.files&&inp.files[0]; if(!f) return;
+ const rd=new FileReader();
+ rd.onload=()=>{ try{ const j=JSON.parse(rd.result); if(Array.isArray(j.decisions)){ mergeDecisions(j.decisions); renderLog(); saveDecisions(); } }
+  catch(e){ alert('Could not read the decisions file: '+e.message); } };
+ rd.readAsText(f); inp.value='';
+}
+function triggerDownload(blob, name){
+ const a=document.createElement('a');
+ a.href=URL.createObjectURL(blob); a.download=name;
+ document.body.appendChild(a); a.click();
+ setTimeout(()=>{URL.revokeObjectURL(a.href); a.remove();},400);
+}
+function downloadRec(id){
+ const rec=LOG.find(r=>r.id===id); if(!rec) return;
+ const tbl=`<table><thead><tr><th>Sample</th><th>Type</th><th>DVPE</th><th>Limit</th><th>Margin</th><th>D86 T50</th><th>Result</th></tr></thead><tbody>
+ ${rec.rows.map(x=>`<tr><td>${x.r.label}</td><td>${x.r.type==='e10'?'E10 finished':'Blendstock'}</td><td>${x.r.dvpe==null?'—':f2(x.r.dvpe)+' psi'}</td><td>${x.lim==null?'—':f2(x.lim)+' psi'}</td><td>${x.note}</td><td>${x.t50txt||'—'}</td><td>${x.status==='in'?'WITHIN LIMIT':(x.status==='gb'?'WITHIN + ALLOWANCE':'NOT WITHIN')}</td></tr>`).join('')}</tbody></table>`;
+ const body=rec.approved
+  ?`<div class="ban ok">APPROVED FOR SALE — ${rec.id}</div>`
+  :`<div class="ban bad">SENT FOR REVIEW — ${rec.id} · routed to Quality Control (K. Stocksen)<ul>${rec.blocking.map(b=>`<li>${b}</li>`).join('')}</ul></div>`;
+ const htmlDoc=`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${rec.id} — Third-Party CoA Decision Record</title>
+<style>body{font-family:Segoe UI,Arial,sans-serif;color:#063A52;max-width:760px;margin:32px auto;padding:0 20px;font-size:13px}
+h1{font-size:16px;letter-spacing:.5px;color:#004F71;border-bottom:2px solid #004F71;padding-bottom:8px}h1 b{color:#00B398}
+.ban{border-radius:10px;padding:12px 15px;font-weight:700;margin:14px 0}.ban.ok{background:#e9f8f4;border:1px solid #7fd6c3;color:#0a5c4e}.ban.bad{background:#fbeceb;border:1px solid #eaa49d;color:#7c2f27}
+.r{display:flex;justify-content:space-between;gap:16px;padding:5px 0;border-bottom:1px dashed #c9d6de;font-size:12px}.r span{color:#5E7A8A}.r b{text-align:right}
+table{width:100%;border-collapse:collapse;font-size:12px;margin:12px 0}th{text-align:left;font-size:10px;text-transform:uppercase;color:#5E7A8A;border-bottom:1px solid #c9d6de;padding:5px}td{padding:6px 5px;border-bottom:1px solid #eef3f6}
+.ft{margin-top:16px;padding-top:10px;border-top:1px solid #c9d6de;font-size:10px;color:#9DB0BC}</style></head><body>
+<h1>GLOBAL<b>PARTNERS</b> — Third-Party CoA Decision Record · ${rec.id}</h1>
+${body}
+<div class="r"><span>Third-party certificate</span><b>${rec.header.cert||'—'} · ${rec.header.lab||'—'}</b></div>
+<div class="r"><span>Location on CoA · product · batch</span><b>${rec.header.location||'—'} · ${rec.header.product||'—'} · ${rec.header.batch||'—'}</b></div>
+<div class="r"><span>Sampled</span><b>${rec.header.sampleDate||'—'}</b></div>
+<div class="r"><span>Evaluation basis</span><b>${rec.mode==='class'?'Target Class '+rec.classKey:rec.month} — ${rec.st}${rec.mode!=='class'?', '+rec.prog:''}${rec.waiverOn?' · 2026 national waiver':''}</b></div>
+<div class="r"><span>Limit applied</span><b>Blendstock ${f2(rec.limits.blend??0)} / E10 ${f2(rec.limits.e10??0)} psi</b></div>
+<div class="r"><span>Sale release</span><b>${rec.release&&!rec.release.immediate&&rec.release.dateStr?rec.release.dateStr+' ('+(rec.release.periodLabel||'')+' period opens)':'Immediate'}</b></div>
+<div class="r"><span>Precision allowance</span><b>${rec.gbOn?rec.gbFrac+'% of reproducibility (D5191 RVP · slope-based D86 T50)':'OFF'}</b></div>
+<div class="r"><span>Basis</span><b style="max-width:65%">${rec.limits.basis||''}</b></div>
+${tbl}
+${rec.advisory&&rec.advisory.length?`<div class="r"><span>Advisories</span><b style="max-width:65%">${rec.advisory.join(' · ')}</b></div>`:''}
+<div class="r"><span>Results provenance</span><b>${rec.src}</b></div>
+<div class="r"><span>Decision by</span><b>${rec.by} · ${rec.at}</b></div>
+<div class="ft">${rec.release&&!rec.release.immediate&&rec.release.dateStr?'Product approved as Class '+rec.classKey+' — NOT for sale before the release date above. ':''}${decisionRuleText(rec)}</div>
+</body></html>`;
+ triggerDownload(new Blob([htmlDoc],{type:'text/html'}), rec.id+'.html');
+}
+loadDecisions();
+
+</script>
+</body></html>
