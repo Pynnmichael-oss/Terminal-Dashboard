@@ -4,6 +4,7 @@
 <title>Global Partners · Terminal Quality Dashboard — Fort Worth</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <style>
 :root{--slate:#004F71;--teal:#00B398;--lime:#A9EE8A;--ulsd:#C0882E;--ink:#063A52;--ink-dim:#5E7A8A;--ink-faint:#9DB0BC;
 --line:rgba(0,79,113,.13);--white:#FFFFFF;--gray:#EEF3F6;--gray2:#E5ECF0;--amber:#E0A23C;--red:#D9655B;}
@@ -109,6 +110,14 @@ header.appbar{display:flex;align-items:center;gap:20px;padding:14px 30px;border-
 .tile .ts{font-size:12px;font-weight:700;color:var(--ink);padding-top:7px;border-top:1px solid var(--line)}
 .tile .ts b{color:var(--teal)} .tile .ts .muted{font-weight:600;color:var(--ink-faint)}
 .tile .go{font-size:11px;font-weight:800;letter-spacing:.4px;color:var(--teal);text-transform:uppercase}
+.dropzone{border:1.5px dashed var(--line);border-radius:10px;padding:14px 10px;text-align:center;font-size:11px;font-weight:600;color:var(--ink-faint);cursor:pointer;transition:.15s}
+.dropzone.drag{border-color:var(--teal);background:rgba(0,179,152,.06);color:var(--teal)}
+.drop-table{width:100%;border-collapse:collapse;font-size:11px}
+.drop-table th{text-align:left;font-size:9px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--ink-faint);padding:4px 4px;border-bottom:1px solid var(--line)}
+.drop-table td{padding:5px 4px;border-bottom:1px solid var(--line);font-weight:600;color:var(--ink)}
+.drop-table tr:last-child td{border-bottom:none}
+.skip-badge{font-size:8px;font-weight:800;letter-spacing:.3px;color:#8a5e12;background:rgba(224,162,60,.18);border-radius:5px;padding:2px 5px;white-space:nowrap}
+.no-reading{color:var(--ink-faint);font-weight:600;font-style:italic}
 .mockstamp{position:fixed;bottom:12px;right:14px;font-size:9px;font-weight:700;letter-spacing:1.4px;color:var(--ink-faint);background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:6px;padding:5px 10px;z-index:60}
 @media(max-width:1080px){.hero{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.midrow{grid-template-columns:1fr}.mf-body{flex-direction:column;align-items:stretch}.mf-total{border-right:none;border-bottom:1px solid rgba(0,79,113,.16);padding-right:0;padding-bottom:10px}}
 </style></head>
@@ -215,6 +224,15 @@ header.appbar{display:flex;align-items:center;gap:20px;padding:14px 30px;border-
     <a href="rack-demand-forecast.html" class="tile"><div class="th"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="3.4" height="10" rx="1"/><rect x="10.3" y="4" width="3.4" height="16" rx="1"/><rect x="16.6" y="13" width="3.4" height="7" rx="1"/></svg></span><span class="tt">Rack Demand Forecast</span></div><div class="td">Average liftings by product, day of week, and 6-hour slot &mdash; the curve that drives depletion.</div><div class="ts">Reg <b>13,200</b> &middot; Prem 3,800 &middot; ULSD 6,000</div><div class="go">Open &rarr;</div></a>
 
     <a href="#" class="tile"><div class="th"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3c3 4 5 6 5 9a5 5 0 11-10 0c0-3 2-5 5-9z"/></svg></span><span class="tt">Butane Supply</span><span class="sug">Suggested</span></div><div class="td">Butane on hand and scheduled truck deliveries &mdash; the constraint on how aggressively you can blend.</div><div class="ts"><b>2 trucks</b> <span class="muted">today &middot; 380 bbl</span></div><div class="go">Open &rarr;</div></a>
+
+    <div class="tile" id="dropTile"><div class="th"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg></span><span class="tt">Drop Tank Data</span></div><div class="td">Drop a FuelsManager export (.xlsx) to pull the latest valid available volume per tank.</div>
+      <div class="dropzone" id="dropZone">Drop FuelsManager export here, or click to browse</div>
+      <input type="file" id="fileInput" accept=".xlsx" style="display:none">
+      <table class="drop-table" id="dropResults" style="display:none">
+        <thead><tr><th>Tank</th><th>Available (bbl)</th><th>Pulled At</th><th></th></tr></thead>
+        <tbody id="dropResultsBody"></tbody>
+      </table>
+    </div>
   </div>
 
   <div class="secttl">Quality &amp; Compliance</div>
@@ -231,4 +249,80 @@ header.appbar{display:flex;align-items:center;gap:20px;padding:14px 30px;border-
   </div>
 </div>
 <div class="mockstamp">TERMINAL DASHBOARD &middot; REAL INVENTORY + T4 &middot; QUALITY ILLUSTRATIVE</div>
+<script>
+const TANK_ID_MAP = { "23155":"TK55", "23156":"TK56", "27403":"TK03", "27404":"TK04", "27405":"TK05" };
+
+function handleFile(file){
+  const reader = new FileReader();
+  reader.onload = e => {
+    const wb = XLSX.read(e.target.result, {type:'array'});
+    const sheet = wb.Sheets[wb.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(sheet);
+    renderResults(groupAndPick(rows));
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function groupAndPick(rows){
+  const groups = {};
+  rows.forEach(row => {
+    const m = String(row.Tank || '').match(/(\d+)/);
+    if(!m) return;
+    const mapped = TANK_ID_MAP[m[1]];
+    if(!mapped) return;
+    (groups[mapped] = groups[mapped] || []).push(row);
+  });
+
+  const byTank = {};
+  Object.values(TANK_ID_MAP).forEach(tankId => {
+    const tankRows = (groups[tankId] || []).slice().sort((a,b) => new Date(b.PulledAt) - new Date(a.PulledAt));
+    let picked = null, skipped = 0;
+    for(const row of tankRows){
+      const available = Number(row.Available);
+      const workingCap = Number(row.WorkingCap);
+      if(available > 0 && available <= workingCap * 1.2){
+        picked = row;
+        break;
+      }
+      skipped++;
+    }
+    byTank[tankId] = picked ? { available: picked.Available, pulledAt: picked.PulledAt, skipped } : null;
+  });
+  return byTank;
+}
+
+function renderResults(byTank){
+  const tbody = document.getElementById('dropResultsBody');
+  tbody.innerHTML = '';
+  Object.values(TANK_ID_MAP).forEach(tankId => {
+    const r = byTank[tankId];
+    const tr = document.createElement('tr');
+    if(r){
+      const d = new Date(r.pulledAt);
+      const pulledAt = isNaN(d) ? String(r.pulledAt) : d.toLocaleString();
+      const badge = r.skipped > 0 ? `<span class="skip-badge">${r.skipped} skipped</span>` : '';
+      tr.innerHTML = `<td>${tankId}</td><td>${Number(r.available).toLocaleString()}</td><td>${pulledAt}</td><td>${badge}</td>`;
+    } else {
+      tr.innerHTML = `<td>${tankId}</td><td class="no-reading">no valid reading</td><td>&mdash;</td><td></td>`;
+    }
+    tbody.appendChild(tr);
+  });
+  document.getElementById('dropResults').style.display = 'table';
+}
+
+(function(){
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  dropZone.addEventListener('click', () => fileInput.click());
+  fileInput.addEventListener('change', e => { if(e.target.files[0]) handleFile(e.target.files[0]); });
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag');
+    const file = e.dataTransfer.files[0];
+    if(file) handleFile(file);
+  });
+})();
+</script>
 </body></html>
