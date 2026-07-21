@@ -5,6 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="fuels-snapshot.js"></script>
 <style>
 :root{--slate:#004F71;--teal:#00B398;--lime:#A9EE8A;--ulsd:#C0882E;--ink:#063A52;--ink-dim:#5E7A8A;--ink-faint:#9DB0BC;
 --line:rgba(0,79,113,.13);--white:#FFFFFF;--gray:#EEF3F6;--gray2:#E5ECF0;--amber:#E0A23C;--red:#D9655B;}
@@ -118,6 +119,13 @@ header.appbar{display:flex;align-items:center;gap:20px;padding:14px 30px;border-
 .drop-table tr:last-child td{border-bottom:none}
 .skip-badge{font-size:8px;font-weight:800;letter-spacing:.3px;color:#8a5e12;background:rgba(224,162,60,.18);border-radius:5px;padding:2px 5px;white-space:nowrap}
 .no-reading{color:var(--ink-faint);font-weight:600;font-style:italic}
+.drop-actions{display:flex;gap:8px;margin-top:8px}
+.drop-btn{flex:1;font-family:inherit;font-size:11px;font-weight:800;letter-spacing:.3px;padding:7px 0;border-radius:8px;cursor:pointer;border:1.5px solid var(--line);background:var(--white);color:var(--ink-dim);transition:.15s}
+.drop-btn.apply{background:var(--teal);border-color:var(--teal);color:var(--white)}
+.drop-btn.apply:hover{background:#00a38e}
+.drop-btn.discard:hover{border-color:var(--red);color:var(--red)}
+.confirmed-head{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:800;color:#0a7e62;letter-spacing:.2px}
+.confirmed-head::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0}
 .mockstamp{position:fixed;bottom:12px;right:14px;font-size:9px;font-weight:700;letter-spacing:1.4px;color:var(--ink-faint);background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:6px;padding:5px 10px;z-index:60}
 @media(max-width:1080px){.hero{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.midrow{grid-template-columns:1fr}.mf-body{flex-direction:column;align-items:stretch}.mf-total{border-right:none;border-bottom:1px solid rgba(0,79,113,.16);padding-right:0;padding-bottom:10px}}
 </style></head>
@@ -226,12 +234,27 @@ header.appbar{display:flex;align-items:center;gap:20px;padding:14px 30px;border-
     <a href="#" class="tile"><div class="th"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3c3 4 5 6 5 9a5 5 0 11-10 0c0-3 2-5 5-9z"/></svg></span><span class="tt">Butane Supply</span><span class="sug">Suggested</span></div><div class="td">Butane on hand and scheduled truck deliveries &mdash; the constraint on how aggressively you can blend.</div><div class="ts"><b>2 trucks</b> <span class="muted">today &middot; 380 bbl</span></div><div class="go">Open &rarr;</div></a>
 
     <div class="tile" id="dropTile"><div class="th"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg></span><span class="tt">Drop Tank Data</span></div><div class="td">Drop a FuelsManager export (.xlsx) to pull the latest valid available volume per tank.</div>
-      <div class="dropzone" id="dropZone">Drop FuelsManager export here, or click to browse</div>
-      <input type="file" id="fileInput" accept=".xlsx" style="display:none">
-      <table class="drop-table" id="dropResults" style="display:none">
-        <thead><tr><th>Tank</th><th>Available (bbl)</th><th>Pulled At</th><th></th></tr></thead>
-        <tbody id="dropResultsBody"></tbody>
-      </table>
+      <div id="dropIdle">
+        <div class="dropzone" id="dropZone">Drop FuelsManager export here, or click to browse</div>
+        <input type="file" id="fileInput" accept=".xlsx" style="display:none">
+      </div>
+      <div id="dropPreview" style="display:none">
+        <table class="drop-table" id="dropResults">
+          <thead><tr><th>Tank</th><th>Available (bbl)</th><th>Pulled At</th><th></th></tr></thead>
+          <tbody id="dropResultsBody"></tbody>
+        </table>
+        <div class="drop-actions">
+          <button type="button" class="drop-btn apply" id="applyBtn">Apply</button>
+          <button type="button" class="drop-btn discard" id="discardBtn">Discard</button>
+        </div>
+      </div>
+      <div id="dropConfirmed" style="display:none">
+        <div class="confirmed-head">Confirmed &mdash; <span id="confirmedAt"></span></div>
+        <table class="drop-table" id="confirmedTable"><tbody id="confirmedBody"></tbody></table>
+        <div class="drop-actions">
+          <button type="button" class="drop-btn discard" id="replaceBtn">Replace data</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -250,71 +273,64 @@ header.appbar{display:flex;align-items:center;gap:20px;padding:14px 30px;border-
 </div>
 <div class="mockstamp">TERMINAL DASHBOARD &middot; REAL INVENTORY + T4 &middot; QUALITY ILLUSTRATIVE</div>
 <script>
-const TANK_ID_MAP = { "23155":"TK55", "23156":"TK56", "27403":"TK03", "27404":"TK04", "27405":"TK05" };
+(function(){
+  const idle = document.getElementById('dropIdle');
+  const preview = document.getElementById('dropPreview');
+  const confirmed = document.getElementById('dropConfirmed');
+  const dropZone = document.getElementById('dropZone');
+  const fileInput = document.getElementById('fileInput');
+  let pendingByTank = null;
 
-function handleFile(file){
-  const reader = new FileReader();
-  reader.onload = e => {
-    const wb = XLSX.read(e.target.result, {type:'array'});
-    const sheet = wb.Sheets[wb.SheetNames[0]];
-    const rows = XLSX.utils.sheet_to_json(sheet);
-    renderResults(groupAndPick(rows));
-  };
-  reader.readAsArrayBuffer(file);
-}
+  function showState(state){
+    idle.style.display = state === 'idle' ? '' : 'none';
+    preview.style.display = state === 'preview' ? '' : 'none';
+    confirmed.style.display = state === 'confirmed' ? '' : 'none';
+  }
 
-function groupAndPick(rows){
-  const groups = {};
-  rows.forEach(row => {
-    const m = String(row.Tank || '').match(/(\d+)/);
-    if(!m) return;
-    const mapped = TANK_ID_MAP[m[1]];
-    if(!mapped) return;
-    (groups[mapped] = groups[mapped] || []).push(row);
-  });
-
-  const byTank = {};
-  Object.values(TANK_ID_MAP).forEach(tankId => {
-    const tankRows = (groups[tankId] || []).slice().sort((a,b) => new Date(b.PulledAt) - new Date(a.PulledAt));
-    let picked = null, skipped = 0;
-    for(const row of tankRows){
-      const available = Number(row.Available);
-      const workingCap = Number(row.WorkingCap);
-      if(available > 0 && available <= workingCap * 1.2){
-        picked = row;
-        break;
-      }
-      skipped++;
-    }
-    byTank[tankId] = picked ? { available: picked.Available, pulledAt: picked.PulledAt, skipped } : null;
-  });
-  return byTank;
-}
-
-function renderResults(byTank){
-  const tbody = document.getElementById('dropResultsBody');
-  tbody.innerHTML = '';
-  Object.values(TANK_ID_MAP).forEach(tankId => {
-    const r = byTank[tankId];
-    const tr = document.createElement('tr');
+  function renderRow(tankId, r){
     if(r){
       const d = new Date(r.pulledAt);
       const pulledAt = isNaN(d) ? String(r.pulledAt) : d.toLocaleString();
-      const badge = r.skipped > 0 ? `<span class="skip-badge">${r.skipped} skipped</span>` : '';
-      tr.innerHTML = `<td>${tankId}</td><td>${Number(r.available).toLocaleString()}</td><td>${pulledAt}</td><td>${badge}</td>`;
-    } else {
-      tr.innerHTML = `<td>${tankId}</td><td class="no-reading">no valid reading</td><td>&mdash;</td><td></td>`;
+      const badge = r.skippedBadRows > 0 ? `<span class="skip-badge">${r.skippedBadRows} skipped</span>` : '';
+      return `<td>${tankId}</td><td>${Number(r.available).toLocaleString()}</td><td>${pulledAt}</td><td>${badge}</td>`;
     }
-    tbody.appendChild(tr);
-  });
-  document.getElementById('dropResults').style.display = 'table';
-}
+    return `<td>${tankId}</td><td class="no-reading">no valid reading</td><td>&mdash;</td><td></td>`;
+  }
 
-(function(){
-  const dropZone = document.getElementById('dropZone');
-  const fileInput = document.getElementById('fileInput');
+  function renderPreview(byTank){
+    const tbody = document.getElementById('dropResultsBody');
+    tbody.innerHTML = '';
+    Object.values(TANK_ID_MAP).forEach(tankId => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = renderRow(tankId, byTank[tankId]);
+      tbody.appendChild(tr);
+    });
+    showState('preview');
+  }
+
+  function renderConfirmed(snapshot){
+    document.getElementById('confirmedAt').textContent = new Date(snapshot.confirmedAt).toLocaleString();
+    const tbody = document.getElementById('confirmedBody');
+    tbody.innerHTML = '';
+    Object.values(TANK_ID_MAP).forEach(tankId => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = renderRow(tankId, snapshot.tanks[tankId]);
+      tbody.appendChild(tr);
+    });
+    showState('confirmed');
+  }
+
+  function handleFile(file){
+    const reader = new FileReader();
+    reader.onload = e => {
+      pendingByTank = parseFuelsManagerFile(e.target.result);
+      renderPreview(pendingByTank);
+    };
+    reader.readAsArrayBuffer(file);
+  }
+
   dropZone.addEventListener('click', () => fileInput.click());
-  fileInput.addEventListener('change', e => { if(e.target.files[0]) handleFile(e.target.files[0]); });
+  fileInput.addEventListener('change', e => { if(e.target.files[0]) handleFile(e.target.files[0]); fileInput.value = ''; });
   dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag'); });
   dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag'));
   dropZone.addEventListener('drop', e => {
@@ -323,6 +339,23 @@ function renderResults(byTank){
     const file = e.dataTransfer.files[0];
     if(file) handleFile(file);
   });
+
+  document.getElementById('applyBtn').addEventListener('click', () => {
+    if(!pendingByTank) return;
+    saveSnapshot(pendingByTank);
+    pendingByTank = null;
+    renderConfirmed(loadSnapshot());
+  });
+  document.getElementById('discardBtn').addEventListener('click', () => {
+    pendingByTank = null;
+    showState('idle');
+  });
+  document.getElementById('replaceBtn').addEventListener('click', () => {
+    showState('idle');
+  });
+
+  const existing = loadSnapshot();
+  if(existing) renderConfirmed(existing);
 })();
 </script>
 </body></html>
