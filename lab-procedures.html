@@ -10,7 +10,7 @@
 body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);font-size:13px}
 .wrap{display:flex;min-height:100vh}
 /* sidebar nav */
-.nav{width:250px;flex-shrink:0;background:var(--slate);color:#fff;padding:22px 0;position:sticky;top:0;height:100vh;overflow:auto}
+.nav{width:250px;flex-shrink:0;background:var(--slate);color:#fff;padding:22px 0;position:sticky;top:64px;height:calc(100vh - 64px);overflow:auto}
 .nav .brand{font-size:16px;font-weight:800;letter-spacing:.3px;padding:0 20px 4px}
 .nav .brand b{color:var(--teal)}
 .nav .bsub{font-size:10px;font-weight:600;color:#9fc4d4;padding:0 20px 16px;letter-spacing:.3px}
@@ -55,14 +55,25 @@ body{font-family:'Montserrat',sans-serif;background:var(--bg);color:var(--ink);f
 }
 .proc{display:none}.proc.active{display:block}
 @media(max-width:720px){.nav{width:64px}.nav .brand,.nav .bsub,.nav a .ins,.nav a span.lbl{display:none}.main{padding:18px}}
-.nav .back{display:block;margin:0 20px 14px;padding:7px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.18);color:#cfe3ec;font-size:11.5px;font-weight:700;text-decoration:none;text-align:center}
-.nav .back:hover{background:rgba(255,255,255,.08);border-color:var(--teal);color:#fff}
+header.appbar{display:flex;align-items:center;gap:20px;padding:14px 28px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:60}
+.wm{font-weight:800;font-size:19px;letter-spacing:.5px;color:var(--slate);line-height:.96}
+.wm b{display:block;font-weight:700;font-size:10px;letter-spacing:3.5px;color:var(--teal);margin-top:2px}
+.divider{width:1px;height:30px;background:#dbe6ec}
+.appname{font-weight:700;font-size:14px;letter-spacing:.4px;color:var(--slate)} .appname span{color:var(--ink-dim);font-weight:500}
+.spacer{flex:1}
+.back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--teal);letter-spacing:.3px;padding:7px 13px;border-radius:9px;border:1px solid #dbe6ec;background:#fff;text-decoration:none}
+.back-link:hover{border-color:var(--teal);color:var(--slate)}
 </style></head><body>
+<header class="appbar">
+<div class="wm">GLOBAL<b>PARTNERS</b></div>
+<div class="divider"></div><div class="appname">Lab Procedures <span>/ Fort Worth J117</span></div>
+<div class="spacer"></div>
+<a href="index.html" class="back-link">&#8592; Dashboard</a>
+</header>
 <div class="wrap">
   <nav class="nav">
     <div class="brand">GLOBAL<b>PARTNERS</b></div>
     <div class="bsub">Fort Worth J117 · Lab Procedures</div>
-    <a href="index.html" class="back">&#8592; Dashboard</a>
     <div id="navlist"></div>
   </nav>
   <main class="main" id="main"></main>

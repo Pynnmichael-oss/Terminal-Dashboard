@@ -58,11 +58,22 @@ details summary{cursor:pointer;font-weight:800;color:var(--slate);font-size:12px
 .dprow span{color:var(--ink-dim);font-weight:600}.dprow b{color:var(--ink);text-align:right}
 .mockstamp{position:fixed;bottom:12px;right:16px;font-size:9.5px;font-weight:800;letter-spacing:.8px;color:#c3d2da}
 @media print{body{background:#fff;padding:6px}.card,.prov,.mockstamp,.btn,.note{display:none}#reportout,#reportout *{visibility:visible}.docpaper{box-shadow:none;border:none}}
-.back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--teal);letter-spacing:.3px;padding:7px 13px;border-radius:9px;border:1.5px solid #dbe6ec;background:#fff;text-decoration:none;margin-bottom:10px}
+header.appbar{display:flex;align-items:center;gap:20px;padding:14px 28px;border-bottom:1px solid #dbe6ec;background:#fff;position:sticky;top:0;z-index:60;margin:-24px -28px 20px}
+.wm{font-weight:800;font-size:19px;letter-spacing:.5px;color:var(--slate);line-height:.96}
+.wm b{display:block;font-weight:700;font-size:10px;letter-spacing:3.5px;color:var(--teal);margin-top:2px}
+.divider{width:1px;height:30px;background:#dbe6ec}
+.appname{font-weight:700;font-size:14px;letter-spacing:.4px;color:var(--slate)} .appname span{color:var(--ink-dim);font-weight:500}
+.spacer{flex:1}
+.back-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--teal);letter-spacing:.3px;padding:7px 13px;border-radius:9px;border:1px solid #dbe6ec;background:#fff;text-decoration:none}
 .back-link:hover{border-color:var(--teal);color:var(--slate)}
 </style></head><body>
 
+<header class="appbar">
+<div class="wm">GLOBAL<b>PARTNERS</b></div>
+<div class="divider"></div><div class="appname">Operator Proficiency <span>/ Fort Worth J117</span></div>
+<div class="spacer"></div>
 <a href="index.html" class="back-link">&#8592; Dashboard</a>
+</header>
 <h1>GLOBAL<b>PARTNERS</b> · Operator Proficiency Testing — Fort Worth J117</h1>
 <div class="sub">Self-certification qualification · Grabner VP Vision (D5191) · Tanaka AD-7 (D86) · density meter (D4052) · pass = agreement within ASTM test-method precision</div>
 <div class="prov">
