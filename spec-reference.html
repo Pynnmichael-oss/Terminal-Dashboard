@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Partners · Spec Reference — Fort Worth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--slate:#004F71;--teal:#00B398;--lime:#A9EE8A;--ulsd:#C0882E;--ink:#063A52;--ink-dim:#5E7A8A;--ink-faint:#9DB0BC;
+--line:rgba(0,79,113,.13);--white:#FFFFFF;--gray:#EEF3F6;--gray2:#E5ECF0;--amber:#E0A23C;--red:#D9655B;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Montserrat',system-ui,sans-serif;color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;
+background:radial-gradient(1000px 520px at 92% -14%,rgba(0,179,152,.07),transparent 60%),radial-gradient(760px 440px at -3% 114%,rgba(169,238,138,.11),transparent 60%),var(--white)}
+a{text-decoration:none;color:inherit}
+header.appbar{display:flex;align-items:center;gap:20px;padding:14px 30px;border-bottom:1px solid var(--line);background:var(--white);position:sticky;top:0;z-index:50}
+.wm{font-weight:800;font-size:19px;letter-spacing:.5px;color:var(--slate);line-height:.96}
+.wm b{display:block;font-weight:700;font-size:10px;letter-spacing:3.5px;color:var(--teal);margin-top:2px}
+.divider{width:1px;height:30px;background:var(--line)}
+.appname{font-weight:700;font-size:14px;letter-spacing:.4px;color:var(--slate)} .appname span{color:var(--ink-dim);font-weight:500}
+.spacer{flex:1}
+.back{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:9px;border:1px solid var(--line);background:var(--white);font-size:12px;font-weight:700;color:var(--slate)}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:9px;border:1px solid var(--line);background:var(--white);font-size:12px;font-weight:600;color:var(--ink-dim)} .pill b{color:var(--ink);font-weight:700}
+.main{max-width:1320px;margin:0 auto;padding:22px 30px 64px}
+.ptitle{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:10px;flex-wrap:wrap}
+.ptitle h1{font-size:26px;font-weight:800;letter-spacing:.3px;color:var(--slate)}
+.ptitle .sub{font-size:12.5px;font-weight:600;color:var(--ink-dim);margin-top:3px}
+.prov{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.prov span{font-size:10px;font-weight:600;color:var(--ink-dim);background:var(--gray);border:1px solid var(--line);border-radius:7px;padding:4px 9px}
+.prov span b{color:var(--slate);font-weight:700}
+
+.hero{display:grid;grid-template-columns:1.15fr 1fr;gap:16px;margin-bottom:16px}
+.activecard{border-radius:16px;padding:20px 22px;background:linear-gradient(160deg,rgba(0,179,152,.12),rgba(169,238,138,.10));border:1px solid rgba(0,179,152,.3);display:flex;flex-direction:column;gap:14px}
+.activecard .tag{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;font-size:9.5px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#0a7e62;background:rgba(255,255,255,.7);border-radius:7px;padding:5px 10px}
+.activecard .tag .dot{width:9px;height:9px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(0,179,152,.18)}
+.activecard h2{font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--slate)}
+.targets{display:flex;gap:14px;flex-wrap:wrap}
+.tg{flex:1;min-width:120px;background:rgba(255,255,255,.65);border:1px solid rgba(0,79,113,.12);border-radius:12px;padding:13px 15px;display:flex;flex-direction:column;gap:2px}
+.tg .v{font-size:30px;font-weight:800;color:#0a7e62;line-height:1} .tg .v small{font-size:13px;font-weight:700;color:var(--ink-dim);margin-left:2px}
+.tg.ceil .v{color:var(--slate)} .tg.fin .v{color:var(--ink)}
+.tg .k{font-size:10px;font-weight:700;letter-spacing:.4px;color:var(--ink-dim);text-transform:uppercase;margin-top:3px}
+.activecard .note{font-size:11.5px;font-weight:600;color:var(--ink-dim);line-height:1.5}
+
+.normalcard{border-radius:16px;border:1px solid var(--line);background:var(--white);padding:20px 22px;display:flex;flex-direction:column;gap:13px;box-shadow:0 12px 30px -26px rgba(0,79,113,.55)}
+.normalcard h2{font-size:13px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--slate)}
+.normalcard .lead{display:flex;align-items:baseline;gap:10px}
+.normalcard .lead .big{font-size:34px;font-weight:800;color:var(--slate);line-height:1} .normalcard .lead .big small{font-size:14px;color:var(--ink-dim);font-weight:700}
+.normalcard .lead .sus{font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--amber);background:rgba(224,162,60,.14);border-radius:6px;padding:4px 9px}
+.normalcard ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.normalcard li{display:flex;gap:9px;font-size:12px;font-weight:600;color:var(--ink);line-height:1.45}
+.normalcard li b{color:var(--slate)} .normalcard li .mk{color:var(--teal);flex-shrink:0;font-weight:800}
+
+.secttl{font-size:11px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;color:var(--ink-faint);margin:22px 2px 12px}
+.cards2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 30px -26px rgba(0,79,113,.55);padding:16px 18px 18px}
+.panel h3{font-size:12px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--slate);margin-bottom:3px}
+.panel .hs{font-size:10.5px;font-weight:600;color:var(--ink-faint);margin-bottom:12px}
+
+table.cls{width:100%;border-collapse:collapse;font-size:12px}
+table.cls th{text-align:left;font-size:9px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--ink-dim);padding:6px 8px;border-bottom:1px solid var(--line)}
+table.cls td{padding:7px 8px;border-bottom:1px solid var(--line);font-weight:600;color:var(--ink)}
+table.cls td.c{font-weight:800;color:var(--slate)}
+table.cls td.p{font-weight:800;text-align:right}
+table.cls tr:last-child td{border-bottom:none}
+table.cls tr.hi{background:rgba(0,179,152,.08)} table.cls tr.hi td.p{color:#0a7e62}
+table.cls tr.hi2{background:rgba(0,79,113,.05)}
+.badgechip{display:inline-block;font-size:8.5px;font-weight:800;letter-spacing:.3px;padding:2px 7px;border-radius:5px;margin-left:7px}
+.badgechip.rfg{color:#0a7e62;background:rgba(0,179,152,.16)} .badgechip.base{color:var(--slate);background:rgba(0,79,113,.10)}
+
+.months{display:grid;grid-template-columns:repeat(12,1fr);gap:4px}
+.mo{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 2px;border-radius:9px;background:var(--gray);border:1px solid var(--line)}
+.mo .mn{font-size:9px;font-weight:800;letter-spacing:.3px;color:var(--ink-dim);text-transform:uppercase}
+.mo .mv{font-size:12.5px;font-weight:800;color:var(--slate)}
+.mo .mc{font-size:8px;font-weight:700;color:var(--ink-faint)}
+.mo.sum{background:rgba(0,79,113,.10);border-color:rgba(0,79,113,.22)} .mo.sum .mv{color:#0a7e62}
+.mo.win{background:rgba(224,162,60,.10);border-color:rgba(224,162,60,.25)}
+.molegend{display:flex;gap:14px;margin-top:11px;flex-wrap:wrap;font-size:10px;font-weight:600;color:var(--ink-dim)}
+.molegend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+
+.tl{display:flex;flex-direction:column;gap:0}
+.tlrow{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:10px 0;border-bottom:1px solid var(--line)}
+.tlrow:last-child{border-bottom:none}
+.tlrow .d{font-size:12px;font-weight:800;color:var(--slate)}
+.tlrow .t{font-size:11.5px;font-weight:600;color:var(--ink);line-height:1.45} .tlrow .t b{color:var(--slate)}
+
+.flashcard{display:flex;gap:18px;align-items:center}
+.flashcard .fv{font-size:40px;font-weight:800;color:var(--ulsd);line-height:1} .flashcard .fv small{font-size:15px;font-weight:700;color:var(--ink-dim)}
+.flashcard .fd{font-size:11.5px;font-weight:600;color:var(--ink-dim);line-height:1.5}
+.flashcard .fd b{color:var(--slate)}
+
+.areacard ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.areacard li{font-size:12px;font-weight:600;color:var(--ink);line-height:1.45;display:flex;gap:9px}
+.areacard li b{color:var(--slate)} .areacard li .mk{color:var(--teal);font-weight:800;flex-shrink:0}
+.areacard .cty{font-size:11px;font-weight:600;color:var(--ink-dim);background:var(--gray);border:1px solid var(--line);border-radius:8px;padding:9px 11px;line-height:1.5;margin-top:4px}
+.areacard .cty b{color:var(--slate)}
+
+.foot{font-size:10.5px;font-weight:600;color:var(--ink-faint);line-height:1.6;margin-top:22px;padding-top:14px;border-top:1px solid var(--line)}
+.mockstamp{position:fixed;bottom:12px;right:14px;font-size:9px;font-weight:700;letter-spacing:1.4px;color:var(--ink-faint);background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:6px;padding:5px 10px;z-index:60}
+@media(max-width:980px){.hero{grid-template-columns:1fr}.cards2{grid-template-columns:1fr}.months{grid-template-columns:repeat(6,1fr)}}
+</style></head>
+<body>
+<header class="appbar">
+  <div class="wm">GLOBAL<b>PARTNERS</b></div>
+  <div class="divider"></div>
+  <div class="appname">Terminal Operations <span>/ Quality</span></div>
+  <div class="spacer"></div>
+  <a class="back" href="index.html">&larr; Dashboard</a>
+  <div class="pill">&#128205; <b>Fort Worth</b></div>
+</header>
+
+<div class="main">
+  <div class="ptitle">
+    <div>
+      <h1>Spec Reference</h1>
+      <div class="sub">Fort Worth Terminal &middot; J117 &middot; Tarrant County &middot; DFW Federal RFG area &middot; gasoline RVP + ULSD flash</div>
+    </div>
+  </div>
+  <div class="prov">
+    <span>Source &middot; <b>US_Gasoline_RVP_Reference_v3</b></span>
+    <span>Authority &middot; <b>ASTM D4814-24a + 40 CFR 1090.215</b></span>
+    <span>Waiver overlay &middot; <b>2026 EPA national fuel waiver</b></span>
+  </div>
+
+  <div class="hero">
+    <div class="activecard">
+      <span class="tag"><span class="dot"></span>Currently in force &middot; summer season</span>
+      <h2>Active blending spec &mdash; 2026 EPA national waiver</h2>
+      <div class="targets">
+        <div class="tg"><span class="v">8.75<small>psi</small></span><span class="k">QC blendstock target</span></div>
+        <div class="tg ceil"><span class="v">9.0<small>psi</small></span><span class="k">Blendstock ceiling</span></div>
+        <div class="tg fin"><span class="v">10.0<small>psi</small></span><span class="k">Finished product ceiling</span></div>
+      </div>
+      <div class="note">The 2026 national fuel waiver collapses the country into a single gasoline pool, temporarily lifting the DFW RFG restriction and permitting butane blending at Fort Worth. The QC target is set at the blendstock limit minus 0.25 psi (9.0 &minus; 0.25 = <b>8.75</b>), settable from the RVP reference workbook. ULSD is unaffected.</div>
+    </div>
+
+    <div class="normalcard">
+      <h2>Normal regime &mdash; DFW Federal RFG</h2>
+      <div class="lead"><span class="big">7.4<small> psi</small></span><span class="sus">Suspended under waiver</span></div>
+      <ul>
+        <li><span class="mk">&bull;</span><span>Summer reformulated-gasoline cap of <b>7.4 psi</b> RVP (Class AAA), DFW 10-county area, mandatory since <b>Nov 7, 2023</b>.</span></li>
+        <li><span class="mk">&bull;</span><span><b>No 1-psi ethanol waiver</b> in RFG areas during the summer control period.</span></li>
+        <li><span class="mk">&bull;</span><span>Butane blending normally <b>prohibited</b> in RFG gasoline under 40 CFR 1090.220(e).</span></li>
+        <li><span class="mk">&bull;</span><span>Reverts to this regime when the national waiver lapses &mdash; segregate lower-RVP CBOB for DFW.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="secttl">Gasoline &mdash; ASTM D4814-24a vapor pressure classes</div>
+  <div class="cards2">
+    <div class="panel">
+      <h3>Table 1 &middot; Vapor Pressure Classes</h3>
+      <div class="hs">Maximum RVP @ 100&deg;F by volatility class &middot; ASTM D4814-24a Table 1</div>
+      <table class="cls">
+        <tr><th>Class</th><th>Max RVP</th><th style="text-align:right">Applies to Fort Worth</th></tr>
+        <tr class="hi"><td class="c">AAA</td><td class="p">7.4 psi</td><td style="text-align:right">DFW RFG summer cap <span class="badgechip rfg">NORMAL</span></td></tr>
+        <tr><td class="c">AA</td><td class="p">7.8 psi</td><td style="text-align:right">&mdash;</td></tr>
+        <tr class="hi2"><td class="c">A</td><td class="p">9.0 psi</td><td style="text-align:right">ASTM base, E of 99&deg; <span class="badgechip base">SUMMER</span></td></tr>
+        <tr><td class="c">B</td><td class="p">10.0 psi</td><td style="text-align:right">Finished ceiling (waiver)</td></tr>
+        <tr><td class="c">C</td><td class="p">11.5 psi</td><td style="text-align:right">Spring / fall shoulder</td></tr>
+        <tr><td class="c">D</td><td class="p">13.5 psi</td><td style="text-align:right">Winter</td></tr>
+        <tr><td class="c">E</td><td class="p">15.0 psi</td><td style="text-align:right">Deep winter (N. states)</td></tr>
+      </table>
+    </div>
+
+    <div class="panel">
+      <h3>Monthly base volatility &middot; Texas E of 99&deg; Long.</h3>
+      <div class="hs">ASTM D4814 Table 4 max RVP by month (Fort Worth sits east of 99&deg;)</div>
+      <div class="months">
+        <div class="mo win"><span class="mn">Jan</span><span class="mv">13.5</span><span class="mc">D-4</span></div>
+        <div class="mo win"><span class="mn">Feb</span><span class="mv">13.5</span><span class="mc">D-4/C-3</span></div>
+        <div class="mo"><span class="mn">Mar</span><span class="mv">11.5</span><span class="mc">C-3</span></div>
+        <div class="mo"><span class="mn">Apr</span><span class="mv">11.5</span><span class="mc">C-3/A-2</span></div>
+        <div class="mo sum"><span class="mn">May</span><span class="mv">9.0</span><span class="mc">term.</span></div>
+        <div class="mo sum"><span class="mn">Jun</span><span class="mv">7.4</span><span class="mc">RFG</span></div>
+        <div class="mo sum"><span class="mn">Jul</span><span class="mv">7.4</span><span class="mc">RFG</span></div>
+        <div class="mo sum"><span class="mn">Aug</span><span class="mv">7.4</span><span class="mc">RFG</span></div>
+        <div class="mo sum"><span class="mn">Sep</span><span class="mv">7.4</span><span class="mc">RFG</span></div>
+        <div class="mo"><span class="mn">Oct</span><span class="mv">10.0</span><span class="mc">B-2/C-3</span></div>
+        <div class="mo win"><span class="mn">Nov</span><span class="mv">11.5</span><span class="mc">C-3/D-4</span></div>
+        <div class="mo win"><span class="mn">Dec</span><span class="mv">13.5</span><span class="mc">D-4</span></div>
+      </div>
+      <div class="molegend">
+        <span><i style="background:rgba(0,79,113,.45)"></i>Summer &mdash; DFW RFG caps at 7.4 (ASTM base 9.0)</span>
+        <span><i style="background:rgba(224,162,60,.55)"></i>Winter &mdash; higher butane headroom</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="secttl">ULSD &amp; Fort Worth RFG area</div>
+  <div class="cards2">
+    <div class="panel">
+      <h3>ULSD &middot; Flash Point</h3>
+      <div class="hs">No.2 ultra-low-sulfur diesel &middot; ASTM D975</div>
+      <div class="flashcard">
+        <div><span class="fv">&ge;125<small>&deg;F</small></span></div>
+        <div class="fd">Minimum flash point for No.2 ULSD. Sulfur capped at <b>15 ppm</b>. Diesel carries <b>no RVP blend margin</b> &mdash; butane blending applies to gasoline only. Current tanks reading 132&ndash;138&deg;F (illustrative pending lab feed).</div>
+      </div>
+    </div>
+
+    <div class="panel areacard">
+      <h3>DFW RFG Area &middot; Table 6</h3>
+      <div class="hs">40 CFR 1090.285 &middot; mandatory federal RFG eff. Nov 7, 2023</div>
+      <ul>
+        <li><span class="mk">&bull;</span><span>Fort Worth is in <b>Tarrant County</b>, inside the 10-county DFW RFG area, reclassified Severe ozone nonattainment.</span></li>
+        <li><span class="mk">&bull;</span><span>Distinct from the Houston-Galveston RFG area and the Beaumont-Port Arthur 7.8 psi area.</span></li>
+      </ul>
+      <div class="cty"><b>DFW 10-county RFG area:</b> Collin, Dallas, Denton, Ellis, Johnson, Kaufman, Parker, Rockwall, <b>Tarrant</b>, Wise.</div>
+    </div>
+  </div>
+
+  <div class="secttl">Seasonal compliance calendar</div>
+  <div class="panel">
+    <div class="tl">
+      <div class="tlrow"><div class="d">May 1</div><div class="t"><b>Terminal / rack</b> &mdash; summer RVP begins. CBOB leaving the rack must meet the applicable summer spec.</div></div>
+      <div class="tlrow"><div class="d">Jun 1</div><div class="t"><b>Retail</b> &mdash; summer spec applies at all retail outlets.</div></div>
+      <div class="tlrow"><div class="d">Jun 1&ndash;Sep 15</div><div class="t"><b>EPA control period</b> &mdash; DFW RFG 7.4 psi in effect (normal regime). The 2026 national waiver currently overlays this window.</div></div>
+      <div class="tlrow"><div class="d">Sep 15</div><div class="t"><b>Terminal / rack</b> &mdash; summer spec ends; transition to higher-RVP CBOB may begin.</div></div>
+      <div class="tlrow"><div class="d">Sep 16&ndash;30</div><div class="t">Transition class A-2/B-2 (9.0&ndash;10.0 psi) per Table 4.</div></div>
+      <div class="tlrow"><div class="d">Oct 1</div><div class="t">Fall / winter spec &mdash; B-2/C-3 (10.0&ndash;11.5 psi). Butane injection headroom increases.</div></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    RVP class limits and monthly volatility data from ASTM D4814-24a (Tables 1, 4, 6) via the US_Gasoline_RVP_Reference_v3 workbook; EPA standards per 40 CFR 1090.215. The 2026 EPA national fuel waiver is a temporary overlay; the QC blendstock target (limit &minus; 0.25 psi) is settable in the reference workbook. Reference only &mdash; confirm against the controlling regulation before any compliance decision.
+  </div>
+</div>
+<div class="mockstamp">SPEC REFERENCE &middot; FORT WORTH &middot; ASTM D4814-24a + 40 CFR 1090</div>
+</body></html>
