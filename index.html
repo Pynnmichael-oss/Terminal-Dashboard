@@ -194,13 +194,13 @@ header.appbar{display:flex;align-items:center;gap:20px;padding:14px 30px;border-
 
   <div class="midrow">
     <div class="panel">
-      <div class="panel-h"><h2>Tank Farm</h2><span class="hsub">midnight open &middot; pumpable &amp; fill</span></div>
+      <div class="panel-h"><h2>Tank Farm</h2><span class="hsub">midnight open &middot; pumpable &amp; fill &middot; <span id="farmSourceLabel">Mock data</span></span></div>
       <div class="farm">
-        <div class="tank"><span class="grp">Regular</span><div class="ves"><div class="safe" style="bottom:89%"></div><div class="fill reg" style="height:66%"></div><div class="heel" style="height:11%"></div></div><span class="nm">55</span><span class="pct">66%</span><span class="bbl">31,208</span><span class="rvp">~8.45</span><span class="st run">Run</span></div>
-        <div class="tank"><span class="grp">Regular</span><div class="ves"><div class="safe" style="bottom:91%"></div><div class="fill reg" style="height:41%"></div><div class="heel" style="height:9%"></div></div><span class="nm">56</span><span class="pct">41%</span><span class="bbl">15,518</span><span class="rvp">~8.62</span><span class="st run">Run</span></div>
-        <div class="tank"><span class="grp">Swing</span><div class="ves"><div class="safe" style="bottom:92%"></div><div class="fill reg" style="height:14%"></div><div class="heel" style="height:8%"></div></div><span class="nm">03</span><span class="pct">14%</span><span class="bbl">914</span><span class="rvp">~8.74</span><span class="st stop">Stop</span></div>
-        <div class="tank"><span class="grp">Premium</span><div class="ves"><div class="safe" style="bottom:93%"></div><div class="fill prem" style="height:51%"></div><div class="heel" style="height:7%"></div></div><span class="nm">04</span><span class="pct">51%</span><span class="bbl">7,258</span><span class="rvp">~8.52</span><span class="st run">Run</span></div>
-        <div class="tank"><span class="grp">Premium</span><div class="ves"><div class="safe" style="bottom:91%"></div><div class="fill prem" style="height:64%"></div><div class="heel" style="height:9%"></div></div><span class="nm">05</span><span class="pct">64%</span><span class="bbl">8,314</span><span class="rvp">~8.71</span><span class="st stop">Stop</span></div>
+        <div class="tank" data-tank="TK55"><span class="grp">Regular</span><div class="ves"><div class="safe" style="bottom:89%"></div><div class="fill reg" style="height:66%"></div><div class="heel" style="height:11%"></div></div><span class="nm">55</span><span class="pct">66%</span><span class="bbl">31,208</span><span class="rvp">~8.45</span><span class="st run">Run</span></div>
+        <div class="tank" data-tank="TK56"><span class="grp">Regular</span><div class="ves"><div class="safe" style="bottom:91%"></div><div class="fill reg" style="height:41%"></div><div class="heel" style="height:9%"></div></div><span class="nm">56</span><span class="pct">41%</span><span class="bbl">15,518</span><span class="rvp">~8.62</span><span class="st run">Run</span></div>
+        <div class="tank" data-tank="TK03"><span class="grp">Swing</span><div class="ves"><div class="safe" style="bottom:92%"></div><div class="fill reg" style="height:14%"></div><div class="heel" style="height:8%"></div></div><span class="nm">03</span><span class="pct">14%</span><span class="bbl">914</span><span class="rvp">~8.74</span><span class="st stop">Stop</span></div>
+        <div class="tank" data-tank="TK04"><span class="grp">Premium</span><div class="ves"><div class="safe" style="bottom:93%"></div><div class="fill prem" style="height:51%"></div><div class="heel" style="height:7%"></div></div><span class="nm">04</span><span class="pct">51%</span><span class="bbl">7,258</span><span class="rvp">~8.52</span><span class="st run">Run</span></div>
+        <div class="tank" data-tank="TK05"><span class="grp">Premium</span><div class="ves"><div class="safe" style="bottom:91%"></div><div class="fill prem" style="height:64%"></div><div class="heel" style="height:9%"></div></div><span class="nm">05</span><span class="pct">64%</span><span class="bbl">8,314</span><span class="rvp">~8.71</span><span class="st stop">Stop</span></div>
         <div class="tank"><span class="grp">ULSD</span><div class="ves"><div class="safe" style="bottom:91%"></div><div class="fill ulsd" style="height:89%"></div><div class="heel" style="height:9%"></div></div><span class="nm">57</span><span class="pct">89%</span><span class="bbl">28,287</span><span class="rvp">142&deg;</span><span class="st run">Run</span></div>
         <div class="tank"><span class="grp">ULSD</span><div class="ves"><div class="safe" style="bottom:96%"></div><div class="fill ulsd" style="height:7%"></div><div class="heel" style="height:4%"></div></div><span class="nm">58</span><span class="pct">7%</span><span class="bbl">825</span><span class="rvp">138&deg;</span><span class="st stop">Stop</span></div>
         <div class="tank"><span class="grp">ULSD</span><div class="ves"><div class="safe" style="bottom:96%"></div><div class="fill ulsd" style="height:11%"></div><div class="heel" style="height:4%"></div></div><span class="nm">87</span><span class="pct">11%</span><span class="bbl">2,156</span><span class="rvp">145&deg;</span><span class="st stop">Stop</span></div>
@@ -273,6 +273,48 @@ header.appbar{display:flex;align-items:center;gap:20px;padding:14px 30px;border-
 </div>
 <div class="mockstamp">TERMINAL DASHBOARD &middot; REAL INVENTORY + T4 &middot; QUALITY ILLUSTRATIVE</div>
 <script>
+const TANK_FARM_ORIGINAL = {};
+document.querySelectorAll('.farm .tank[data-tank]').forEach(tankEl => {
+  const tankId = tankEl.dataset.tank;
+  const bbl = Number(tankEl.querySelector('.bbl').textContent.replace(/,/g, ''));
+  const pct = parseFloat(tankEl.querySelector('.pct').textContent);
+  TANK_FARM_ORIGINAL[tankId] = { bbl, pct, capacity: bbl / (pct / 100) };
+});
+
+function renderTankFarm(){
+  const snapshot = loadSnapshot();
+  const labelEl = document.getElementById('farmSourceLabel');
+  let anyLive = false;
+  Object.keys(TANK_FARM_ORIGINAL).forEach(tankId => {
+    const tankEl = document.querySelector(`.farm .tank[data-tank="${tankId}"]`);
+    if(!tankEl) return;
+    const orig = TANK_FARM_ORIGINAL[tankId];
+    const entry = snapshot && snapshot.tanks ? snapshot.tanks[tankId] : null;
+    const bblEl = tankEl.querySelector('.bbl');
+    const pctEl = tankEl.querySelector('.pct');
+    const fillEl = tankEl.querySelector('.fill');
+    if(entry && entry.available != null){
+      anyLive = true;
+      const pct = Math.max(0, Math.min(100, (entry.available / orig.capacity) * 100));
+      bblEl.textContent = Number(entry.available).toLocaleString();
+      pctEl.textContent = Math.round(pct) + '%';
+      fillEl.style.height = pct + '%';
+    } else {
+      bblEl.textContent = orig.bbl.toLocaleString();
+      pctEl.textContent = orig.pct + '%';
+      fillEl.style.height = orig.pct + '%';
+    }
+  });
+  if(labelEl){
+    if(anyLive && snapshot){
+      const d = new Date(snapshot.confirmedAt);
+      labelEl.textContent = 'Live from FuelsManager · ' + (isNaN(d) ? snapshot.confirmedAt : d.toLocaleString());
+    } else {
+      labelEl.textContent = 'Mock data';
+    }
+  }
+}
+
 (function(){
   const idle = document.getElementById('dropIdle');
   const preview = document.getElementById('dropPreview');
@@ -345,6 +387,7 @@ header.appbar{display:flex;align-items:center;gap:20px;padding:14px 30px;border-
     saveSnapshot(pendingByTank);
     pendingByTank = null;
     renderConfirmed(loadSnapshot());
+    renderTankFarm();
   });
   document.getElementById('discardBtn').addEventListener('click', () => {
     pendingByTank = null;
@@ -356,6 +399,7 @@ header.appbar{display:flex;align-items:center;gap:20px;padding:14px 30px;border-
 
   const existing = loadSnapshot();
   if(existing) renderConfirmed(existing);
+  renderTankFarm();
 })();
 </script>
 </body></html>
