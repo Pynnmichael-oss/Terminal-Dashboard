@@ -5,6 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<script src="t4-schedule.js"></script>
 <script src="fuels-snapshot.js"></script>
 <style>
 :root{--slate:#004F71;--teal:#00B398;--lime:#A9EE8A;--ulsd:#C0882E;--ink:#063A52;--ink-dim:#5E7A8A;--ink-faint:#9DB0BC;
@@ -128,6 +129,15 @@ header.appbar{display:flex;align-items:center;gap:20px;padding:14px 30px;border-
 .confirmed-head::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0}
 .mockstamp{position:fixed;bottom:12px;right:14px;font-size:9px;font-weight:700;letter-spacing:1.4px;color:var(--ink-faint);background:rgba(255,255,255,.9);border:1px solid var(--line);border-radius:6px;padding:5px 10px;z-index:60}
 @media(max-width:1080px){.hero{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.midrow{grid-template-columns:1fr}.mf-body{flex-direction:column;align-items:stretch}.mf-total{border-right:none;border-bottom:1px solid rgba(0,79,113,.16);padding-right:0;padding-bottom:10px}}
+.databtn{display:inline-flex;align-items:center;gap:7px;padding:7px 13px;border-radius:9px;border:1px solid var(--line);background:var(--white);font-size:12px;font-weight:700;color:var(--slate);cursor:pointer;font-family:inherit}
+.databtn:hover{border-color:var(--teal);color:var(--teal)}
+.data-panel{position:absolute;top:56px;right:30px;width:360px;background:var(--white);border:1px solid var(--line);border-radius:14px;box-shadow:0 20px 48px -20px rgba(0,79,113,.4);padding:16px 18px;z-index:70}
+.dp-head{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--slate);margin-bottom:3px}
+.dp-sub{font-size:10.5px;font-weight:500;color:var(--ink-dim);margin-bottom:9px;line-height:1.4}
+.dp-divider{height:1px;background:var(--line);margin:14px 0}
+.dp-status{font-size:10.5px;font-weight:600;color:var(--ink-faint);margin-top:7px}
+.dp-status.live{color:#0a7e62}
+#t4Paste{width:100%;min-height:80px;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;border:1px solid var(--line);border-radius:8px;padding:8px;resize:vertical;color:var(--ink)}
 </style></head>
 <body>
 <header class="appbar">
@@ -136,8 +146,42 @@ header.appbar{display:flex;align-items:center;gap:20px;padding:14px 30px;border-
   <div class="appname">Terminal Operations <span>/ Quality</span></div>
   <div class="spacer"></div>
   <div class="search">&#128270; Search tanks, batches, tasks&hellip;</div>
+  <button type="button" class="databtn" id="dataDropBtn">&#8595; Data Drop</button>
   <div class="pill">&#128205; <b>Fort Worth</b></div>
 </header>
+<div class="data-panel" id="dataPanel" style="display:none">
+  <div class="dp-head">T4 Schedule</div>
+  <div class="dp-sub">Paste tab-separated T4 / Explorer export rows.</div>
+  <textarea id="t4Paste" placeholder="Paste T4 schedule here..."></textarea>
+  <div class="drop-actions">
+    <button type="button" class="drop-btn apply" id="t4ApplyBtn">Parse &amp; Save</button>
+  </div>
+  <div class="dp-status" id="t4Status">No data loaded &mdash; Receipt Schedule using embedded mock data</div>
+  <div class="dp-divider"></div>
+  <div class="dp-head">FuelsManager Snapshot</div>
+  <div class="dp-sub">Drop a FuelsManager export (.xlsx) to pull the latest valid available volume per tank.</div>
+  <div id="dropIdle">
+    <div class="dropzone" id="dropZone">Drop FuelsManager export here, or click to browse</div>
+    <input type="file" id="fileInput" accept=".xlsx" style="display:none">
+  </div>
+  <div id="dropPreview" style="display:none">
+    <table class="drop-table" id="dropResults">
+      <thead><tr><th>Tank</th><th>Available (bbl)</th><th>Pulled At</th><th></th></tr></thead>
+      <tbody id="dropResultsBody"></tbody>
+    </table>
+    <div class="drop-actions">
+      <button type="button" class="drop-btn apply" id="applyBtn">Apply</button>
+      <button type="button" class="drop-btn discard" id="discardBtn">Discard</button>
+    </div>
+  </div>
+  <div id="dropConfirmed" style="display:none">
+    <div class="confirmed-head">Confirmed &mdash; <span id="confirmedAt"></span></div>
+    <table class="drop-table" id="confirmedTable"><tbody id="confirmedBody"></tbody></table>
+    <div class="drop-actions">
+      <button type="button" class="drop-btn discard" id="replaceBtn">Replace data</button>
+    </div>
+  </div>
+</div>
 
 <div class="main">
   <div class="ptitle">
@@ -232,30 +276,6 @@ header.appbar{display:flex;align-items:center;gap:20px;padding:14px 30px;border-
     <a href="rack-demand-forecast.html" class="tile"><div class="th"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="10" width="3.4" height="10" rx="1"/><rect x="10.3" y="4" width="3.4" height="16" rx="1"/><rect x="16.6" y="13" width="3.4" height="7" rx="1"/></svg></span><span class="tt">Rack Demand Forecast</span></div><div class="td">Average liftings by product, day of week, and 6-hour slot &mdash; the curve that drives depletion.</div><div class="ts">Reg <b>13,200</b> &middot; Prem 3,800 &middot; ULSD 6,000</div><div class="go">Open &rarr;</div></a>
 
     <a href="#" class="tile"><div class="th"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3c3 4 5 6 5 9a5 5 0 11-10 0c0-3 2-5 5-9z"/></svg></span><span class="tt">Butane Supply</span><span class="sug">Suggested</span></div><div class="td">Butane on hand and scheduled truck deliveries &mdash; the constraint on how aggressively you can blend.</div><div class="ts"><b>2 trucks</b> <span class="muted">today &middot; 380 bbl</span></div><div class="go">Open &rarr;</div></a>
-
-    <div class="tile" id="dropTile"><div class="th"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></svg></span><span class="tt">Drop Tank Data</span></div><div class="td">Drop a FuelsManager export (.xlsx) to pull the latest valid available volume per tank.</div>
-      <div id="dropIdle">
-        <div class="dropzone" id="dropZone">Drop FuelsManager export here, or click to browse</div>
-        <input type="file" id="fileInput" accept=".xlsx" style="display:none">
-      </div>
-      <div id="dropPreview" style="display:none">
-        <table class="drop-table" id="dropResults">
-          <thead><tr><th>Tank</th><th>Available (bbl)</th><th>Pulled At</th><th></th></tr></thead>
-          <tbody id="dropResultsBody"></tbody>
-        </table>
-        <div class="drop-actions">
-          <button type="button" class="drop-btn apply" id="applyBtn">Apply</button>
-          <button type="button" class="drop-btn discard" id="discardBtn">Discard</button>
-        </div>
-      </div>
-      <div id="dropConfirmed" style="display:none">
-        <div class="confirmed-head">Confirmed &mdash; <span id="confirmedAt"></span></div>
-        <table class="drop-table" id="confirmedTable"><tbody id="confirmedBody"></tbody></table>
-        <div class="drop-actions">
-          <button type="button" class="drop-btn discard" id="replaceBtn">Replace data</button>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div class="secttl">Quality &amp; Compliance</div>
@@ -402,6 +422,43 @@ function renderTankFarm(){
   document.getElementById('replaceBtn').addEventListener('click', () => {
     showState('idle');
   });
+
+  const dataDropBtn = document.getElementById('dataDropBtn');
+  const dataPanel = document.getElementById('dataPanel');
+  dataDropBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dataPanel.style.display = dataPanel.style.display === 'none' ? '' : 'none';
+  });
+  document.addEventListener('click', (e) => {
+    if(dataPanel.style.display !== 'none' && !dataPanel.contains(e.target) && e.target !== dataDropBtn){
+      dataPanel.style.display = 'none';
+    }
+  });
+  function renderT4Status(){
+    const t4 = loadT4();
+    const statusEl = document.getElementById('t4Status');
+    if(t4 && t4.batches.length){
+      const d = new Date(t4.confirmedAt);
+      statusEl.textContent = `Live — ${t4.batches.length} batches loaded · ${isNaN(d) ? t4.confirmedAt : d.toLocaleString()}`;
+      statusEl.classList.add('live');
+    } else {
+      statusEl.textContent = 'No data loaded — Receipt Schedule using embedded mock data';
+      statusEl.classList.remove('live');
+    }
+  }
+  document.getElementById('t4ApplyBtn').addEventListener('click', () => {
+    const text = document.getElementById('t4Paste').value;
+    const {batches, skipped} = parseT4Paste(text);
+    if(!batches.length){
+      document.getElementById('t4Status').textContent = 'No valid rows found — check the pasted format';
+      document.getElementById('t4Status').classList.remove('live');
+      return;
+    }
+    saveT4(batches);
+    renderT4Status();
+    document.getElementById('t4Paste').value = '';
+  });
+  renderT4Status();
 
   const existing = loadSnapshot();
   if(existing) renderConfirmed(existing);

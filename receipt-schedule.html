@@ -297,14 +297,15 @@ document.getElementById("t4Toggle").onclick = () => {
   panel.style.display = panel.style.display==="none" ? "" : "none";
 };
 document.getElementById("t4Parse").onclick = () => {
-  const parsed = parseT4Paste(document.getElementById("t4Textarea").value);
-  if(!parsed.length){
+  const {batches, skipped} = parseT4Paste(document.getElementById("t4Textarea").value);
+  if(!batches.length){
     document.getElementById("t4Status").textContent = "No valid rows found — check the paste and try again.";
     return;
   }
-  pendingT4Batches = parsed;
+  pendingT4Batches = batches;
   document.getElementById("t4Status").textContent = "";
-  document.getElementById("t4PreviewSummary").textContent = "Parsed " + parsed.length + " batch" + (parsed.length===1?"":"es") + " — ready to apply.";
+  document.getElementById("t4PreviewSummary").textContent = "Parsed " + batches.length + " batch" + (batches.length===1?"":"es") +
+    (skipped > 0 ? " · " + skipped + " row" + (skipped===1?"":"s") + " skipped" : "") + " — ready to apply.";
   showT4State("preview");
 };
 document.getElementById("t4Apply").onclick = () => {

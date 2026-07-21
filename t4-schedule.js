@@ -4,26 +4,29 @@ const GRADE_PRODUCT = {"4D":"REG","3D":"PREM","75":"ULSD"};
 function parseT4Paste(text){
   const lines = text.trim().split('\n').filter(l => l.trim());
   const batches = [];
+  let skipped = 0;
   lines.forEach(line => {
     const cols = line.split('\t');
-    if (cols.length < 14) return;
-    if (/^Start Date/i.test(cols[0])) return; // skip header row
-    const dt = cols[0], line_ = cols[1], batchCode = cols[5];
-    const vol = parseFloat((cols[11]||'').replace(/,/g,''));
-    const rate = parseFloat((cols[13]||'').replace(/,/g,''));
-    if (!batchCode || isNaN(vol) || isNaN(rate)) return;
+    if (cols.length < 15) { skipped++; return; }
+    if (/^Start Date/i.test(cols[0])) return; // header row, not a skip
+    const dt = cols[0], lineId = cols[1], batchCode = cols[5];
+    const vol = parseFloat((cols[12]||'').replace(/,/g,''));
+    const rate = parseFloat((cols[14]||'').replace(/,/g,''));
+    if (!batchCode || isNaN(vol) || isNaN(rate)) { skipped++; return; }
     const parts = batchCode.split('-');
     const grade = parts[2];
-    if (!GRADE_PRODUCT[grade]) return; // unmapped grade skipped
-    batches.push({s: normalizeDateTime(dt), line: line_, code: batchCode, vol, rate});
+    if (!GRADE_PRODUCT[grade]) { skipped++; return; }
+    const s = normalizeDateTime(dt);
+    if (!s) { skipped++; return; }
+    batches.push({s, line: lineId, code: batchCode, vol, rate});
   });
-  return batches;
+  return {batches, skipped};
 }
 function normalizeDateTime(s){
-  // "07/21/26 00:35" -> "2026-07-21T00:35:00"
-  const [d,t] = s.split(' ');
-  const [mm,dd,yy] = d.split('/');
-  return `20${yy}-${mm}-${dd}T${t}:00`;
+  const m = s.trim().match(/^(\d{2})\/(\d{2})\/(\d{2})\s+(\d{2}):(\d{2})$/);
+  if (!m) return null;
+  const [, mm, dd, yy, hh, min] = m;
+  return `20${yy}-${mm}-${dd}T${hh}:${min}:00`;
 }
 function saveT4(batches){
   localStorage.setItem(T4_KEY, JSON.stringify({batches, confirmedAt: new Date().toISOString()}));
