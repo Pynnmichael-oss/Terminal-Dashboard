@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="fuels-snapshot.js"></script>
 <style>
 :root {
   --slate: #004F71;
@@ -440,6 +441,7 @@ header.appbar {
       <div class="field">
         <label for="f-vol">Tank Volume <span class="unit">(bbls)</span></label>
         <input type="number" id="f-vol" placeholder="e.g. 31208" min="1" step="1" autocomplete="off">
+        <span class="hint" id="vol-source">Mock data</span>
       </div>
     </div>
 
@@ -566,6 +568,29 @@ header.appbar {
   // ── Helpers ────────────────────────────────────────────────
   function n(id) { return parseFloat(document.getElementById(id).value); }
   function el(id) { return document.getElementById(id); }
+
+  // ── FuelsManager snapshot lookup ───────────────────────────
+  // Tank field is typed as bare digits ("55"); TANK_ID_MAP keys are "TK55" etc.
+  function tankKeyFromInput(v) {
+    const digits = String(v || '').replace(/\D/g, '');
+    return digits ? 'TK' + digits.padStart(2, '0') : null;
+  }
+
+  function applySnapshotToVolume() {
+    const key = tankKeyFromInput(el('f-tank').value);
+    const snapshot = loadSnapshot();
+    const entry = key && snapshot && snapshot.tanks ? snapshot.tanks[key] : null;
+    const sourceEl = el('vol-source');
+    if (entry && entry.available != null) {
+      el('f-vol').value = entry.available;
+      const d = new Date(snapshot.confirmedAt);
+      sourceEl.textContent = 'Live from FuelsManager · ' + (isNaN(d) ? snapshot.confirmedAt : d.toLocaleString());
+    } else {
+      sourceEl.textContent = 'Mock data';
+    }
+  }
+  el('f-tank').addEventListener('input', applySnapshotToVolume);
+  applySnapshotToVolume();
 
   // ── Per-row validation (call on blur) ─────────────────────
   function validateRow(ptotId, rvpId, errId) {
